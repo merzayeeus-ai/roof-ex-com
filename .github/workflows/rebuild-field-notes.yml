@@ -17,20 +17,11 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build site
+      - name: Fetch and rebuild Field Notes
         env:
           COMPANYCAM_API_TOKEN: ${{ secrets.COMPANYCAM_API_TOKEN }}
-        run: npx tsx script/build-cloudflare.ts
-
-      - name: Copy built files to root
         run: |
-          rm -rf assets blog city-roofing-guides fonts images videos webfonts
-          rm -f *.html *.xml *.txt *.ico *.png *.svg *.css site.webmanifest _headers _redirects _worker.js
-          cp -r dist-cloudflare/* .
-          rm -rf dist-cloudflare
+          node script/rebuild-field-notes.mjs
 
       - name: Commit and push
         run: |
