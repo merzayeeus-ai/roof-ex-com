@@ -634,10 +634,12 @@ function generateStandaloneTemplate() {
 </html>`;
 }
 
-function updateSitemap(sitemapContent, posts) {
+function updateSitemap(sitemapContent, posts, galleryPhotos) {
   let xml = sitemapContent;
 
   xml = xml.replace(/<url>\s*<loc>[^<]*\/blog\/field-notes\/\d+<\/loc>[\s\S]*?<\/url>\s*/g, "");
+
+  xml = xml.replace(/<!-- GALLERY-IMAGES-START -->[\s\S]*?<!-- GALLERY-IMAGES-END -->\s*/g, "");
 
   const fieldNoteEntries = posts.map(post => {
     const loc = `${SITE_URL}/blog/field-notes/${post.id}`;
@@ -656,9 +658,123 @@ function updateSitemap(sitemapContent, posts) {
   </url>`;
   }).join("\n");
 
-  xml = xml.replace("</urlset>", `${fieldNoteEntries}\n</urlset>`);
+  let galleryEntries = "";
+  if (galleryPhotos && galleryPhotos.length > 0) {
+    const cityPhotoMap = new Map();
+    for (const photo of galleryPhotos) {
+      const city = photo.city || "Bay Area";
+      if (!cityPhotoMap.has(city)) cityPhotoMap.set(city, []);
+      cityPhotoMap.get(city).push(photo);
+    }
+
+    const galleryImageXml = [];
+    galleryImageXml.push("<!-- GALLERY-IMAGES-START -->");
+
+    galleryImageXml.push(`  <url>
+    <loc>${SITE_URL}/gallery</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>${galleryPhotos.slice(0, 100).map(p => `
+    <image:image>
+      <image:loc>${escapeXml(p.fullSize || p.thumbnail)}</image:loc>
+      <image:title>${escapeXml(`ROOF EXPRESS roofing project in ${p.city || "Bay Area"}, ${p.state || "CA"}`)}</image:title>
+    </image:image>`).join("")}
+  </url>`);
+
+    for (const [city, photos] of cityPhotoMap) {
+      const slug = city.toLowerCase().replace(/\s+/g, "-");
+      galleryImageXml.push(`  <url>
+    <loc>${SITE_URL}/${slug}</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>${photos.slice(0, 50).map(p => `
+    <image:image>
+      <image:loc>${escapeXml(p.fullSize || p.thumbnail)}</image:loc>
+      <image:title>${escapeXml(`Roofing project by ROOF EXPRESS in ${city}, ${p.state || "CA"}`)}</image:title>
+    </image:image>`).join("")}
+  </url>`);
+    }
+
+    galleryImageXml.push("<!-- GALLERY-IMAGES-END -->");
+    galleryEntries = galleryImageXml.join("\n");
+  }
+
+  xml = xml.replace("</urlset>", `${fieldNoteEntries}\n${galleryEntries}\n</urlset>`);
 
   return xml;
+}
+
+async function fetchAllTaggedPhotos() {
+  const token = process.env.COMPANYCAM_API_TOKEN;
+  if (!token) return [];
+
+  console.log("Fetching all tagged CompanyCam photos for image sitemap...");
+
+  const tagsRes = await fetch("https://api.companycam.com/v2/tags?per_page=100", {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (!tagsRes.ok) return [];
+  const tags = await tagsRes.json();
+
+  const photoTags = tags.filter(t =>
+    t.display_value !== "Before and After" &&
+    t.display_value.toLowerCase() !== "wiki" &&
+    t.display_value !== "Recent" &&
+    t.display_value !== "Tips"
+  );
+
+  const tagIdParams = photoTags.map(t => `tag_ids[]=${t.id}`).join("&");
+  let allPhotos = [];
+  let page = 1;
+  while (true) {
+    const res = await fetch(
+      `https://api.companycam.com/v2/photos?${tagIdParams}&per_page=100&page=${page}`,
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    if (!res.ok) break;
+    const batch = await res.json();
+    if (!batch.length) break;
+    allPhotos = allPhotos.concat(batch);
+    if (batch.length < 100) break;
+    page++;
+  }
+  console.log(`Fetched ${allPhotos.length} tagged photos`);
+
+  const projectIds = [...new Set(allPhotos.map(p => p.project_id))];
+  const projectMap = new Map();
+  const chunks = [];
+  for (let i = 0; i < projectIds.length; i += 30) chunks.push(projectIds.slice(i, i + 30));
+  for (const chunk of chunks) {
+    await Promise.all(chunk.map(async (pid) => {
+      try {
+        const r = await fetch(`https://api.companycam.com/v2/projects/${pid}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (r.ok) {
+          const proj = await r.json();
+          projectMap.set(pid, {
+            city: proj.address?.city || "Bay Area",
+            state: proj.address?.state || "CA",
+          });
+        }
+      } catch {}
+    }));
+  }
+
+  const photos = allPhotos.map(photo => {
+    const web = (photo.uris || []).find(u => u.type === "web");
+    const original = (photo.uris || []).find(u => u.type === "original");
+    const proj = projectMap.get(photo.project_id);
+    return {
+      id: String(photo.id),
+      city: proj?.city || "Bay Area",
+      state: proj?.state || "CA",
+      thumbnail: web?.uri || "",
+      fullSize: original?.uri || web?.uri || "",
+      createdAt: photo.created_at,
+    };
+  }).filter(p => p.thumbnail || p.fullSize);
+
+  console.log(`Mapped ${photos.length} photos with city data for image sitemap`);
+  return photos;
 }
 
 async function main() {
@@ -699,18 +815,20 @@ async function main() {
   await writeFile(path.join(ROOT, "feed.xml"), feedXml);
   console.log("feed.xml updated\n");
 
+  const galleryPhotos = await fetchAllTaggedPhotos();
+
   const sitemapPath = path.join(ROOT, "sitemap.xml");
   try {
     const sitemapContent = await readFile(sitemapPath, "utf-8");
-    console.log("Updating sitemap.xml with Field Notes entries...");
-    const updatedSitemap = updateSitemap(sitemapContent, posts);
+    console.log("Updating sitemap.xml with Field Notes + gallery photo entries...");
+    const updatedSitemap = updateSitemap(sitemapContent, posts, galleryPhotos);
     await writeFile(sitemapPath, updatedSitemap);
-    console.log("sitemap.xml updated\n");
+    console.log(`sitemap.xml updated (${posts.length} Field Notes + ${galleryPhotos.length} gallery photos)\n`);
   } catch {
     console.log("sitemap.xml not found — skipping sitemap update\n");
   }
 
-  console.log(`=== Done! ${posts.length} Field Notes rebuilt ===`);
+  console.log(`=== Done! ${posts.length} Field Notes rebuilt, ${galleryPhotos.length} photos in image sitemap ===`);
 }
 
 main().catch(err => {
