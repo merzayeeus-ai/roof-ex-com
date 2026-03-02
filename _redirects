@@ -188,6 +188,9 @@
 /san-anselmo/  /san-anselmo  301
 /belvedere/  /belvedere  301
 /kentfield/  /kentfield  301
+/east-palo-alto/  /east-palo-alto  301
+/hillsborough/  /hillsborough  301
+/pescadero/  /pescadero  301
 /blog/bay-area-roofing-cost-factors/  /blog/bay-area-roofing-cost-factors  301
 /blog/roof-repair-vs-replacement/  /blog/roof-repair-vs-replacement  301
 /blog/san-francisco-roofing-permits/  /blog/san-francisco-roofing-permits  301
@@ -290,6 +293,9 @@
 /blog/san-anselmo-roofing-guide/  /blog/san-anselmo-roofing-guide  301
 /blog/belvedere-roofing-guide/  /blog/belvedere-roofing-guide  301
 /blog/kentfield-roofing-guide/  /blog/kentfield-roofing-guide  301
+/blog/east-palo-alto-roofing-guide/  /blog/east-palo-alto-roofing-guide  301
+/blog/hillsborough-roofing-guide/  /blog/hillsborough-roofing-guide  301
+/blog/pescadero-roofing-guide/  /blog/pescadero-roofing-guide  301
 /city-roofing-guides/atherton/  /city-roofing-guides/atherton  301
 /city-roofing-guides/belmont/  /city-roofing-guides/belmont  301
 /city-roofing-guides/brisbane/  /city-roofing-guides/brisbane  301
@@ -350,6 +356,9 @@
 /city-roofing-guides/san-anselmo/  /city-roofing-guides/san-anselmo  301
 /city-roofing-guides/belvedere/  /city-roofing-guides/belvedere  301
 /city-roofing-guides/kentfield/  /city-roofing-guides/kentfield  301
+/city-roofing-guides/east-palo-alto/  /city-roofing-guides/east-palo-alto  301
+/city-roofing-guides/hillsborough/  /city-roofing-guides/hillsborough  301
+/city-roofing-guides/pescadero/  /city-roofing-guides/pescadero  301
 /blog/field-notes/2964926030/  /blog/field-notes/2964926030  301
 /blog/field-notes/2964188134/  /blog/field-notes/2964188134  301
 /blog/field-notes/2959388409/  /blog/field-notes/2959388409  301
@@ -362,6 +371,7 @@
 /blog/field-notes/2846455258/  /blog/field-notes/2846455258  301
 /blog/field-notes/2785194426/  /blog/field-notes/2785194426  301
 /blog/field-notes/2785174292/  /blog/field-notes/2785174292  301
+/blog/field-notes/2776030933/  /blog/field-notes/2776030933  301
 /blog/field-notes/2749076180/  /blog/field-notes/2749076180  301
 /blog/field-notes/2732003790/  /blog/field-notes/2732003790  301
 /blog/field-notes/2695563124/  /blog/field-notes/2695563124  301
@@ -371,7 +381,6 @@
 /blog/field-notes/2442254846/  /blog/field-notes/2442254846  301
 /blog/field-notes/2438487601/  /blog/field-notes/2438487601  301
 /blog/field-notes/1715961736/  /blog/field-notes/1715961736  301
-/blog/field-notes/1715787678/  /blog/field-notes/1715787678  301
 /blog/field-notes/1701945845/  /blog/field-notes/1701945845  301
 
 # SPA fallback (MUST be last)

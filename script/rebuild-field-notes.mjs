@@ -278,7 +278,12 @@ function generateFieldNoteHtml(baseHtml, post, allPosts) {
   });
   const wordCount = post.description.split(/\s+/).length;
   const readTime = Math.max(1, Math.ceil(wordCount / 200));
-  const pageTitle = `${title} | ROOF EXPRESS Field Notes`;
+  const suffix = " | ROOF EXPRESS";
+  let pageTitle = `${title}${suffix}`;
+  if (pageTitle.length > 60) {
+    const maxTitleLen = 60 - suffix.length;
+    pageTitle = `${title.substring(0, maxTitleLen - 1).trim()}…${suffix}`;
+  }
   const postUrl = `${SITE_URL}/blog/field-notes/${post.id}`;
   const imageUrl = post.localImage ? `${SITE_URL}${post.localImage}` : post.fullSize;
   const isoDate = new Date(post.createdAt * 1000).toISOString();
@@ -300,10 +305,10 @@ function generateFieldNoteHtml(baseHtml, post, allPosts) {
       </ol>
     </nav>` : "";
 
-  const relatedPosts = allPosts
-    .filter(p => p.id !== post.id)
-    .filter(p => p.city === post.city || Math.abs(p.createdAt - post.createdAt) < 30 * 86400)
-    .slice(0, 5);
+  const sameCityPosts = allPosts.filter(p => p.id !== post.id && p.city === post.city);
+  const nearbyDatePosts = allPosts.filter(p => p.id !== post.id && p.city !== post.city && Math.abs(p.createdAt - post.createdAt) < 90 * 86400);
+  const fallbackPosts = allPosts.filter(p => p.id !== post.id && !sameCityPosts.includes(p) && !nearbyDatePosts.includes(p));
+  const relatedPosts = [...sameCityPosts, ...nearbyDatePosts, ...fallbackPosts].slice(0, 6);
 
   const relatedHtml = relatedPosts.length > 0 ? `
     <section class="mt-12 pt-8 border-t border-slate-100">
