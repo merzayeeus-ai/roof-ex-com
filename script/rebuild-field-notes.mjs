@@ -298,7 +298,7 @@ function generateFieldNoteHtml(baseHtml, post, allPosts) {
   const tocHtml = headings.length >= 2 ? `
     <nav class="bg-slate-50 rounded-xl border border-slate-100 mb-8 overflow-hidden" aria-label="Table of contents">
       <div class="p-5">
-        <h2 class="text-xs font-black text-brandNavy uppercase tracking-widest flex items-center gap-2 m-0">In This Note <span class="text-[10px] font-bold text-slate-400 normal-case tracking-normal">(${headings.length} sections)</span></h2>
+        <h2 class="text-xs font-black text-brandNavy uppercase tracking-widest flex items-center gap-2 m-0">In This Note <span class="text-[10px] font-bold text-slate-500 normal-case tracking-normal">(${headings.length} sections)</span></h2>
       </div>
       <ol class="space-y-1.5 px-5 pb-5">
         ${headings.map((h, i) => `<li><a href="#${h.id}" class="flex items-center gap-2.5 text-sm text-slate-600 hover:text-brandOrange transition leading-snug"><span class="w-5 h-5 rounded-md bg-brandNavy/5 text-brandNavy text-[10px] font-bold flex items-center justify-center shrink-0">${i + 1}</span><span>${escapeHtml(h.text)}</span></a></li>`).join("\n        ")}
@@ -321,14 +321,14 @@ function generateFieldNoteHtml(baseHtml, post, allPosts) {
           const rpImg = rp.localImage ? rp.localImage : rp.thumbnail;
           return `<a href="/blog/field-notes/${rp.id}" class="group block bg-white rounded-xl border border-slate-100 overflow-hidden hover:shadow-md transition">
             <div class="aspect-[16/10] overflow-hidden"><img src="${rpImg}" alt="${escapeHtml(rpTitle)}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" /></div>
-            <div class="p-4"><p class="text-xs text-slate-400 mb-1">${rpCity} · ${rpDate}</p><h3 class="text-sm font-bold text-brandNavy line-clamp-2 group-hover:text-brandOrange transition">${escapeHtml(rpTitle)}</h3></div>
+            <div class="p-4"><p class="text-xs text-slate-500 mb-1">${rpCity} · ${rpDate}</p><h3 class="text-sm font-bold text-brandNavy line-clamp-2 group-hover:text-brandOrange transition">${escapeHtml(rpTitle)}</h3></div>
           </a>`;
         }).join("\n        ")}
       </div>
       ${relatedPosts.length > 3 ? `<div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2">${relatedPosts.slice(3).map(rp => {
         const rpTitle = generatePostTitle(rp.description);
         const rpCity = `${rp.city}, ${rp.state === "California" ? "CA" : rp.state}`;
-        return `<a href="/blog/field-notes/${rp.id}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-50 transition"><span class="text-xs text-slate-400 shrink-0">${rpCity}</span><span class="text-sm font-medium text-brandNavy truncate">${escapeHtml(rpTitle)}</span></a>`;
+        return `<a href="/blog/field-notes/${rp.id}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-50 transition"><span class="text-xs text-slate-500 shrink-0">${rpCity}</span><span class="text-sm font-medium text-brandNavy truncate">${escapeHtml(rpTitle)}</span></a>`;
       }).join("\n")}</div>` : ""}
     </section>` : "";
 
@@ -425,7 +425,7 @@ function generateFieldNoteHtml(baseHtml, post, allPosts) {
         <meta itemprop="author" content="ROOF EXPRESS" />
         <meta itemprop="publisher" content="ROOF EXPRESS" />
 
-        <nav class="flex items-center gap-2 text-xs text-slate-400 mb-6" aria-label="Breadcrumb">
+        <nav class="flex items-center gap-2 text-xs text-slate-500 mb-6" aria-label="Breadcrumb">
           <a href="/" class="hover:text-brandOrange transition">Home</a>
           <span aria-hidden="true">/</span>
           <a href="/blog" class="hover:text-brandOrange transition">Blog</a>
