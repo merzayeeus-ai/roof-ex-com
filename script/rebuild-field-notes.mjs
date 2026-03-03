@@ -146,9 +146,15 @@ function parseContent(description, title) {
 function splitLongParagraph(text, maxSentences = 3) {
   const sentences = text.match(/[^.!?]+[.!?]+(\s|$)/g);
   if (!sentences || sentences.length <= maxSentences) return [text];
+  const matched = sentences.join("");
+  const remainder = text.slice(matched.length).trim();
   const chunks = [];
   for (let i = 0; i < sentences.length; i += maxSentences) {
     chunks.push(sentences.slice(i, i + maxSentences).join("").trim());
+  }
+  if (remainder) {
+    if (chunks.length > 0) chunks[chunks.length - 1] += " " + remainder;
+    else chunks.push(remainder);
   }
   return chunks.filter(c => c.length > 0);
 }
