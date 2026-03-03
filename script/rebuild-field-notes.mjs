@@ -4,7 +4,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ROOT = path.resolve(__dirname, "..");
+const ROOT = process.env.BUILD_DIR ? path.resolve(process.env.BUILD_DIR) : path.resolve(__dirname, "..");
 const SITE_URL = "https://roof-ex.com";
 
 function escapeXml(str) {
@@ -15,11 +15,62 @@ function escapeHtml(str) {
   return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 }
 
-function generatePostTitle(description) {
+const _titleRegistry = new Map();
+const _pageTitleRegistry = new Map();
+function _truncateForPageTitle(title) {
+  const suffix = " | ROOF EXPRESS";
+  const full = `${title}${suffix}`;
+  if (full.length <= 60) return full;
+  const maxLen = 60 - suffix.length;
+  return `${title.substring(0, maxLen - 1).trim()}…${suffix}`;
+}
+function generatePostTitle(description, postId = null) {
   const firstLine = description.split(/[\n.!?]/)[0].trim();
-  if (firstLine.length > 8 && firstLine.length <= 80) return firstLine;
-  const words = description.split(/\s+/).slice(0, 8).join(" ");
-  return words.length > 60 ? words.slice(0, 57) + "..." : words;
+  let title;
+  if (firstLine.length > 8 && firstLine.length <= 80) title = firstLine;
+  else {
+    const words = description.split(/\s+/).slice(0, 8).join(" ");
+    title = words.length > 60 ? words.slice(0, 57) + "..." : words;
+  }
+  if (!postId) return title;
+  const pageTitle = _truncateForPageTitle(title);
+  const existingRaw = _titleRegistry.get(title);
+  const existingPage = _pageTitleRegistry.get(pageTitle);
+  if ((existingRaw && existingRaw !== postId) || (existingPage && existingPage !== postId)) {
+    const lines = description.split(/[\n]/);
+    for (let i = 1; i < lines.length; i++) {
+      const alt = lines[i].trim();
+      if (alt.length > 10 && alt.length <= 80 && !alt.endsWith(",") && !alt.endsWith(";")) {
+        const altTitle = alt.replace(/[.!?]$/, "");
+        const altPage = _truncateForPageTitle(altTitle);
+        if (!_titleRegistry.has(altTitle) && !_pageTitleRegistry.has(altPage)) {
+          _titleRegistry.set(altTitle, postId);
+          _pageTitleRegistry.set(altPage, postId);
+          return altTitle;
+        }
+      }
+    }
+    const sentences = description.split(/(?<=[.!?])\s+/);
+    if (sentences.length > 1) {
+      const secondSentence = sentences[1].trim().replace(/[.!?]$/, "");
+      if (secondSentence.length > 10 && secondSentence.length <= 80) {
+        const altPage = _truncateForPageTitle(secondSentence);
+        if (!_pageTitleRegistry.has(altPage)) {
+          _titleRegistry.set(secondSentence, postId);
+          _pageTitleRegistry.set(altPage, postId);
+          return secondSentence;
+        }
+      }
+    }
+    const dateStr = postId ? ` (#${postId.slice(-4)})` : "";
+    const uniqueTitle = `${title}${dateStr}`;
+    _titleRegistry.set(uniqueTitle, postId);
+    _pageTitleRegistry.set(_truncateForPageTitle(uniqueTitle), postId);
+    return uniqueTitle;
+  }
+  _titleRegistry.set(title, postId);
+  _pageTitleRegistry.set(pageTitle, postId);
+  return title;
 }
 
 function generateExcerpt(description, maxLen = 160) {
@@ -92,6 +143,16 @@ function parseContent(description, title) {
   return blocks;
 }
 
+function splitLongParagraph(text, maxSentences = 3) {
+  const sentences = text.match(/[^.!?]+[.!?]+(\s|$)/g);
+  if (!sentences || sentences.length <= maxSentences) return [text];
+  const chunks = [];
+  for (let i = 0; i < sentences.length; i += maxSentences) {
+    chunks.push(sentences.slice(i, i + maxSentences).join("").trim());
+  }
+  return chunks.filter(c => c.length > 0);
+}
+
 function renderContentToHtml(blocks) {
   const parts = [];
   for (let i = 0; i < blocks.length; i++) {
@@ -100,16 +161,23 @@ function renderContentToHtml(blocks) {
       case "heading":
         parts.push(`<h2 id="section-${i}" class="text-lg md:text-xl font-bold text-brandNavy mt-6 mb-1 leading-snug scroll-mt-24">${escapeHtml(block.text)}</h2>`);
         break;
-      case "paragraph":
+      case "paragraph": {
+        const chunks = splitLongParagraph(block.text);
         if (block.isLead) {
-          const words = block.text.split(" ");
+          const words = chunks[0].split(" ");
           const lead = words.slice(0, 3).join(" ");
           const rest = words.slice(3).join(" ");
           parts.push(`<p class="text-slate-600 text-[15px] md:text-base leading-[1.75]"><span class="font-semibold text-brandNavy">${escapeHtml(lead)}</span> ${escapeHtml(rest)}</p>`);
+          for (let j = 1; j < chunks.length; j++) {
+            parts.push(`<p class="text-slate-600 text-[15px] md:text-base leading-[1.75]">${escapeHtml(chunks[j])}</p>`);
+          }
         } else {
-          parts.push(`<p class="text-slate-600 text-[15px] md:text-base leading-[1.75]">${escapeHtml(block.text)}</p>`);
+          for (const chunk of chunks) {
+            parts.push(`<p class="text-slate-600 text-[15px] md:text-base leading-[1.75]">${escapeHtml(chunk)}</p>`);
+          }
         }
         break;
+      }
       case "bullets":
         parts.push(`<ul class="space-y-1.5 pl-1">${block.items.map(item =>
           `<li class="flex gap-2.5 text-slate-600 text-[15px] md:text-base leading-relaxed"><span class="text-brandOrange/60 mt-[7px] shrink-0 text-[6px]">●</span><span>${escapeHtml(item)}</span></li>`
@@ -270,7 +338,7 @@ async function downloadImages(posts) {
 }
 
 function generateFieldNoteHtml(baseHtml, post, allPosts) {
-  const title = generatePostTitle(post.description);
+  const title = generatePostTitle(post.description, post.id);
   const excerpt = generateExcerpt(post.description);
   const cityLabel = `${post.city}, ${post.state === "California" ? "CA" : post.state}`;
   const dateStr = new Date(post.createdAt * 1000).toLocaleDateString("en-US", {
@@ -346,7 +414,7 @@ function generateFieldNoteHtml(baseHtml, post, allPosts) {
     wordCount,
     author: {
       "@type": "Organization",
-      name: "ROOF EXPRESS",
+      name: "Roof Express",
       url: SITE_URL,
       logo: { "@type": "ImageObject", url: `${SITE_URL}/logo.png`, width: 384, height: 107 },
       sameAs: [
@@ -358,7 +426,7 @@ function generateFieldNoteHtml(baseHtml, post, allPosts) {
     },
     publisher: {
       "@type": "Organization",
-      name: "ROOF EXPRESS",
+      name: "Roof Express",
       url: SITE_URL,
       logo: { "@type": "ImageObject", url: `${SITE_URL}/logo.png`, width: 384, height: 107 },
     },
@@ -367,7 +435,7 @@ function generateFieldNoteHtml(baseHtml, post, allPosts) {
     inLanguage: "en-US",
     keywords: `roofing, ${post.city}, field notes, roof inspection, Bay Area roofing, ${serviceKeywords}`,
     about: { "@type": "Thing", name: "Roofing", description: `Professional roofing services in ${post.city} and the Bay Area` },
-    isPartOf: { "@type": "Blog", name: "ROOF EXPRESS Field Notes", url: `${SITE_URL}/blog/field-notes` },
+    isPartOf: { "@type": "Blog", name: "Roof Express Field Notes", url: `${SITE_URL}/blog/field-notes` },
     speakable: {
       "@type": "SpeakableSpecification",
       cssSelector: ["h1", ".prose p:first-of-type"],
@@ -528,7 +596,7 @@ function generateFieldNoteHtml(baseHtml, post, allPosts) {
     `<meta property="article:tag" content="roofing" />`,
     `<meta property="article:tag" content="${escapeHtml(post.city)}" />`,
     `<meta property="article:tag" content="Bay Area" />`,
-    `<meta property="og:site_name" content="ROOF EXPRESS" />`,
+    `<meta property="og:site_name" content="Roof Express" />`,
   ].join("\n");
 
   const schemaTag = `<script type="application/ld+json">${schemaJson}</script>`;
@@ -547,7 +615,7 @@ function generateFeedXml(posts) {
   const now = new Date().toUTCString();
   const items = posts.slice(0, 50).map(post => {
     const desc = post.description;
-    const title = escapeXml(generatePostTitle(desc));
+    const title = escapeXml(generatePostTitle(desc, post.id));
     const pubDate = new Date(post.createdAt * 1000).toUTCString();
     const link = `${SITE_URL}/blog/field-notes/${post.id}`;
     const fullDesc = escapeXml(generateExcerpt(desc, 300));
@@ -650,7 +718,7 @@ function updateSitemap(sitemapContent, posts, galleryPhotos) {
     const loc = `${SITE_URL}/blog/field-notes/${post.id}`;
     const lastmod = new Date(post.createdAt * 1000).toISOString().split("T")[0];
     const imageUrl = post.localImage ? `${SITE_URL}${post.localImage}` : post.fullSize;
-    const title = escapeXml(generatePostTitle(post.description));
+    const title = escapeXml(generatePostTitle(post.description, post.id));
     return `  <url>
     <loc>${loc}</loc>
     <lastmod>${lastmod}</lastmod>

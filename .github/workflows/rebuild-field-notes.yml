@@ -17,9 +17,13 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Clear title registry before rebuild
+        run: echo "Title dedup registry will reset each run"
+
       - name: Fetch and rebuild Field Notes
         env:
           COMPANYCAM_API_TOKEN: ${{ secrets.COMPANYCAM_API_TOKEN }}
+          BUILD_DIR: .
         run: |
           node script/rebuild-field-notes.mjs
 
@@ -33,4 +37,16 @@ jobs:
           else
             git commit -m "Auto-rebuild Field Notes $(date -u +'%Y-%m-%d %H:%M UTC')"
             git push
+          fi
+
+      - name: Trigger Cloudflare Pages deployment
+        if: success()
+        env:
+          CLOUDFLARE_DEPLOY_HOOK: ${{ secrets.CLOUDFLARE_DEPLOY_HOOK }}
+        run: |
+          if [ -n "$CLOUDFLARE_DEPLOY_HOOK" ]; then
+            echo "Triggering Cloudflare Pages deploy..."
+            curl -s -X POST "$CLOUDFLARE_DEPLOY_HOOK" || echo "Deploy hook failed (non-fatal)"
+          else
+            echo "No CLOUDFLARE_DEPLOY_HOOK secret set — skipping deploy trigger"
           fi
