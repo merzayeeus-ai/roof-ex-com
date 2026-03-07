@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://quote.roof-ex.com/sitemap.xml

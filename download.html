@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Download Cloudflare Build</title>
+<style>
+body{font-family:system-ui;display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0;background:#134064;color:#fff}
+.card{background:#fff;color:#134064;padding:3rem;border-radius:1rem;text-align:center;max-width:500px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+h1{margin:0 0 1rem;font-size:1.5rem}
+p{color:#666;margin:0 0 1.5rem;font-size:.9rem}
+a.btn{display:inline-block;background:#C04520;color:#fff;padding:1rem 2.5rem;border-radius:2rem;text-decoration:none;font-weight:900;font-size:1rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:1rem}
+a.btn:hover{background:#134064}
+.alt{font-size:.8rem;color:#999;margin-top:1rem}
+.alt a{color:#C04520}
+.status{font-size:.85rem;color:#28a745;font-weight:bold;margin:1rem 0}
+</style>
+<link rel="modulepreload" href="/assets/index-BJ1NzRhb.js" />
+<link rel="modulepreload" href="/assets/footer-C9OEJgPg.js" />
+<link rel="modulepreload" href="/assets/layout-BwBYdll7.js" />
+<link rel="modulepreload" href="/assets/page-bottom-DJ221RXx.js" />
+<link rel="modulepreload" href="/assets/use-seo-lVUp_4tb.js" />
+<link rel="modulepreload" href="/assets/utils-CkYB-R1u.js" />
+</head>
+<body>
+<div class="card">
+<h1>ROOF EXPRESS — Cloudflare Build</h1>
+<p>247 pages &bull; All assets included &bull; Ready to upload</p>
+<p class="status" id="status">Preparing download...</p>
+<a class="btn" id="dlbtn" href="/api/download-build" download="roof-express-cloudflare.zip" target="_blank" rel="noopener">Download ZIP (~48 MB)</a>
+<p class="alt">If the download doesn't start, right-click the button and choose "Save link as..."</p>
+<p class="alt">Or copy and paste this into a new browser tab:<br><code id="directUrl"></code></p>
+</div>
+<script>
+(function() {
+  var fullUrl = window.location.origin + '/api/download-build';
+  document.getElementById('directUrl').textContent = fullUrl;
+  document.getElementById('dlbtn').href = fullUrl;
+  document.getElementById('status').textContent = 'Ready to download!';
+
+  document.getElementById('dlbtn').addEventListener('click', function(e) {
+    if (window.self !== window.top) {
+      e.preventDefault();
+      window.open(fullUrl, '_blank');
+    }
+  });
+})();
+</script>
+</body>
+</html>
