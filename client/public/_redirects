@@ -1,0 +1,107 @@
+# Cloudflare Pages _redirects
+# Order matters — first match wins
+
+# Old service paths
+/services/residential  /residential  301
+/services/commercial  /commercial  301
+/services/flat-roof  /flat  301
+/services/flat-roofing  /flat  301
+/services/gutters  /gutters  301
+/services/skylights  /skylights  301
+/services/roof-repair  /roof-repair  301
+/services/roof-replacement  /roof-replacement  301
+/services/emergency  /emergency  301
+
+# Old about/contact patterns
+/about-us  /about  301
+/aboutus  /about  301
+/our-story  /story  301
+/contact-us  /contact  301
+/contactus  /contact  301
+/get-a-quote  /contact  301
+/get-quote  /contact  301
+/free-estimate  /contact  301
+/free-quote  /contact  301
+/request-quote  /contact  301
+/estimate  /contact  301
+/quote  /contact  301
+
+# Old page patterns
+/testimonials  /reviews  301
+/our-work  /gallery  301
+/portfolio  /gallery  301
+/projects  /gallery  301
+/faqs  /faq  301
+/frequently-asked-questions  /faq  301
+/privacy-policy  /privacy  301
+/terms-of-service  /terms  301
+/terms-and-conditions  /terms  301
+/tos  /terms  301
+/financing-options  /financing  301
+/payment  /financing  301
+
+# Old city URL patterns
+/roofing/*  /:splat  301
+/roofer/*  /:splat  301
+/roofing-contractor/*  /:splat  301
+/areas/*  /:splat  301
+/service-areas/*  /:splat  301
+/locations/*  /:splat  301
+
+# GoDaddy common patterns
+/home  /  301
+/index.php  /  301
+/default.aspx  /  301
+/main  /  301
+
+# GoDaddy old homepage variants
+/home-1  /  301
+
+# GoDaddy old service pages → new service pages
+/roof-install-%26-replace  /roof-replacement  301
+/skylights-%26-roof-windows  /skylights  301
+/gutter-%26-downspout  /gutters  301
+/emergency-roofing-service  /emergency  301
+/inspection-%26-maintenance  /about  301
+/commercial-roofing  /commercial  301
+/residential-roofing-1  /residential  301
+
+# GoDaddy old blog posts and feeds → /blog (covers all 74 dead URLs)
+# Feed URLs (must come before wildcard /f/* rules)
+/home-1/f.atom  /blog  301
+/home-1/f.rss  /blog  301
+/roof-install-%26-replace/f.atom  /blog  301
+/roof-install-%26-replace/f.rss  /blog  301
+/roof-repair/f.atom  /blog  301
+/roof-repair/f.rss  /blog  301
+/skylights-%26-roof-windows/f.atom  /blog  301
+/skylights-%26-roof-windows/f.rss  /blog  301
+/gutter-%26-downspout/f.atom  /blog  301
+/gutter-%26-downspout/f.rss  /blog  301
+/emergency-roofing-service/f.atom  /blog  301
+/emergency-roofing-service/f.rss  /blog  301
+/inspection-%26-maintenance/f.atom  /blog  301
+/inspection-%26-maintenance/f.rss  /blog  301
+/commercial-roofing/f.atom  /blog  301
+/commercial-roofing/f.rss  /blog  301
+/residential-roofing-1/f.atom  /blog  301
+/residential-roofing-1/f.rss  /blog  301
+/blog/f.atom  /blog  301
+/blog/f.rss  /blog  301
+# Blog post subpaths (wildcard catches all /f/post-slug patterns)
+/home-1/f/*  /blog  301
+/roof-install-%26-replace/f/*  /blog  301
+/roof-repair/f/*  /blog  301
+/skylights-%26-roof-windows/f/*  /blog  301
+/gutter-%26-downspout/f/*  /blog  301
+/emergency-roofing-service/f/*  /blog  301
+/inspection-%26-maintenance/f/*  /blog  301
+/commercial-roofing/f/*  /blog  301
+/residential-roofing-1/f/*  /blog  301
+/blog/f/*  /blog  301
+
+# Blog shortcut redirects
+/blog/san-francisco  /blog/san-francisco-roofing-permits  301
+
+# SPA fallback (MUST be last)
+/* /index.html 200

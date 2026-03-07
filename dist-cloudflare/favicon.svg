@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="92" ry="92" fill="#134064"/>
+
+  <!-- Chimney -->
+  <rect x="333" y="61" width="51" height="115" fill="#FFFFFF" rx="8"/>
+
+  <!-- Roof -->
+  <polyline points="51,246 256,92 461,246"
+    fill="none" stroke="#C04520" stroke-width="31" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Walls -->
+  <rect x="113" y="256" width="286" height="164"
+    fill="none" stroke="#FFFFFF" stroke-width="20" rx="10"/>
+
+  <!-- Door -->
+  <rect x="215" y="307" width="82" height="113"
+    fill="#C04520" rx="29" ry="29"/>
+</svg>
