@@ -1,6 +1,0 @@
-Contact: mailto:sales@roof-ex.com
-Contact: https://roof-ex.com/contact
-Expires: 2027-02-28T23:59:59.000Z
-Preferred-Languages: en
-Canonical: https://roof-ex.com/.well-known/security.txt
-Policy: https://roof-ex.com/privacy
