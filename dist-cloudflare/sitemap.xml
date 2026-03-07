@@ -796,7 +796,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
-      <image:loc>https://roof-ex.com/images/east-palo-alto-aerial.webp</image:loc>
+      <image:loc>https://roof-ex.com/images/east-palo-alto-hero.webp</image:loc>
       <image:caption>East Palo Alto Roofing — Licensed Contractor | ROOF EXPRESS</image:caption>
     </image:image>
   </url>
@@ -816,7 +816,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
-      <image:loc>https://roof-ex.com/images/pescadero-aerial.webp</image:loc>
+      <image:loc>https://roof-ex.com/images/pescadero-hero.webp</image:loc>
       <image:caption>Pescadero Roofing — Coastal Roof Expert | ROOF EXPRESS</image:caption>
     </image:image>
   </url>
@@ -2056,7 +2056,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
-      <image:loc>https://roof-ex.com/images/east-palo-alto-aerial.webp</image:loc>
+      <image:loc>https://roof-ex.com/images/east-palo-alto-hero.webp</image:loc>
       <image:caption>East Palo Alto Roofing Guide 2026 | ROOF EXPRESS</image:caption>
     </image:image>
   </url>
@@ -2076,7 +2076,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
-      <image:loc>https://roof-ex.com/images/pescadero-aerial.webp</image:loc>
+      <image:loc>https://roof-ex.com/images/pescadero-hero.webp</image:loc>
       <image:caption>Pescadero Roofing Guide 2026 | ROOF EXPRESS</image:caption>
     </image:image>
   </url>
