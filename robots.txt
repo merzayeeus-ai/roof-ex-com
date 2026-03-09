@@ -245,6 +245,12 @@ Disallow: /
 User-agent: SemrushBot
 Allow: /
 
+User-agent: SemrushBot-Desktop
+Allow: /
+
+User-agent: SemrushBot-Mobile
+Allow: /
+
 User-agent: SiteAuditBot
 Allow: /
 
