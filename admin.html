@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>GBP & Social Post Queue | ROOF EXPRESS Admin</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f1f5f9;color:#1e293b}
+.header{background:#134064;color:#fff;padding:20px 24px;position:sticky;top:0;z-index:10}
+.header h1{font-size:22px;font-weight:900}
+.header p{font-size:13px;opacity:.6;margin-top:4px}
+.header-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.badge{background:#C04520;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700}
+.refresh-btn{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3);padding:6px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;transition:.2s}
+.refresh-btn:hover{background:rgba(255,255,255,.25)}
+.container{max-width:900px;margin:0 auto;padding:24px 16px}
+.filters{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.filter-btn{padding:8px 16px;border-radius:10px;border:1px solid #e2e8f0;background:#fff;font-size:13px;font-weight:700;cursor:pointer;transition:.2s}
+.filter-btn.active{background:#134064;color:#fff;border-color:#134064}
+.card{background:#fff;border-radius:16px;border:1px solid #e2e8f0;overflow:hidden;margin-bottom:20px;transition:.2s}
+.card.posted{opacity:.5;order:999}
+.card:hover{box-shadow:0 4px 12px rgba(0,0,0,.08)}
+.card-inner{display:flex;flex-direction:column}
+@media(min-width:640px){.card-inner{flex-direction:row}}
+.card-img{width:100%;height:200px;overflow:hidden;flex-shrink:0}
+@media(min-width:640px){.card-img{width:240px;height:auto}}
+.card-img img{width:100%;height:100%;object-fit:cover}
+.card-body{flex:1;padding:20px}
+.card-meta{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#94a3b8;margin-bottom:6px}
+.card-title{font-size:17px;font-weight:900;color:#134064;margin-bottom:12px}
+.card-tabs{display:flex;gap:4px;margin-bottom:8px}
+.tab{padding:6px 14px;border-radius:8px;border:none;font-size:12px;font-weight:700;cursor:pointer;background:#f1f5f9;color:#64748b;transition:.2s}
+.tab.active{background:#134064;color:#fff}
+.tab-content{display:none;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px;margin-bottom:12px}
+.tab-content.active{display:block}
+.tab-content pre{white-space:pre-wrap;word-wrap:break-word;font-family:inherit;font-size:13px;line-height:1.6;color:#334155}
+.card-actions{display:flex;flex-wrap:wrap;gap:8px}
+.btn{padding:8px 14px;border-radius:8px;border:none;font-size:12px;font-weight:700;cursor:pointer;transition:.2s;text-decoration:none;display:inline-flex;align-items:center;gap:4px}
+.btn-primary{background:#134064;color:#fff}
+.btn-primary:hover{background:#C04520}
+.btn-fb{background:#1877F2;color:#fff}
+.btn-fb:hover{background:#0d65d9}
+.btn-link{background:#f1f5f9;color:#64748b}
+.btn-link:hover{background:#e2e8f0}
+.btn-done{background:#f1f5f9;color:#64748b}
+.btn-dl{background:#dcfce7;color:#16a34a}
+.btn-dl:hover{background:#bbf7d0;color:#15803d}
+.btn-done:hover{background:#dcfce7;color:#16a34a}
+.btn-done.posted{background:#dcfce7;color:#16a34a}
+.toast{position:fixed;bottom:24px;right:24px;background:#134064;color:#fff;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:700;opacity:0;transition:.3s;z-index:100;pointer-events:none}
+.toast.show{opacity:1}
+.howto{background:#fff;border-radius:16px;border:1px solid #e2e8f0;padding:24px;margin-top:32px}
+.howto h3{font-size:14px;font-weight:900;color:#134064;text-transform:uppercase;margin-bottom:12px}
+.howto ol{padding-left:20px;font-size:13px;color:#64748b;line-height:2}
+.howto a{color:#C04520;font-weight:700}
+.login{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f1f5f9}
+.login-box{background:#fff;border-radius:16px;border:1px solid #e2e8f0;padding:32px;max-width:360px;width:100%;box-shadow:0 4px 12px rgba(0,0,0,.06)}
+.login-box h2{font-size:20px;font-weight:900;color:#134064;text-align:center;margin-bottom:8px}
+.login-box p{font-size:13px;color:#94a3b8;text-align:center;margin-bottom:20px}
+.login-box input{width:100%;padding:12px 16px;border:1px solid #e2e8f0;border-radius:10px;font-size:14px;margin-bottom:12px}
+.login-box button{width:100%;padding:12px;border:none;border-radius:10px;background:#134064;color:#fff;font-size:14px;font-weight:700;cursor:pointer}
+.login-box button:hover{background:#C04520}
+.loading{text-align:center;padding:60px 20px;color:#94a3b8;font-size:14px;font-weight:700}
+.loading .spinner{display:inline-block;width:24px;height:24px;border:3px solid #e2e8f0;border-top-color:#134064;border-radius:50%;animation:spin .8s linear infinite;margin-bottom:12px}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+<link rel="modulepreload" href="/assets/index-Dal_xP0y.js" />
+<link rel="modulepreload" href="/assets/footer-BDIUTIA2.js" />
+<link rel="modulepreload" href="/assets/layout-wwmCt8ON.js" />
+<link rel="modulepreload" href="/assets/page-bottom-AAHzGOoN.js" />
+<link rel="modulepreload" href="/assets/use-seo-BexZ-knU.js" />
+<link rel="modulepreload" href="/assets/utils-CkYB-R1u.js" />
+</head>
+<body>
+<div id="login" class="login">
+  <div class="login-box">
+    <h2>GBP & Social Admin</h2>
+    <p>Enter your admin key to access the post queue</p>
+    <input type="password" id="keyInput" placeholder="Admin key" onkeydown="if(event.key==='Enter')doLogin()"/>
+    <button onclick="doLogin()">Access Queue</button>
+  </div>
+</div>
+<div id="app" style="display:none">
+<div class="header">
+  <div class="header-row">
+    <div>
+      <h1>GBP & Social Post Queue</h1>
+      <p>Copy and paste to Google Business Profile or Facebook · <span id="lastUpdate" style="color:#C04520"></span></p>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <button class="refresh-btn" onclick="fetchPosts()" id="refreshBtn">↻ Refresh</button>
+      <span class="badge" id="pendingCount">Loading...</span>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="filters">
+    <button class="filter-btn active" onclick="filterPosts('pending',this)">Pending</button>
+    <button class="filter-btn" onclick="filterPosts('all',this)">All Posts</button>
+  </div>
+  <div id="posts">
+    <div class="loading"><div class="spinner"></div><br>Fetching posts from CompanyCam...</div>
+  </div>
+  <div class="howto">
+    <h3>How to Post</h3>
+    <ol>
+      <li><strong>GBP:</strong> Copy → <a href="https://business.google.com" target="_blank">business.google.com</a> → Add update → Paste → Post</li>
+      <li><strong>Facebook:</strong> Copy → Your Facebook page → Create post → Paste → Add photo → Post</li>
+      <li>Come back and click <strong>"Mark Posted"</strong> to track what's done</li>
+    </ol>
+  </div>
+</div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const ADMIN_KEY='roofex2026';
+const CC_TOKEN='isbfGt_dOIFag8Rb3e0X7PkViB4AfGZXcDUGJi6CzDY';
+const SITE_URL='https://roof-ex.com';
+const PHONE='650-666-5554';
+
+function doLogin(){
+  const v=document.getElementById('keyInput').value.trim();
+  if(v===ADMIN_KEY||v===(localStorage.getItem('gbp-custom-key')||ADMIN_KEY)){
+    localStorage.setItem('gbp-auth','1');
+    showApp();
+  } else {
+    alert('Invalid key');
+  }
+}
+function showApp(){
+  document.getElementById('login').style.display='none';
+  document.getElementById('app').style.display='block';
+  fetchPosts();
+}
+function checkAuth(){
+  const p=new URLSearchParams(location.search);
+  if(p.get('key')===ADMIN_KEY||localStorage.getItem('gbp-auth')==='1') showApp();
+}
+checkAuth();
+
+function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+function titleToSlug(text){
+  const first=text.split(/\n/)[0].replace(/#/g,'').trim();
+  const clean=(first.length>8&&first.length<=120?first:text.slice(0,100))
+    .toLowerCase().replace(/[^a-z0-9\s-]/g,'').replace(/\s+/g,'-').replace(/-+/g,'-').replace(/^-|-$/g,'');
+  return clean.slice(0,60).replace(/-$/,'');
+}
+
+async function fetchPosts(){
+  const btn=document.getElementById('refreshBtn');
+  btn.textContent='↻ Loading...';btn.disabled=true;
+  try{
+    const tRes=await fetch('https://api.companycam.com/v2/tags?per_page=100',{headers:{'Authorization':'Bearer '+CC_TOKEN}});
+    const tags=await tRes.json();
+    const wikiTag=tags.find(t=>t.display_value.toLowerCase()==='wiki');
+    if(!wikiTag){document.getElementById('posts').innerHTML='<p>No wiki tag found</p>';return;}
+
+    let allPhotos=[],page=1;
+    while(true){
+      const pRes=await fetch('https://api.companycam.com/v2/photos?tag_ids[]='+wikiTag.id+'&per_page=50&page='+page,{headers:{'Authorization':'Bearer '+CC_TOKEN}});
+      const batch=await pRes.json();
+      allPhotos=allPhotos.concat(batch);
+      if(batch.length<50)break;
+      page++;
+    }
+    allPhotos.sort((a,b)=>b.created_at-a.created_at);
+
+    const projectIds=[...new Set(allPhotos.map(p=>p.project_id))];
+    const projectMap={};
+    await Promise.all(projectIds.map(async pid=>{
+      try{
+        const r=await fetch('https://api.companycam.com/v2/projects/'+pid,{headers:{'Authorization':'Bearer '+CC_TOKEN}});
+        const proj=await r.json();
+        projectMap[pid]=proj.address?.city||'Bay Area';
+      }catch{}
+    }));
+
+    const slugCounts={};
+    const cards=allPhotos.map((photo,i)=>{
+      let desc='';
+      if(typeof photo.description==='string')desc=photo.description;
+      else if(photo.description&&typeof photo.description==='object')
+        desc=photo.description.plain_text_content?.trim()||photo.description.html_content?.replace(/<[^>]*>/g,'').trim()||'';
+      if(!desc||desc.trim().length<=20)return '';
+
+      const city=projectMap[photo.project_id]||'Bay Area';
+      const firstLine=desc.split(/[\n.!?]/)[0].trim();
+      const title=(firstLine.length>8&&firstLine.length<=80)?firstLine:desc.split(/\s+/).slice(0,8).join(' ');
+      let baseSlug=titleToSlug(desc);
+      if(!baseSlug||baseSlug.length<3)baseSlug='field-note';
+      const count=slugCounts[baseSlug]||0;
+      const slug=count===0?baseSlug:baseSlug+'-'+(count+1);
+      slugCounts[baseSlug]=(count||0)+1;
+
+      const link=SITE_URL+'/blog/field-notes/'+slug;
+      const excerpt=desc.length>300?desc.slice(0,297)+'...':desc;
+      const web=photo.uris.find(u=>u.type==='web');
+      const original=photo.uris.find(u=>u.type==='original');
+      const img=web?.uri||'';
+      const originalImg=original?.uri||img;
+      const date=new Date(photo.created_at*1000).toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'});
+
+      const gbpText=esc(title)+'\n\n'+esc(excerpt)+'\n\nROOF EXPRESS is a Diamond Certified and GAF Master Elite roofing contractor serving '+esc(city)+' and the Bay Area. We specialize in roof repair, roof replacement, and new installations with industry-leading warranties.\n\n📍 Serving '+esc(city)+', CA\n\nLearn more: '+link;
+      const shortExcerpt=excerpt.length>200?excerpt.slice(0,197)+'...':excerpt;
+      const fbText=esc(title)+'\n\n'+esc(shortExcerpt)+'\n\n🏠 Diamond Certified | GAF Master Elite\n📍 '+esc(city)+', CA\n📞 '+PHONE+'\n🔗 '+link+'\n\n#RoofExpress #'+city.replace(/\s+/g,'')+'Roofing #BayAreaRoofing #DiamondCertified #RoofRepair #RoofReplacement';
+
+      return '<div class="card" data-id="'+photo.id+'" id="post-'+i+'"><div class="card-inner">'
+        +(img?'<div class="card-img"><img src="'+esc(img)+'" alt="'+esc(title)+'" loading="lazy" /></div>':'')
+        +'<div class="card-body">'
+        +'<div class="card-meta">'+esc(city)+', CA · '+date+'</div>'
+        +'<h2 class="card-title">'+esc(title)+'</h2>'
+        +'<div class="card-tabs"><button class="tab active" onclick="showTab(this,\'gbp-'+i+'\')">GBP</button><button class="tab" onclick="showTab(this,\'fb-'+i+'\')">Facebook</button></div>'
+        +'<div class="tab-content active" id="gbp-'+i+'"><pre>'+gbpText+'</pre></div>'
+        +'<div class="tab-content" id="fb-'+i+'"><pre>'+fbText+'</pre></div>'
+        +'<div class="card-actions">'
+        +'<button class="btn btn-primary" onclick="copyText(\'gbp-'+i+'\')">📋 Copy for GBP</button>'
+        +'<button class="btn btn-fb" onclick="copyText(\'fb-'+i+'\')">📋 Copy for Facebook</button>'
+        +(originalImg?'<a href="'+esc(originalImg)+'" target="_blank" class="btn btn-dl">📷 Download Photo</a>':'')
+        +'<a href="'+link+'" target="_blank" class="btn btn-link">🔗 Preview</a>'
+        +'<button class="btn btn-done" onclick="togglePosted(\''+photo.id+'\',this)">✓ Mark Posted</button>'
+        +'</div></div></div></div>';
+    }).filter(Boolean);
+
+    document.getElementById('posts').innerHTML=cards.join('');
+    document.getElementById('lastUpdate').textContent='Updated '+new Date().toLocaleTimeString();
+    loadPosted();
+    updateCount();
+  }catch(err){
+    document.getElementById('posts').innerHTML='<p style="color:#ef4444;font-weight:700;padding:20px">Error loading posts: '+err.message+'</p>';
+  }
+  btn.textContent='↻ Refresh';btn.disabled=false;
+}
+
+function showTab(btn,id){
+  const parent=btn.closest('.card-body');
+  parent.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  parent.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(id).classList.add('active');
+}
+function copyText(id){
+  const el=document.getElementById(id);
+  const text=el.querySelector('pre').textContent;
+  navigator.clipboard.writeText(text).then(()=>showToast('Copied to clipboard!'));
+}
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2000);
+}
+function getPosted(){
+  try{return new Set(JSON.parse(localStorage.getItem('gbp-posted-ids')||'[]'));}catch{return new Set();}
+}
+function togglePosted(id,btn){
+  const s=getPosted();
+  if(s.has(id)){s.delete(id);btn.classList.remove('posted');btn.textContent='✓ Mark Posted';btn.closest('.card').classList.remove('posted');}
+  else{s.add(id);btn.classList.add('posted');btn.textContent='✓ Posted';btn.closest('.card').classList.add('posted');}
+  localStorage.setItem('gbp-posted-ids',JSON.stringify([...s]));
+  updateCount();
+}
+function loadPosted(){
+  const s=getPosted();
+  document.querySelectorAll('.card').forEach(c=>{
+    const id=c.dataset.id;
+    if(s.has(id)){c.classList.add('posted');const b=c.querySelector('.btn-done');if(b){b.classList.add('posted');b.textContent='✓ Posted';}}
+  });
+}
+function updateCount(){
+  const s=getPosted();
+  const total=document.querySelectorAll('.card').length;
+  const posted=s.size;
+  document.getElementById('pendingCount').textContent=(total-posted)+' pending';
+}
+function filterPosts(mode,btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const s=getPosted();
+  document.querySelectorAll('.card').forEach(c=>{
+    if(mode==='pending'&&s.has(c.dataset.id))c.style.display='none';
+    else c.style.display='';
+  });
+}
+</script>
+</body>
+</html>
