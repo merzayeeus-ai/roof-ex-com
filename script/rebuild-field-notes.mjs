@@ -3,6 +3,72 @@ import { readFile, writeFile, mkdir, readdir } from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
 
+const CITY_GEO = {
+  "san-francisco": { lat: 37.7749, lng: -122.4194, zip: "94102" },
+  "san-jose": { lat: 37.3382, lng: -121.8863, zip: "95113" },
+  "oakland": { lat: 37.8044, lng: -122.2712, zip: "94612" },
+  "daly-city": { lat: 37.6879, lng: -122.4702, zip: "94015" },
+  "san-mateo": { lat: 37.5630, lng: -122.3255, zip: "94401" },
+  "palo-alto": { lat: 37.4419, lng: -122.1430, zip: "94301" },
+  "redwood-city": { lat: 37.4852, lng: -122.2364, zip: "94063" },
+  "san-bruno": { lat: 37.6305, lng: -122.4111, zip: "94066" },
+  "south-san-francisco": { lat: 37.6547, lng: -122.4077, zip: "94080" },
+  "burlingame": { lat: 37.5841, lng: -122.3660, zip: "94010" },
+  "millbrae": { lat: 37.5985, lng: -122.3872, zip: "94030" },
+  "san-carlos": { lat: 37.5072, lng: -122.2605, zip: "94070" },
+  "menlo-park": { lat: 37.4530, lng: -122.1817, zip: "94025" },
+  "mountain-view": { lat: 37.3861, lng: -122.0839, zip: "94041" },
+  "sunnyvale": { lat: 37.3688, lng: -122.0363, zip: "94086" },
+  "santa-clara": { lat: 37.3541, lng: -121.9552, zip: "95050" },
+  "fremont": { lat: 37.5485, lng: -121.9886, zip: "94536" },
+  "hayward": { lat: 37.6688, lng: -122.0808, zip: "94541" },
+  "berkeley": { lat: 37.8716, lng: -122.2727, zip: "94704" },
+  "richmond": { lat: 37.9358, lng: -122.3477, zip: "94804" },
+  "concord": { lat: 37.9780, lng: -122.0311, zip: "94520" },
+  "walnut-creek": { lat: 37.9101, lng: -122.0652, zip: "94596" },
+  "san-rafael": { lat: 37.9735, lng: -122.5311, zip: "94901" },
+  "mill-valley": { lat: 37.9060, lng: -122.5450, zip: "94941" },
+  "pacifica": { lat: 37.6138, lng: -122.4869, zip: "94044" },
+  "half-moon-bay": { lat: 37.4636, lng: -122.4286, zip: "94019" },
+  "foster-city": { lat: 37.5585, lng: -122.2711, zip: "94404" },
+  "belmont": { lat: 37.5202, lng: -122.2758, zip: "94002" },
+  "los-altos": { lat: 37.3852, lng: -122.1141, zip: "94022" },
+  "cupertino": { lat: 37.3230, lng: -122.0322, zip: "95014" },
+  "campbell": { lat: 37.2872, lng: -121.9500, zip: "95008" },
+  "los-gatos": { lat: 37.2358, lng: -121.9624, zip: "95030" },
+  "saratoga": { lat: 37.2638, lng: -122.0230, zip: "95070" },
+  "milpitas": { lat: 37.4323, lng: -121.8996, zip: "95035" },
+  "newark": { lat: 37.5296, lng: -122.0402, zip: "94560" },
+  "union-city": { lat: 37.5934, lng: -122.0439, zip: "94587" },
+  "san-leandro": { lat: 37.7249, lng: -122.1561, zip: "94577" },
+  "alameda": { lat: 37.7652, lng: -122.2416, zip: "94501" },
+  "pleasanton": { lat: 37.6624, lng: -121.8747, zip: "94566" },
+  "dublin": { lat: 37.7022, lng: -121.9358, zip: "94568" },
+  "san-ramon": { lat: 37.7799, lng: -121.9780, zip: "94583" },
+  "danville": { lat: 37.8216, lng: -121.9999, zip: "94526" },
+  "lafayette": { lat: 37.8858, lng: -122.1180, zip: "94549" },
+  "orinda": { lat: 37.8771, lng: -122.1797, zip: "94563" },
+  "livermore": { lat: 37.6819, lng: -121.7681, zip: "94550" },
+  "hillsborough": { lat: 37.5741, lng: -122.3794, zip: "94010" },
+  "atherton": { lat: 37.4613, lng: -122.1978, zip: "94027" },
+  "woodside": { lat: 37.4299, lng: -122.2540, zip: "94062" },
+  "portola-valley": { lat: 37.3841, lng: -122.2352, zip: "94028" },
+  "los-altos-hills": { lat: 37.3796, lng: -122.1378, zip: "94022" },
+  "colma": { lat: 37.6769, lng: -122.4597, zip: "94014" },
+  "brisbane": { lat: 37.6808, lng: -122.3999, zip: "94005" },
+  "east-palo-alto": { lat: 37.4688, lng: -122.1411, zip: "94303" },
+  "pescadero": { lat: 37.2552, lng: -122.3831, zip: "94060" },
+  "novato": { lat: 38.1074, lng: -122.5697, zip: "94945" },
+  "san-anselmo": { lat: 37.9746, lng: -122.5617, zip: "94960" },
+  "fairfax": { lat: 37.9871, lng: -122.5889, zip: "94930" },
+  "larkspur": { lat: 37.9341, lng: -122.5353, zip: "94939" },
+  "corte-madera": { lat: 37.9252, lng: -122.5275, zip: "94925" },
+  "tiburon": { lat: 37.8735, lng: -122.4567, zip: "94920" },
+  "sausalito": { lat: 37.8591, lng: -122.4853, zip: "94965" },
+  "belvedere": { lat: 37.8727, lng: -122.4694, zip: "94920" },
+  "kentfield": { lat: 37.9524, lng: -122.5567, zip: "94904" },
+};
+
 function titleToSlug(description) {
   const firstLine = description.split(/[\n.!?]/)[0].trim();
   const title = (firstLine.length > 8 && firstLine.length <= 80) ? firstLine : description.split(/\s+/).slice(0, 8).join(" ");
@@ -438,38 +504,81 @@ function generateFieldNoteHtml(baseHtml, post, allPosts) {
     datePublished: isoDate,
     dateModified: isoDate,
     wordCount,
-    author: {
-      "@type": "Organization",
-      name: "Roof Express",
-      url: SITE_URL,
-      logo: { "@type": "ImageObject", url: `${SITE_URL}/logo.png`, width: 384, height: 107 },
-      sameAs: [
-        "https://www.facebook.com/roofexpressinc",
-        "https://www.instagram.com/roofexpressinc",
-        "https://www.youtube.com/@roofexpressinc",
-        "https://www.yelp.com/biz/roof-express-san-bruno",
-      ],
-    },
+    author: [
+      {
+        "@type": "Person",
+        name: "Abu",
+        jobTitle: "Owner & Lead Roofing Contractor",
+        url: `${SITE_URL}/story`,
+        worksFor: { "@id": `${SITE_URL}/#organization` },
+        knowsAbout: ["Roofing", "Roof Repair", "Roof Replacement", "Flat Roofing", "Skylight Installation", "Gutter Systems"],
+        hasCredential: [
+          { "@type": "EducationalOccupationalCredential", credentialCategory: "license", name: "CSLB License #1072766" },
+          { "@type": "EducationalOccupationalCredential", credentialCategory: "certification", name: "GAF Master Elite Contractor" },
+          { "@type": "EducationalOccupationalCredential", credentialCategory: "certification", name: "Diamond Certified" },
+          { "@type": "EducationalOccupationalCredential", credentialCategory: "certification", name: "CertainTeed Select ShingleMaster" },
+        ],
+        sameAs: [
+          "https://www.facebook.com/roofexpressinc",
+          "https://www.instagram.com/roofexpressinc",
+          "https://www.youtube.com/@roofexpressinc",
+          "https://www.yelp.com/biz/roof-express-san-bruno",
+          "https://www.tiktok.com/@roofexpressinc",
+          "https://www.buildzoom.com/contractor/roof-express-inc",
+        ],
+      },
+      {
+        "@type": "Organization",
+        "@id": `${SITE_URL}/#organization`,
+        name: "Roof Express",
+        url: SITE_URL,
+        logo: { "@type": "ImageObject", url: `${SITE_URL}/logo.png`, width: 384, height: 107 },
+      },
+    ],
     publisher: {
       "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
       name: "Roof Express",
       url: SITE_URL,
       logo: { "@type": "ImageObject", url: `${SITE_URL}/logo.png`, width: 384, height: 107 },
     },
     mainEntityOfPage: { "@type": "WebPage", "@id": postUrl },
-    articleSection: "Field Notes",
+    articleSection: "Roofing",
+    articleBody: post.description.replace(/\n+/g, " ").trim().slice(0, 500),
     inLanguage: "en-US",
-    keywords: `roofing, ${post.city}, field notes, roof inspection, Bay Area roofing, ${serviceKeywords}`,
-    about: { "@type": "Thing", name: "Roofing", description: `Professional roofing services in ${post.city} and the Bay Area` },
+    keywords: `roofing, ${post.city} roofing, roofer near me, roofer near me ${post.city}, roof repair near me, roof replacement near me, roofing company near me, roofing contractor near me, ${serviceKeywords}, Bay Area roofing contractor, Diamond Certified roofer, GAF Master Elite, CertainTeed`,
+    about: [
+      { "@type": "Thing", name: "Roofing", description: `Professional roofing services in ${post.city} and the Bay Area` },
+      { "@type": "Thing", name: `${post.city} Roofing` },
+    ],
+    mentions: [
+      { "@type": "Organization", name: "GAF", url: "https://www.gaf.com/" },
+      { "@type": "Organization", name: "Diamond Certified", url: "https://www.diamondcertified.org/" },
+      { "@type": "Organization", name: "CertainTeed", url: "https://www.certainteed.com/" },
+    ],
     isPartOf: { "@type": "Blog", name: "Roof Express Field Notes", url: `${SITE_URL}/blog/field-notes` },
     speakable: {
       "@type": "SpeakableSpecification",
       cssSelector: ["h1", ".prose p:first-of-type"],
     },
-    locationCreated: {
-      "@type": "Place",
-      name: cityLabel,
-      address: { "@type": "PostalAddress", addressLocality: post.city, addressRegion: "CA", addressCountry: "US" },
+    contentLocation: (() => {
+      const cityGeo = CITY_GEO[citySlug];
+      return {
+        "@type": "Place",
+        name: cityLabel,
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: post.city,
+          addressRegion: "CA",
+          addressCountry: "US",
+          ...(cityGeo ? { postalCode: cityGeo.zip } : {}),
+        },
+        ...(cityGeo ? { geo: { "@type": "GeoCoordinates", latitude: cityGeo.lat, longitude: cityGeo.lng } } : {}),
+      };
+    })(),
+    potentialAction: {
+      "@type": "ReadAction",
+      target: postUrl,
     },
   };
 
@@ -571,7 +680,7 @@ function generateFieldNoteHtml(baseHtml, post, allPosts) {
   );
   html = html.replace(
     /<meta\s+name="keywords"\s+content="[^"]*"\s*\/?>/,
-    `<meta name="keywords" content="roofing, ${escapeHtml(post.city)}, field notes, roof inspection, Bay Area roofing, ${escapeHtml(serviceKeywords)}" />`
+    `<meta name="keywords" content="roofing, ${escapeHtml(post.city)} roofing, roofer near me, roofer near me ${escapeHtml(post.city)}, roof repair near me, roof replacement near me, roofing company near me, roofing contractor near me, ${escapeHtml(serviceKeywords)}, Bay Area roofing contractor, Diamond Certified roofer, GAF Master Elite, CertainTeed" />`
   );
   html = html.replace(
     /<link\s+rel="canonical"\s+href="[^"]*"\s*\/?>/,
