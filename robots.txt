@@ -1,0 +1,286 @@
+# ROOF EXPRESS — Bay Area Roofing Contractor
+# https://roof-ex.com | CSLB #1072766
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+
+Sitemap: https://roof-ex.com/sitemap.xml
+
+# === SEARCH ENGINES ===
+
+# Google
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Googlebot-Video
+Allow: /
+
+User-agent: Googlebot-News
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Google-InspectionTool
+Allow: /
+
+User-agent: Storebot-Google
+Allow: /
+
+User-agent: GoogleOther
+Allow: /
+
+# Bing & Microsoft
+User-agent: Bingbot
+Allow: /
+
+User-agent: msnbot
+Allow: /
+
+User-agent: BingPreview
+Allow: /
+
+# Yahoo
+User-agent: Slurp
+Allow: /
+
+# DuckDuckGo
+User-agent: DuckDuckBot
+Allow: /
+
+# Yandex
+User-agent: YandexBot
+Allow: /
+
+User-agent: YandexImages
+Allow: /
+
+# Brave Search
+User-agent: BraveBot
+Allow: /
+
+# Mojeek
+User-agent: MojeekBot
+Allow: /
+
+# Qwant
+User-agent: Qwantify
+Allow: /
+
+# Ecosia (uses Bing)
+User-agent: Ecosia
+Allow: /
+
+# Naver (Korea)
+User-agent: Yeti
+Allow: /
+
+# Baidu (allowed — major search engine)
+User-agent: Baiduspider
+Allow: /
+
+# === SOCIAL MEDIA ===
+
+# Apple
+User-agent: Applebot
+Allow: /
+
+# Facebook / Meta
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+# Twitter / X
+User-agent: Twitterbot
+Allow: /
+
+# LinkedIn
+User-agent: LinkedInBot
+Allow: /
+
+# Pinterest
+User-agent: Pinterestbot
+Allow: /
+
+# Snapchat
+User-agent: Snapchat
+Allow: /
+
+# WhatsApp
+User-agent: WhatsApp
+Allow: /
+
+# Telegram
+User-agent: TelegramBot
+Allow: /
+
+# Discord
+User-agent: Discordbot
+Allow: /
+
+# Slack
+User-agent: Slackbot
+Allow: /
+
+# === AI CRAWLERS ===
+
+# OpenAI
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+# Anthropic / Claude
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+# Google AI
+User-agent: Google-CloudVertexBot
+Allow: /
+
+User-agent: Gemini
+Allow: /
+
+# Meta AI
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Meta-ExternalFetcher
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+# Amazon
+User-agent: Amazonbot
+Allow: /
+
+# Apple AI
+User-agent: Applebot-Extended
+Allow: /
+
+# Cohere
+User-agent: Cohere-ai
+Allow: /
+
+# Common Crawl
+User-agent: CCBot
+Allow: /
+
+# DeepSeek
+User-agent: Deepseek
+Allow: /
+
+User-agent: DeepSeekBot
+Allow: /
+
+# Mistral
+User-agent: MistralBot
+Allow: /
+
+# xAI / Grok
+User-agent: xAI
+Allow: /
+
+User-agent: GrokBot
+Allow: /
+
+# AI2 / Allen Institute
+User-agent: AI2Bot
+Allow: /
+
+User-agent: Ai2Bot-Dolma
+Allow: /
+
+# You.com
+User-agent: YouBot
+Allow: /
+
+# Phind
+User-agent: PhindBot
+Allow: /
+
+# Diffbot
+User-agent: Diffbot
+Allow: /
+
+# Timpi
+User-agent: Timpibot
+Allow: /
+
+# ImagesiftBot
+User-agent: ImagesiftBot
+Allow: /
+
+# === AI-OPTIMIZED STRUCTURED DATA ===
+# LLMs.txt: https://roof-ex.com/llms.txt
+# LLMs-full.txt: https://roof-ex.com/llms-full.txt
+
+# === BLOCK BAD BOTS ===
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: PetalBot
+Disallow: /
+
+# SEMrush (site audit tools — allowed)
+User-agent: SemrushBot
+Allow: /
+
+User-agent: SemrushBot-Desktop
+Allow: /
+
+User-agent: SemrushBot-Mobile
+Allow: /
+
+User-agent: SiteAuditBot
+Allow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: BLEXBot
+Disallow: /
+
+User-agent: DataForSeoBot
+Disallow: /
+
+User-agent: Sogou
+Disallow: /
+
+User-agent: ZoominfoBot
+Disallow: /
+
+User-agent: Scrapy
+Disallow: /
+
+User-agent: omgili
+Disallow: /
+
+User-agent: omgilibot
+Disallow: /
