@@ -845,7 +845,7 @@ function generateStandaloneTemplate() {
 function updateSitemap(sitemapContent, posts, galleryPhotos) {
   let xml = sitemapContent;
 
-  xml = xml.replace(/<url>\s*<loc>[^<]*\/blog\/field-notes\/\d+<\/loc>[\s\S]*?<\/url>\s*/g, "");
+  xml = xml.replace(/<url>\s*<loc>[^<]*\/blog\/field-notes\/[^<]+<\/loc>[\s\S]*?<\/url>\s*/g, "");
 
   xml = xml.replace(/<!-- GALLERY-IMAGES-START -->[\s\S]*?<!-- GALLERY-IMAGES-END -->\s*/g, "");
 
