@@ -875,10 +875,12 @@ function updateSitemap(sitemapContent, posts, galleryPhotos) {
       cityPhotoMap.get(city).push(photo);
     }
 
+    const existingLocs = new Set([...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => m[1]));
     const galleryImageXml = [];
     galleryImageXml.push("<!-- GALLERY-IMAGES-START -->");
 
-    galleryImageXml.push(`  <url>
+    if (!existingLocs.has(`${SITE_URL}/gallery`)) {
+      galleryImageXml.push(`  <url>
     <loc>${SITE_URL}/gallery</loc>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>${galleryPhotos.slice(0, 100).map(p => `
@@ -887,11 +889,13 @@ function updateSitemap(sitemapContent, posts, galleryPhotos) {
       <image:title>${escapeXml(`ROOF EXPRESS roofing project in ${p.city || "Bay Area"}, ${p.state || "CA"}`)}</image:title>
     </image:image>`).join("")}
   </url>`);
-
+    }
     for (const [city, photos] of cityPhotoMap) {
       const slug = city.toLowerCase().replace(/\s+/g, "-");
+      const cityUrl = `${SITE_URL}/${slug}`;
+      if (existingLocs.has(cityUrl)) continue;
       galleryImageXml.push(`  <url>
-    <loc>${SITE_URL}/${slug}</loc>
+    <loc>${cityUrl}</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>${photos.slice(0, 50).map(p => `
     <image:image>
