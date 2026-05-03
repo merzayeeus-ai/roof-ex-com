@@ -12,6 +12,14 @@
 /services/roof-replacement  /roof-replacement  301
 /services/emergency  /emergency  301
 
+# SEO audit fixes — 404/short-title singletons → canonical service pages
+/residential-roofing  /residential  301
+/flat-roof  /flat  301
+/skylight  /skylights  301
+/skylight-installation  /skylights  301
+/asphalt-shingle  /residential  301
+/asphalt-shingles  /residential  301
+
 # Old about/contact patterns
 /about-us  /about  301
 /aboutus  /about  301
@@ -929,6 +937,10 @@
 /pescadero/flat-roof/  /pescadero/flat-roof  301
 /pescadero/skylight-installation/  /pescadero/skylight-installation  301
 /pescadero/asphalt-shingle/  /pescadero/asphalt-shingle  301
+/blog/field-notes/asphalt-shingle-roof-replacement-in-san-bruno-roof-express/  /blog/field-notes/asphalt-shingle-roof-replacement-in-san-bruno-roof-express  301
+/blog/field-notes/new-asphalt-shingle-roof-installation-in-belmont-roof-express/  /blog/field-notes/new-asphalt-shingle-roof-installation-in-belmont-roof-express  301
+/blog/field-notes/new-shingle-roof-installation-in-piedmont-ca-roof-express/  /blog/field-notes/new-shingle-roof-installation-in-piedmont-ca-roof-express  301
+/blog/field-notes/why-choose-roof-express-for-bay-area/  /blog/field-notes/why-choose-roof-express-for-bay-area  301
 /blog/field-notes/new-shingle-roof-installation-walnut-creek-roof-express/  /blog/field-notes/new-shingle-roof-installation-walnut-creek-roof-express  301
 /blog/field-notes/skylight-sun-tunnel-installation-san-francisco/  /blog/field-notes/skylight-sun-tunnel-installation-san-francisco  301
 /blog/field-notes/new-shingle-roof-installation-in-oakland-roof-express/  /blog/field-notes/new-shingle-roof-installation-in-oakland-roof-express  301
