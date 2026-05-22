@@ -5,7 +5,7 @@
     <link>https://roof-ex.com/blog/field-notes</link>
     <description>Daily roofing project documentation, tips, and insights from ROOF EXPRESS — Diamond Certified Bay Area roofing contractor.</description>
     <language>en-us</language>
-    <lastBuildDate>Thu, 21 May 2026 19:45:44 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 22 May 2026 02:43:06 GMT</lastBuildDate>
     <ttl>360</ttl>
     <atom:link href="https://roof-ex.com/feed.xml" rel="self" type="application/rss+xml" />
     <image>
@@ -18,6 +18,16 @@
     <copyright>Copyright 2026 ROOF EXPRESS</copyright>
     <docs>https://www.rssboard.org/rss-specification</docs>
     <generator>ROOF EXPRESS CMS</generator>
+    <item>
+      <title>Bay Area Roofing Done Right</title>
+      <link>https://roof-ex.com/blog/field-notes/bay-area-roofing-done-right</link>
+      <guid isPermaLink="true">https://roof-ex.com/blog/field-notes/bay-area-roofing-done-right</guid>
+      <pubDate>Thu, 21 May 2026 21:58:41 GMT</pubDate>
+      <description>Bay Area Roofing Done Right Why Homeowners &amp; Businesses Trust ROOF EXPRESS When it comes to protecting your property in the San Francisco Bay Area, your roof is one of the most important investments you can make. From heavy winter rain in San Francisco to intense summer heat in San Jose and the P...</description>
+      <category>Field Notes</category>
+      <category>San Francisco</category>
+      <enclosure url="https://roof-ex.com/images/field-notes/3210957707.jpg" type="image/jpeg" length="0" />
+    </item>
     <item>
       <title>$0 Down Roofing in the Bay Area</title>
       <link>https://roof-ex.com/blog/field-notes/0-down-roofing-in-the-bay-area</link>
@@ -507,16 +517,6 @@
       <category>Field Notes</category>
       <category>San Francisco</category>
       <enclosure url="https://roof-ex.com/images/field-notes/2749076180.jpg" type="image/jpeg" length="0" />
-    </item>
-    <item>
-      <title>The Complete Guide to Roof Replacement in the Bay Area (2026 Homeowner Guide)</title>
-      <link>https://roof-ex.com/blog/field-notes/the-complete-guide-to-roof-replacement-in-the-bay-area-2026-homeowner-guide</link>
-      <guid isPermaLink="true">https://roof-ex.com/blog/field-notes/the-complete-guide-to-roof-replacement-in-the-bay-area-2026-homeowner-guide</guid>
-      <pubDate>Sun, 09 Nov 2025 23:14:46 GMT</pubDate>
-      <description>The Complete Guide to Roof Replacement in the Bay Area (2026 Homeowner Guide) Your roof is the most important protective system of your home. In the Bay Area, where we experience coastal moisture, strong winds, and temperature shifts, your roofing system must perform at a high level year-round. I...</description>
-      <category>Field Notes</category>
-      <category>Berkeley</category>
-      <enclosure url="https://roof-ex.com/images/field-notes/2732003790.jpg" type="image/jpeg" length="0" />
     </item>
   </channel>
 </rss>
