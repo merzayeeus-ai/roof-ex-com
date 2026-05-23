@@ -10120,7 +10120,7 @@
       <image:caption>Roofer Near 95148 (San Jose, CA) | ROOF EXPRESS</image:caption>
     </image:image>
   </url>
-                                  <url>
+                                    <url>
     <loc>https://roof-ex.com/blog/field-notes/bay-area-roofing-done-right</loc>
     <lastmod>2026-05-21</lastmod>
     <changefreq>daily</changefreq>
@@ -10128,6 +10128,16 @@
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/3210957707.jpg</image:loc>
       <image:title>Bay Area Roofing Done Right</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://roof-ex.com/blog/field-notes/solar-ready-roof-installation-in-san-francisco-roof-express</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://roof-ex.com/images/field-notes/3202801750.jpg</image:loc>
+      <image:title>Solar-Ready Roof Installation in San Francisco | ROOF EXPRESS</image:title>
     </image:image>
   </url>
   <url>
