@@ -493,6 +493,7 @@ function generateFieldNoteHtml(baseHtml, post, allPosts) {
     </section>` : "";
 
   const citySlug = post.city.toLowerCase().replace(/\s+/g, "-");
+  const isKnownCity = Boolean(CITY_GEO[citySlug]);
   const serviceKeywords = extractServiceKeywords(post.description);
 
   const articleSchema = {
@@ -609,14 +610,14 @@ function generateFieldNoteHtml(baseHtml, post, allPosts) {
     <nav class="mt-8 bg-slate-50 rounded-xl p-5 border border-slate-100" aria-label="Related services">
       <h2 class="text-xs font-black text-brandNavy uppercase tracking-widest mb-3">Explore Our Services</h2>
       <div class="flex flex-wrap gap-2">
-        <a href="/residential/" class="text-xs bg-white border border-slate-200 text-brandNavy px-3 py-1.5 rounded-lg hover:border-brandOrange hover:text-brandOrange transition font-medium">Residential Roofing</a>
-        <a href="/commercial/" class="text-xs bg-white border border-slate-200 text-brandNavy px-3 py-1.5 rounded-lg hover:border-brandOrange hover:text-brandOrange transition font-medium">Commercial Roofing</a>
-        <a href="/flat/" class="text-xs bg-white border border-slate-200 text-brandNavy px-3 py-1.5 rounded-lg hover:border-brandOrange hover:text-brandOrange transition font-medium">Flat Roofing</a>
-        <a href="/roof-repair/" class="text-xs bg-white border border-slate-200 text-brandNavy px-3 py-1.5 rounded-lg hover:border-brandOrange hover:text-brandOrange transition font-medium">Roof Repair</a>
-        <a href="/roof-replacement/" class="text-xs bg-white border border-slate-200 text-brandNavy px-3 py-1.5 rounded-lg hover:border-brandOrange hover:text-brandOrange transition font-medium">Roof Replacement</a>
-        <a href="/gutters/" class="text-xs bg-white border border-slate-200 text-brandNavy px-3 py-1.5 rounded-lg hover:border-brandOrange hover:text-brandOrange transition font-medium">Gutters</a>
-        <a href="/skylights/" class="text-xs bg-white border border-slate-200 text-brandNavy px-3 py-1.5 rounded-lg hover:border-brandOrange hover:text-brandOrange transition font-medium">Skylights</a>
-        <a href="/${citySlug}/" class="text-xs bg-white border border-slate-200 text-brandNavy px-3 py-1.5 rounded-lg hover:border-brandOrange hover:text-brandOrange transition font-medium">Roofing in ${escapeHtml(post.city)}</a>
+        <a href="/residential" class="text-xs bg-white border border-slate-200 text-brandNavy px-3 py-1.5 rounded-lg hover:border-brandOrange hover:text-brandOrange transition font-medium">Residential Roofing</a>
+        <a href="/commercial" class="text-xs bg-white border border-slate-200 text-brandNavy px-3 py-1.5 rounded-lg hover:border-brandOrange hover:text-brandOrange transition font-medium">Commercial Roofing</a>
+        <a href="/flat" class="text-xs bg-white border border-slate-200 text-brandNavy px-3 py-1.5 rounded-lg hover:border-brandOrange hover:text-brandOrange transition font-medium">Flat Roofing</a>
+        <a href="/roof-repair" class="text-xs bg-white border border-slate-200 text-brandNavy px-3 py-1.5 rounded-lg hover:border-brandOrange hover:text-brandOrange transition font-medium">Roof Repair</a>
+        <a href="/roof-replacement" class="text-xs bg-white border border-slate-200 text-brandNavy px-3 py-1.5 rounded-lg hover:border-brandOrange hover:text-brandOrange transition font-medium">Roof Replacement</a>
+        <a href="/gutters" class="text-xs bg-white border border-slate-200 text-brandNavy px-3 py-1.5 rounded-lg hover:border-brandOrange hover:text-brandOrange transition font-medium">Gutters</a>
+        <a href="/skylights" class="text-xs bg-white border border-slate-200 text-brandNavy px-3 py-1.5 rounded-lg hover:border-brandOrange hover:text-brandOrange transition font-medium">Skylights</a>${isKnownCity ? `
+        <a href="/${citySlug}" class="text-xs bg-white border border-slate-200 text-brandNavy px-3 py-1.5 rounded-lg hover:border-brandOrange hover:text-brandOrange transition font-medium">Roofing in ${escapeHtml(post.city)}</a>` : ""}
       </div>
     </nav>`;
 
@@ -641,7 +642,7 @@ function generateFieldNoteHtml(baseHtml, post, allPosts) {
         <header class="mb-8">
           <h1 itemprop="headline" class="text-2xl md:text-3xl lg:text-4xl font-black text-brandNavy leading-tight mb-4">${escapeHtml(title)}</h1>
           <div class="flex flex-wrap items-center gap-3 text-sm text-slate-500 mb-4">
-            <a href="/${citySlug}/" class="inline-flex items-center gap-1.5 bg-brandNavy/5 text-brandNavy px-3 py-1 rounded-full text-xs font-bold hover:bg-brandOrange/10 hover:text-brandOrange transition">${escapeHtml(cityLabel)}</a>
+            ${isKnownCity ? `<a href="/${citySlug}" class="inline-flex items-center gap-1.5 bg-brandNavy/5 text-brandNavy px-3 py-1 rounded-full text-xs font-bold hover:bg-brandOrange/10 hover:text-brandOrange transition">${escapeHtml(cityLabel)}</a>` : `<span class="inline-flex items-center gap-1.5 bg-brandNavy/5 text-brandNavy px-3 py-1 rounded-full text-xs font-bold">${escapeHtml(cityLabel)}</span>`}
             <time datetime="${isoDate}">${dateStr}</time>
             <span aria-hidden="true">\u00b7</span>
             <span>${readTime} min read</span>

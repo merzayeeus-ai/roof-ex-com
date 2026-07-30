@@ -177,6 +177,7 @@
 /livermore/  /livermore  301
 /newark/  /newark  301
 /oakland/  /oakland  301
+/piedmont/  /piedmont  301
 /pleasanton/  /pleasanton  301
 /richmond/  /richmond  301
 /san-leandro/  /san-leandro  301
@@ -285,6 +286,7 @@
 /blog/roof-replacement-cost-livermore/  /blog/roof-replacement-cost-livermore  301
 /blog/roof-replacement-cost-newark/  /blog/roof-replacement-cost-newark  301
 /blog/roof-replacement-cost-oakland/  /blog/roof-replacement-cost-oakland  301
+/blog/roof-replacement-cost-piedmont/  /blog/roof-replacement-cost-piedmont  301
 /blog/roof-replacement-cost-pleasanton/  /blog/roof-replacement-cost-pleasanton  301
 /blog/roof-replacement-cost-richmond/  /blog/roof-replacement-cost-richmond  301
 /blog/roof-replacement-cost-san-leandro/  /blog/roof-replacement-cost-san-leandro  301
@@ -347,6 +349,7 @@
 /blog/livermore-roofing-guide/  /blog/livermore-roofing-guide  301
 /blog/newark-roofing-guide/  /blog/newark-roofing-guide  301
 /blog/oakland-roofing-guide/  /blog/oakland-roofing-guide  301
+/blog/piedmont-roofing-guide/  /blog/piedmont-roofing-guide  301
 /blog/pleasanton-roofing-guide/  /blog/pleasanton-roofing-guide  301
 /blog/richmond-roofing-guide/  /blog/richmond-roofing-guide  301
 /blog/san-leandro-roofing-guide/  /blog/san-leandro-roofing-guide  301
@@ -410,6 +413,7 @@
 /city-roofing-guides/livermore/  /city-roofing-guides/livermore  301
 /city-roofing-guides/newark/  /city-roofing-guides/newark  301
 /city-roofing-guides/oakland/  /city-roofing-guides/oakland  301
+/city-roofing-guides/piedmont/  /city-roofing-guides/piedmont  301
 /city-roofing-guides/pleasanton/  /city-roofing-guides/pleasanton  301
 /city-roofing-guides/richmond/  /city-roofing-guides/richmond  301
 /city-roofing-guides/san-leandro/  /city-roofing-guides/san-leandro  301
@@ -746,6 +750,14 @@
 /oakland/flat-roof/  /oakland/flat-roof  301
 /oakland/skylight-installation/  /oakland/skylight-installation  301
 /oakland/asphalt-shingle/  /oakland/asphalt-shingle  301
+/piedmont/roof-repair/  /piedmont/roof-repair  301
+/piedmont/roof-replacement/  /piedmont/roof-replacement  301
+/piedmont/residential-roofing/  /piedmont/residential-roofing  301
+/piedmont/commercial-roofing/  /piedmont/commercial-roofing  301
+/piedmont/gutters/  /piedmont/gutters  301
+/piedmont/flat-roof/  /piedmont/flat-roof  301
+/piedmont/skylight-installation/  /piedmont/skylight-installation  301
+/piedmont/asphalt-shingle/  /piedmont/asphalt-shingle  301
 /pleasanton/roof-repair/  /pleasanton/roof-repair  301
 /pleasanton/roof-replacement/  /pleasanton/roof-replacement  301
 /pleasanton/residential-roofing/  /pleasanton/residential-roofing  301
@@ -1124,7 +1136,12 @@
 /zip/95138/  /zip/95138  301
 /zip/95139/  /zip/95139  301
 /zip/95148/  /zip/95148  301
+/blog/field-notes/completing-a-beautiful-durable-shingle-roof-in-walnut-creek/  /blog/field-notes/completing-a-beautiful-durable-shingle-roof-in-walnut-creek  301
+/blog/field-notes/bay-area-roofing-done-right/  /blog/field-notes/bay-area-roofing-done-right  301
+/blog/field-notes/solar-ready-roof-installation-in-san-francisco-roof-express/  /blog/field-notes/solar-ready-roof-installation-in-san-francisco-roof-express  301
+/blog/field-notes/0-down-roofing-in-the-bay-area/  /blog/field-notes/0-down-roofing-in-the-bay-area  301
 /blog/field-notes/certainteed-presidential-tl-roof-installation-in-milpitas-ca/  /blog/field-notes/certainteed-presidential-tl-roof-installation-in-milpitas-ca  301
+/blog/field-notes/roof-replacement-in-milpitas-ca/  /blog/field-notes/roof-replacement-in-milpitas-ca  301
 /blog/field-notes/new-custom-skylight-installation-in-san-francisco-ca/  /blog/field-notes/new-custom-skylight-installation-in-san-francisco-ca  301
 /blog/field-notes/asphalt-shingle-roof-replacement-in-san-bruno-roof-express/  /blog/field-notes/asphalt-shingle-roof-replacement-in-san-bruno-roof-express  301
 /blog/field-notes/asphalt-shingle-roof-installation-in-san-bruno-ca/  /blog/field-notes/asphalt-shingle-roof-installation-in-san-bruno-ca  301
