@@ -10240,7 +10240,7 @@
       <image:caption>Roofer Near 95148 (San Jose, CA) | ROOF EXPRESS</image:caption>
     </image:image>
   </url>
-                              <url>
+                                <url>
     <loc>https://roof-ex.com/blog/field-notes/completing-a-beautiful-durable-shingle-roof-in-walnut-creek</loc>
     <lastmod>2026-07-15</lastmod>
     <changefreq>daily</changefreq>
@@ -10871,5 +10871,18 @@
     </image:image>
   </url>
 <!-- GALLERY-IMAGES-START -->
+  <url>
+    <loc>https://roof-ex.com/emerald-hills</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://img.companycam.com/h-yimXgQAUKJyh5si0fJgh8lelQ_XHWQg7DX4v0XLRc/rs:fit:4032:4032/q:80/aHR0cHM6Ly9jb21w/YW55Y2FtLXBlbmRp/bmcuczMuYW1hem9u/YXdzLmNvbS85ODgx/YjZiYS1kZWYwLTQ2/MmQtYjQ5Yi1hNzcw/MThiYTBiNTcuanBn.jpg</image:loc>
+      <image:title>Roofing project by ROOF EXPRESS in Emerald Hills, California</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://img.companycam.com/0LFXGa6aS7c3j49CRJjjfdD3OAf6ecd71HfGjg6xWz4/rs:fit:4032:4032/q:80/aHR0cHM6Ly9jb21w/YW55Y2FtLXBlbmRp/bmcuczMuYW1hem9u/YXdzLmNvbS84NTZk/NGI1OS1jMWRhLTQ4/NDktOGJjMS1mMDQw/OTMyNjBhYmMuanBn.jpg</image:loc>
+      <image:title>Roofing project by ROOF EXPRESS in Emerald Hills, California</image:title>
+    </image:image>
+  </url>
 <!-- GALLERY-IMAGES-END -->
 </urlset>
