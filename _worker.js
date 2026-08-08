@@ -126,12 +126,13 @@ async function handleReviews() {
     google: {
       platform: "Google",
       rating: 5.0,
-      totalReviews: 100,
+      totalReviews: 103,
       url: "https://www.google.com/maps?cid=13257844389379386946",
       reviews: [],
     },
-    yelp: { platform: "Yelp", rating: 5.0, totalReviews: 25, url: "https://www.yelp.com/biz/roof-express-san-carlos" },
-    lastUpdated: "2025-08-01",
+    yelp: { platform: "Yelp", rating: 4.9, totalReviews: 222, url: "https://www.yelp.com/biz/roof-express-san-francisco", reviews: [] },
+    diamondCertified: { platform: "Diamond Certified", rating: 4.6, totalReviews: 91, url: "https://www.diamondcertified.org/report/roof-express/", reviews: [] },
+    lastUpdated: "2026-08-08",
   };
   return new Response(JSON.stringify(reviews), {
     headers: {
