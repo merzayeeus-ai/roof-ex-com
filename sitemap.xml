@@ -10250,7 +10250,7 @@
       <image:caption>Roofer Near 95148 (San Jose, CA) | ROOF EXPRESS</image:caption>
     </image:image>
   </url>
-                        <url>
+                          <url>
     <loc>https://roof-ex.com/blog/field-notes/protecting-san-francisco-roofs</loc>
     <lastmod>2026-08-07</lastmod>
     <changefreq>daily</changefreq>
@@ -10258,6 +10258,46 @@
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/3447706017.jpg</image:loc>
       <image:title>Protecting San Francisco Roofs</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://roof-ex.com/blog/field-notes/new-asphalt-shingle-roof-installation-in-santa-clara-ca</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://roof-ex.com/images/field-notes/3428756618.jpg</image:loc>
+      <image:title>New Asphalt Shingle Roof Installation in Santa Clara, CA</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://roof-ex.com/blog/field-notes/new-roof-installation-completed-in-burlingame</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://roof-ex.com/images/field-notes/3406190998.jpg</image:loc>
+      <image:title>New Roof Installation Completed in Burlingame</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://roof-ex.com/blog/field-notes/san-anselmo-roof-replacement</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://roof-ex.com/images/field-notes/3398364468.jpg</image:loc>
+      <image:title>San Anselmo Roof Replacement</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://roof-ex.com/blog/field-notes/new-certainteed-presidential-tl-roof-installation-in-milpitas-ca</loc>
+    <lastmod>2026-07-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://roof-ex.com/images/field-notes/3386031299.jpg</image:loc>
+      <image:title>New CertainTeed Presidential TL Roof Installation in Milpitas, CA</image:title>
     </image:image>
   </url>
   <url>
