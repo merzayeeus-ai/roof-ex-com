@@ -5,7 +5,7 @@
     <link>https://roof-ex.com/blog/field-notes</link>
     <description>Daily roofing project documentation, tips, and insights from ROOF EXPRESS — Diamond Certified Bay Area roofing contractor.</description>
     <language>en-us</language>
-    <lastBuildDate>Wed, 19 Aug 2026 18:06:49 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 20 Aug 2026 00:09:29 GMT</lastBuildDate>
     <ttl>360</ttl>
     <atom:link href="https://roof-ex.com/feed.xml" rel="self" type="application/rss+xml" />
     <image>
@@ -18,6 +18,16 @@
     <copyright>Copyright 2026 ROOF EXPRESS</copyright>
     <docs>https://www.rssboard.org/rss-specification</docs>
     <generator>ROOF EXPRESS CMS</generator>
+    <item>
+      <title>What Is El Niño</title>
+      <link>https://roof-ex.com/blog/field-notes/what-is-el-ni-o</link>
+      <guid isPermaLink="true">https://roof-ex.com/blog/field-notes/what-is-el-ni-o</guid>
+      <pubDate>Wed, 19 Aug 2026 20:01:22 GMT</pubDate>
+      <description>What Is El Niño? Bay Area Rain &amp; Roof Guide What Is El Niño? The Complete San Francisco Bay Area Homeowner’s Guide to El Niño, Rain &amp; Roof Protection If you own a home or commercial property in San Francisco or the Bay Area, you have probably heard the term El Niño whenever meteorologists begin d...</description>
+      <category>Field Notes</category>
+      <category>San Francisco</category>
+      <enclosure url="https://roof-ex.com/images/field-notes/3487001778.jpg" type="image/jpeg" length="0" />
+    </item>
     <item>
       <title>Protecting San Francisco Roofs</title>
       <link>https://roof-ex.com/blog/field-notes/protecting-san-francisco-roofs</link>
@@ -507,16 +517,6 @@
       <category>Field Notes</category>
       <category>Oakland</category>
       <enclosure url="https://roof-ex.com/images/field-notes/2912486811.jpg" type="image/jpeg" length="0" />
-    </item>
-    <item>
-      <title>Chimney Leak Repair in Daly City (2026 Guide)</title>
-      <link>https://roof-ex.com/blog/field-notes/chimney-leak-repair-in-daly-city-2026-guide</link>
-      <guid isPermaLink="true">https://roof-ex.com/blog/field-notes/chimney-leak-repair-in-daly-city-2026-guide</guid>
-      <pubDate>Wed, 04 Feb 2026 19:04:26 GMT</pubDate>
-      <description>Chimney Leak Repair in Daly City (2026 Guide) Why Chimney Leaks Happen &amp; Why Fast Repair Is Critical Chimney leaks are one of the most common roofing problems in Daly City. With strong coastal winds, frequent fog, and heavy winter rain, chimneys are highly exposed to moisture. If flashing or maso...</description>
-      <category>Field Notes</category>
-      <category>Daly City</category>
-      <enclosure url="https://roof-ex.com/images/field-notes/2905118187.jpg" type="image/jpeg" length="0" />
     </item>
   </channel>
 </rss>
