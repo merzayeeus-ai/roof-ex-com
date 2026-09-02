@@ -10250,7 +10250,7 @@
       <image:caption>Roofer Near 95148 (San Jose, CA) | ROOF EXPRESS</image:caption>
     </image:image>
   </url>
-                                                                                                                                                                                                      <url>
+                                                                                                                                                                                                        <url>
     <loc>https://roof-ex.com/blog/field-notes/what-is-el-ni-o</loc>
     <lastmod>2026-08-19</lastmod>
     <changefreq>daily</changefreq>
@@ -10261,6 +10261,36 @@
     </image:image>
   </url>
   <url>
+    <loc>https://roof-ex.com/blog/field-notes/3-layer-torch-down-flat-roof-replacement</loc>
+    <lastmod>2026-08-11</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://roof-ex.com/images/field-notes/3460805873.jpg</image:loc>
+      <image:title>3-Layer Torch-Down Flat Roof Replacement</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://roof-ex.com/blog/field-notes/shingle-roof-replacement-in-san-jose-ca</loc>
+    <lastmod>2026-08-11</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://roof-ex.com/images/field-notes/3459320542.jpg</image:loc>
+      <image:title>Shingle Roof Replacement in San Jose, CA</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://roof-ex.com/blog/field-notes/roof-replacement-in-san-francisco-ca</loc>
+    <lastmod>2026-08-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://roof-ex.com/images/field-notes/3450186447.jpg</image:loc>
+      <image:title>Roof Replacement in San Francisco, CA</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://roof-ex.com/blog/field-notes/protecting-san-francisco-roofs</loc>
     <lastmod>2026-08-07</lastmod>
     <changefreq>daily</changefreq>
@@ -10268,6 +10298,16 @@
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/3447706017.jpg</image:loc>
       <image:title>Protecting San Francisco Roofs</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://roof-ex.com/blog/field-notes/roof-replacement-in-san-jose</loc>
+    <lastmod>2026-08-04</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://roof-ex.com/images/field-notes/3434434792.jpg</image:loc>
+      <image:title>Roof Replacement in San Jose,</image:title>
     </image:image>
   </url>
   <url>
@@ -10941,6 +10981,27 @@
     </image:image>
   </url>
 <!-- GALLERY-IMAGES-START -->
+  <url>
+    <loc>https://roof-ex.com/pleasant-hill</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://img.companycam.com/7AiV0jmOA-tfccBKUR7BeuN-P2LWJ3N7s3v6mD4-O08/rs:fit:4032:4032/q:80/czM6Ly9jb21wYW55/Y2FtLXBlbmRpbmcv/MDgwYWNkMDctZmZj/OC00NzllLThiYjkt/MTQ0ZWRlZDk4MzJm/LmpwZw.jpg</image:loc>
+      <image:title>Roofing project by ROOF EXPRESS in Pleasant Hill, California</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://img.companycam.com/eaJZ-E7cGmp4J_jExbuGuQ4kKB0YGehfPbe1UUBsvHQ/rs:fit:4032:4032/q:80/czM6Ly9jb21wYW55/Y2FtLXBlbmRpbmcv/ODZkODNlMzYtNTI1/OC00OWQ0LWJlZjkt/MWRhNzM3YTZlZGZm/LmpwZw.jpg</image:loc>
+      <image:title>Roofing project by ROOF EXPRESS in Pleasant Hill, California</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://img.companycam.com/Z80BktHve4GTbDn1nYjlvZYNrlkvlWpJBfWFJpdCXoY/rs:fit:4032:4032/q:80/czM6Ly9jb21wYW55/Y2FtLXBlbmRpbmcv/ODEyOWEzOGQtNDAx/MC00MDc1LWI3Y2Et/YWRkMjg2MTMwYjYy/LmpwZw.jpg</image:loc>
+      <image:title>Roofing project by ROOF EXPRESS in Pleasant Hill, California</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://img.companycam.com/zM09Vcy5rZyAxr-49YKgOpvFuTwUABpw5Rj7zrmD2_0/rs:fit:4032:4032/q:80/czM6Ly9jb21wYW55/Y2FtLXBlbmRpbmcv/NTg3ZmEwOWItMDQz/Zi00YThjLTgxYzIt/NTg4OTRhYzYxNmUx/LmpwZw.jpg</image:loc>
+      <image:title>Roofing project by ROOF EXPRESS in Pleasant Hill, California</image:title>
+    </image:image>
+  </url>
   <url>
     <loc>https://roof-ex.com/emerald-hills</loc>
     <changefreq>weekly</changefreq>
