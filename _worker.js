@@ -1,5 +1,4 @@
 const COMPANYCAM_API = "https://api.companycam.com/v2";
-const COMPANYCAM_PUBLICATION_TAG = "Website Approved";
 const CACHE_TTL = 3600;
 
 async function fetchAllTags(token) {
@@ -9,7 +8,7 @@ async function fetchAllTags(token) {
     const res = await fetch(`${COMPANYCAM_API}/tags?page=${page}&per_page=100`, {
       headers: { Authorization: `Bearer ${token}`, Accept: "application/json" },
     });
-    if (!res.ok) break;
+    if (!res.ok) throw new Error(`CompanyCam tags API returned ${res.status}`);
     const batch = await res.json();
     if (!batch.length) break;
     allTags = allTags.concat(batch);
@@ -34,9 +33,8 @@ async function handleCompanyCamPhotos(request, assets, token) {
     try {
       const tags = await fetchAllTags(token);
       const wikiTag = tags.find((tag) => tag.display_value.trim().toLowerCase() === "wiki");
-      const publicationTag = tags.find((tag) => tag.display_value.trim() === COMPANYCAM_PUBLICATION_TAG);
-      if (!wikiTag || !publicationTag) {
-        return new Response(JSON.stringify({ photos: [], totalProjects: 0, publicationTagMissing: !publicationTag }), { headers });
+      if (!wikiTag) {
+        return new Response(JSON.stringify({ photos: [], totalProjects: 0 }), { headers });
       }
 
       const fetchTaggedPhotos = async (tagId) => {
@@ -55,12 +53,9 @@ async function handleCompanyCamPhotos(request, assets, token) {
         return photos;
       };
 
-      const [wikiPhotos, approvedPhotos] = await Promise.all([
-        fetchTaggedPhotos(wikiTag.id),
-        fetchTaggedPhotos(publicationTag.id),
-      ]);
-      const approvedIds = new Set(approvedPhotos.map((photo) => photo.id));
-      const allPhotos = wikiPhotos.filter((photo) => approvedIds.has(photo.id));
+      // Field Notes are explicitly published with the wiki tag. The controlled
+      // job-photo snapshot below is a separate section with separate rules.
+      const allPhotos = await fetchTaggedPhotos(wikiTag.id);
       const projectMap = new Map();
       await Promise.all([...new Set(allPhotos.map((photo) => photo.project_id))].map(async (projectId) => {
         try {
