@@ -101,16 +101,6 @@
     </image:image>
   </url>
   <url>
-    <loc>https://roof-ex.com/blog/field-notes</loc>
-    <lastmod>2026-09-12</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-    <image:image>
-      <image:loc>https://roof-ex.com/opengraph.jpg</image:loc>
-      <image:caption>Field Notes — Roofing Knowledge Base | ROOF EXPRESS</image:caption>
-    </image:image>
-  </url>
-  <url>
     <loc>https://roof-ex.com/sitemap</loc>
     <lastmod>2026-09-12</lastmod>
     <changefreq>monthly</changefreq>
@@ -10251,6 +10241,12 @@
     </image:image>
   </url>
   <url>
+    <loc>https://roof-ex.com/blog/field-notes</loc>
+    <lastmod>2026-09-12</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://roof-ex.com/blog/field-notes/asphalt-shingle-reroofing-project-in-san-mateo-ca</loc>
     <lastmod>2026-09-03</lastmod>
     <changefreq>weekly</changefreq>
@@ -11018,6 +11014,16 @@
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/1701945845-be31c9d09cd9f8ce.webp</image:loc>
       <image:caption>Roof Replacement vs</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://roof-ex.com/blog/field-notes/berkeley-roof-replacement</loc>
+    <lastmod>2026-09-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://roof-ex.com/images/field-notes/3560277053-6c678c7052b46c02.webp</image:loc>
+      <image:caption>Berkeley Roof Replacement</image:caption>
     </image:image>
   </url>
 </urlset>
