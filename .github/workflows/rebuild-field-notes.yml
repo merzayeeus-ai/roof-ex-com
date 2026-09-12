@@ -2,9 +2,18 @@ name: Rebuild Field Notes
 
 on:
   workflow_dispatch:
+    inputs:
+      retry_deploy:
+        description: "Retry the Cloudflare deploy hook for already-merged main content (does not bypass PR checks)"
+        required: false
+        default: false
+        type: boolean
+  schedule:
+    - cron: "*/15 * * * *"
 
 permissions:
   contents: write
+  pull-requests: write
 
 concurrency:
   group: field-notes-${{ github.ref }}
@@ -12,41 +21,164 @@ concurrency:
 
 jobs:
   rebuild:
+    # This checked-in file is also copied into the source workspace during
+    # builds. Scheduled publishing belongs only to the static production repo.
+    if: github.repository == 'merzayeeus-ai/roof-ex-com'
     runs-on: ubuntu-latest
 
     steps:
-      - name: Require the update branch
-        run: |
-          if [ "$GITHUB_REF" != "refs/heads/field-notes-update" ]; then
-            echo "::error::Run this workflow on field-notes-update, not main."
-            exit 1
-          fi
-
-      - name: Checkout update branch
+      - name: Checkout publishing branch
         uses: actions/checkout@v4
         with:
-          ref: field-notes-update
+          ref: main
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22'
 
-      - name: Fetch and rebuild Field Notes
+      - name: Install standalone refresh dependency
+        run: npm install --omit=dev --no-package-lock
+
+      - name: Refresh CompanyCam public content
         env:
           COMPANYCAM_API_TOKEN: ${{ secrets.COMPANYCAM_API_TOKEN }}
           BUILD_DIR: .
         run: node script/rebuild-field-notes.mjs
 
-      - name: Commit updates to the update branch
+      - name: Create reviewable content refresh pull request
+        id: refresh_pr
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -A
+          BASE_SHA="$(git rev-parse HEAD)"
+          # Explicit public generated paths only: never stage source, secrets,
+          # npm state, workflow changes, or arbitrary working-tree files.
+          # Root HTML pages are generated, public city SSR pages. They are
+          # explicitly included because gallery and Field Notes links update
+          # there; no source tree or hashed asset is staged.
+          git add -- data/ images/ *.html blog/field-notes.html blog/field-notes feed.xml sitemap.xml
 
           if git diff --staged --quiet; then
             echo "No changes detected"
-          else
-            git commit -m "Refresh Field Notes"
-            git push origin HEAD:field-notes-update
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
           fi
+
+          # Do not create a PR from a moving main head. A later scheduled run
+          # can regenerate a clean, reviewable snapshot from the new base.
+          git fetch origin main
+          if [ "$(git rev-parse origin/main)" != "$BASE_SHA" ]; then
+            echo "::error::main changed during refresh; refusing to create a stale content PR."
+            exit 1
+          fi
+
+          # A base-specific managed branch preserves an older reviewable PR
+          # when main advances instead of force-updating reviewed work.
+          REFRESH_BRANCH="companycam-content-refresh-${BASE_SHA:0:12}"
+          git fetch origin "$REFRESH_BRANCH" || true
+          REMOTE_HEAD=""
+          if git show-ref --verify --quiet "refs/remotes/origin/$REFRESH_BRANCH"; then
+            REMOTE_HEAD="$(git rev-parse "origin/$REFRESH_BRANCH")"
+            if [ "$(git merge-base "$REMOTE_HEAD" "$BASE_SHA")" != "$BASE_SHA" ]; then
+              echo "::error::Existing refresh branch is not based on this immutable main head; refusing to overwrite it."
+              exit 1
+            fi
+          fi
+
+          git switch -C "$REFRESH_BRANCH" "$BASE_SHA"
+          git commit -m "Refresh CompanyCam public content"
+          HEAD_SHA="$(git rev-parse HEAD)"
+          if [ -n "$REMOTE_HEAD" ]; then
+            git push --force-with-lease="refs/heads/$REFRESH_BRANCH:$REMOTE_HEAD" origin "HEAD:$REFRESH_BRANCH"
+          else
+            git push --force-with-lease="refs/heads/$REFRESH_BRANCH:" origin "HEAD:$REFRESH_BRANCH"
+          fi
+
+          PR_NUMBER="$(gh pr list --base main --head "$REFRESH_BRANCH" --state open --json number --jq '.[0].number')"
+          if [ -z "$PR_NUMBER" ]; then
+            gh pr create \
+              --base main \
+              --head "$REFRESH_BRANCH" \
+              --title "Refresh CompanyCam public content" \
+              --body "Automated public CompanyCam content refresh. Only generated public data, images, and static HTML are included."
+            PR_NUMBER="$(gh pr list --base main --head "$REFRESH_BRANCH" --state open --json number --jq '.[0].number')"
+          fi
+          if [ -z "$PR_NUMBER" ]; then
+            echo "::error::Refresh branch was pushed but no pull request could be identified."
+            exit 1
+          fi
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+          echo "pr_number=$PR_NUMBER" >> "$GITHUB_OUTPUT"
+          echo "head_sha=$HEAD_SHA" >> "$GITHUB_OUTPUT"
+          echo "base_sha=$BASE_SHA" >> "$GITHUB_OUTPUT"
+
+      - name: Wait for required pull-request checks
+        if: steps.refresh_pr.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          # `gh pr checks --watch` exits immediately when a newly pushed PR
+          # has no reported checks yet. Cloudflare Pages is required on main,
+          # so wait for that known required context to register first.
+          DEADLINE=$((SECONDS + 1200))
+          while true; do
+            set +e
+            CHECKS="$(gh pr checks "${{ steps.refresh_pr.outputs.pr_number }}" --required 2>&1)"
+            CHECK_STATUS=$?
+            set -e
+            if printf '%s\n' "$CHECKS" | grep -Fq "Cloudflare Pages"; then
+              break
+            fi
+            if [ "$SECONDS" -ge "$DEADLINE" ]; then
+              echo "::error::Cloudflare Pages did not register as a required PR check within 20 minutes; leaving refresh PR reviewable."
+              exit 1
+            fi
+            if [ "$CHECK_STATUS" -ne 0 ]; then
+              echo "Waiting for required Cloudflare Pages check to be reported..."
+            fi
+            sleep 20
+          done
+          if ! timeout 20m gh pr checks "${{ steps.refresh_pr.outputs.pr_number }}" --required --watch --fail-fast; then
+            echo "::error::Refresh PR #${{ steps.refresh_pr.outputs.pr_number }} remains open because a required check failed or did not finish within 20 minutes."
+            exit 1
+          fi
+
+      - name: Squash merge only when protections allow
+        if: steps.refresh_pr.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          if [ "$(git rev-parse origin/main)" != "${{ steps.refresh_pr.outputs.base_sha }}" ]; then
+            echo "::error::main moved while required checks ran; leaving refresh PR reviewable for a fresh scheduled run."
+            exit 1
+          fi
+          if ! gh pr merge "${{ steps.refresh_pr.outputs.pr_number }}" --squash --match-head-commit "${{ steps.refresh_pr.outputs.head_sha }}"; then
+            echo "::error::Refresh PR #${{ steps.refresh_pr.outputs.pr_number }} remains open because required checks/reviews or merge policy did not allow it. No admin bypass was attempted."
+            exit 1
+          fi
+
+      - name: Trigger Cloudflare after merged content
+        if: steps.refresh_pr.outputs.changed == 'true' || (github.event_name == 'workflow_dispatch' && inputs.retry_deploy)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CLOUDFLARE_DEPLOY_HOOK: ${{ secrets.CLOUDFLARE_DEPLOY_HOOK }}
+        run: |
+          set -euo pipefail
+          if [ "${{ steps.refresh_pr.outputs.changed }}" = "true" ]; then
+            MERGED_AT="$(gh pr view "${{ steps.refresh_pr.outputs.pr_number }}" --json mergedAt --jq '.mergedAt // empty')"
+            if [ -z "$MERGED_AT" ]; then
+              echo "::error::Refresh PR was not merged; leaving it reviewable and not triggering deployment."
+              exit 1
+            fi
+          else
+            echo "Manual deploy-hook retry for the current protected main content."
+          fi
+          curl --fail --silent --show-error --request POST "$CLOUDFLARE_DEPLOY_HOOK"
