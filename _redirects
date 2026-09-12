@@ -111,6 +111,13 @@
 # Blog shortcut redirects
 /blog/san-francisco  /blog/san-francisco-roofing-permits  301
 
+# The GBP queue is a client-side React mount and has no public prerendered
+# route.  Keep this one known entry point while leaving unknown paths 404.
+/admin/gbp  /index.html  200
+
+# Generated route files and the platform 404 document handle known and unknown
+# paths respectively; unknown paths must not be rewritten to a successful shell.
+
 # Auto-generated trailing slash removal for all routes
 /about/  /about  301
 /story/  /story  301
@@ -1170,7 +1177,6 @@
 /blog/field-notes/shingle-roof-replacement-in-sunnyvale/  /blog/field-notes/shingle-roof-replacement-in-sunnyvale  301
 /blog/field-notes/3-ply-torch-down-roof-replacement-in-san-francisco/  /blog/field-notes/3-ply-torch-down-roof-replacement-in-san-francisco  301
 /blog/field-notes/roof-replacement-in-the-bay-area-by-certified-experts-roof-express/  /blog/field-notes/roof-replacement-in-the-bay-area-by-certified-experts-roof-express  301
-/blog/field-notes/multi-unit-for-hoa-communities-in-san-francisco/  /blog/field-notes/multi-unit-for-hoa-communities-in-san-francisco  301
 /blog/field-notes/new-shingle-roof-san-francisco-roof-expressexpert/  /blog/field-notes/new-shingle-roof-san-francisco-roof-expressexpert  301
 /blog/field-notes/how-to-maintain-a-newly-installed-roof-in-san-francisco/  /blog/field-notes/how-to-maintain-a-newly-installed-roof-in-san-francisco  301
 /blog/field-notes/a-new-asphalt-shingle-roof-completed-in-san-francisco/  /blog/field-notes/a-new-asphalt-shingle-roof-completed-in-san-francisco  301
@@ -1212,8 +1218,85 @@
 /blog/field-notes/new-flat-roof-installation-in-pescadero-ca/  /blog/field-notes/new-flat-roof-installation-in-pescadero-ca  301
 /blog/field-notes/new-shingle-roof-installation-in-san-mateo-2026-guide/  /blog/field-notes/new-shingle-roof-installation-in-san-mateo-2026-guide  301
 /blog/field-notes/tear-off-shingle-roof-replacement-in-san-mateo-2026-guide/  /blog/field-notes/tear-off-shingle-roof-replacement-in-san-mateo-2026-guide  301
+/blog/field-notes/multi-unit-for-hoa-communities-in-san-francisco/  /blog/field-notes/multi-unit-for-hoa-communities-in-san-francisco  301
 /blog/field-notes/how-to-choose-the-right-roof-and-avoid-costly-mistakes/  /blog/field-notes/how-to-choose-the-right-roof-and-avoid-costly-mistakes  301
 /blog/field-notes/roof-replacement-vs/  /blog/field-notes/roof-replacement-vs  301
 
-# SPA fallback (MUST be last)
-/* /index.html 200
+# Field Note pages are archive-backed; known slugs resolve to their static files
+/blog/field-notes/asphalt-shingle-reroofing-project-in-san-mateo-ca  /blog/field-notes/asphalt-shingle-reroofing-project-in-san-mateo-ca.html  200
+/blog/field-notes/flat-roof-ready-for-solar-installation  /blog/field-notes/flat-roof-ready-for-solar-installation.html  200
+/blog/field-notes/what-is-el-ni-o  /blog/field-notes/what-is-el-ni-o.html  200
+/blog/field-notes/roof-replacement-in-woodside  /blog/field-notes/roof-replacement-in-woodside.html  200
+/blog/field-notes/3-layer-torch-down-flat-roof-replacement  /blog/field-notes/3-layer-torch-down-flat-roof-replacement.html  200
+/blog/field-notes/shingle-roof-replacement-in-san-jose-ca  /blog/field-notes/shingle-roof-replacement-in-san-jose-ca.html  200
+/blog/field-notes/roof-replacement-in-san-francisco-ca  /blog/field-notes/roof-replacement-in-san-francisco-ca.html  200
+/blog/field-notes/protecting-san-francisco-roofs  /blog/field-notes/protecting-san-francisco-roofs.html  200
+/blog/field-notes/flat-roof-replacement-in-san-franciscocomplete-homeowner-guide  /blog/field-notes/flat-roof-replacement-in-san-franciscocomplete-homeowner-guide.html  200
+/blog/field-notes/roof-replacement-in-san-jose  /blog/field-notes/roof-replacement-in-san-jose.html  200
+/blog/field-notes/new-asphalt-shingle-roof-installation-in-santa-clara-ca  /blog/field-notes/new-asphalt-shingle-roof-installation-in-santa-clara-ca.html  200
+/blog/field-notes/new-roof-installation-completed-in-burlingame  /blog/field-notes/new-roof-installation-completed-in-burlingame.html  200
+/blog/field-notes/san-anselmo-roof-replacement  /blog/field-notes/san-anselmo-roof-replacement.html  200
+/blog/field-notes/new-certainteed-presidential-tl-roof-installation-in-milpitas-ca  /blog/field-notes/new-certainteed-presidential-tl-roof-installation-in-milpitas-ca.html  200
+/blog/field-notes/completing-a-beautiful-durable-shingle-roof-in-walnut-creek  /blog/field-notes/completing-a-beautiful-durable-shingle-roof-in-walnut-creek.html  200
+/blog/field-notes/bay-area-roofing-done-right  /blog/field-notes/bay-area-roofing-done-right.html  200
+/blog/field-notes/solar-ready-roof-installation-in-san-francisco-roof-express  /blog/field-notes/solar-ready-roof-installation-in-san-francisco-roof-express.html  200
+/blog/field-notes/0-down-roofing-in-the-bay-area  /blog/field-notes/0-down-roofing-in-the-bay-area.html  200
+/blog/field-notes/certainteed-presidential-tl-roof-installation-in-milpitas-ca  /blog/field-notes/certainteed-presidential-tl-roof-installation-in-milpitas-ca.html  200
+/blog/field-notes/roof-replacement-in-milpitas-ca  /blog/field-notes/roof-replacement-in-milpitas-ca.html  200
+/blog/field-notes/new-custom-skylight-installation-in-san-francisco-ca  /blog/field-notes/new-custom-skylight-installation-in-san-francisco-ca.html  200
+/blog/field-notes/asphalt-shingle-roof-replacement-in-san-bruno-roof-express  /blog/field-notes/asphalt-shingle-roof-replacement-in-san-bruno-roof-express.html  200
+/blog/field-notes/asphalt-shingle-roof-installation-in-san-bruno-ca  /blog/field-notes/asphalt-shingle-roof-installation-in-san-bruno-ca.html  200
+/blog/field-notes/new-asphalt-shingle-roof-installation-in-belmont-roof-express  /blog/field-notes/new-asphalt-shingle-roof-installation-in-belmont-roof-express.html  200
+/blog/field-notes/new-shingle-roof-installation-in-piedmont-ca-roof-express  /blog/field-notes/new-shingle-roof-installation-in-piedmont-ca-roof-express.html  200
+/blog/field-notes/why-choose-roof-express-for-bay-area  /blog/field-notes/why-choose-roof-express-for-bay-area.html  200
+/blog/field-notes/new-shingle-roof-installation-walnut-creek-roof-express  /blog/field-notes/new-shingle-roof-installation-walnut-creek-roof-express.html  200
+/blog/field-notes/skylight-sun-tunnel-installation-san-francisco  /blog/field-notes/skylight-sun-tunnel-installation-san-francisco.html  200
+/blog/field-notes/new-shingle-roof-installation-in-oakland-roof-express  /blog/field-notes/new-shingle-roof-installation-in-oakland-roof-express.html  200
+/blog/field-notes/flat-roof-installation-fremont-roof-expressprofessional-flat  /blog/field-notes/flat-roof-installation-fremont-roof-expressprofessional-flat.html  200
+/blog/field-notes/shingle-roof-replacement-in-sunnyvale  /blog/field-notes/shingle-roof-replacement-in-sunnyvale.html  200
+/blog/field-notes/3-ply-torch-down-roof-replacement-in-san-francisco  /blog/field-notes/3-ply-torch-down-roof-replacement-in-san-francisco.html  200
+/blog/field-notes/roof-replacement-in-the-bay-area-by-certified-experts-roof-express  /blog/field-notes/roof-replacement-in-the-bay-area-by-certified-experts-roof-express.html  200
+/blog/field-notes/new-shingle-roof-san-francisco-roof-expressexpert  /blog/field-notes/new-shingle-roof-san-francisco-roof-expressexpert.html  200
+/blog/field-notes/how-to-maintain-a-newly-installed-roof-in-san-francisco  /blog/field-notes/how-to-maintain-a-newly-installed-roof-in-san-francisco.html  200
+/blog/field-notes/a-new-asphalt-shingle-roof-completed-in-san-francisco  /blog/field-notes/a-new-asphalt-shingle-roof-completed-in-san-francisco.html  200
+/blog/field-notes/vent-pipe-waterproofing-prevents-roof-leaks  /blog/field-notes/vent-pipe-waterproofing-prevents-roof-leaks.html  200
+/blog/field-notes/shingle-roof-leak-repair-in-sunnyvale  /blog/field-notes/shingle-roof-leak-repair-in-sunnyvale.html  200
+/blog/field-notes/asphalt-shingle-roof-replacement-in-san-francisco  /blog/field-notes/asphalt-shingle-roof-replacement-in-san-francisco.html  200
+/blog/field-notes/how-to-protect-your-roof-and-choose-the-right-roofing-contractor  /blog/field-notes/how-to-protect-your-roof-and-choose-the-right-roofing-contractor.html  200
+/blog/field-notes/how-to-choose-the-best-roofing-company-in-south-san-francisco  /blog/field-notes/how-to-choose-the-best-roofing-company-in-south-san-francisco.html  200
+/blog/field-notes/san-francisco-roofing-guide-for-homeowners-protecting  /blog/field-notes/san-francisco-roofing-guide-for-homeowners-protecting.html  200
+/blog/field-notes/fighting-the-fog-the-best-roofing-materials-for-daly-city-coastal-homes  /blog/field-notes/fighting-the-fog-the-best-roofing-materials-for-daly-city-coastal-homes.html  200
+/blog/field-notes/guide-to-finding-the-best-roofing-company-in-daly-city-ca  /blog/field-notes/guide-to-finding-the-best-roofing-company-in-daly-city-ca.html  200
+/blog/field-notes/two-day-flat-roof-replacement-in-san-francisco-permit-approved  /blog/field-notes/two-day-flat-roof-replacement-in-san-francisco-permit-approved.html  200
+/blog/field-notes/white-gta-3-layer-modified-bitumen-flat-roof-installation  /blog/field-notes/white-gta-3-layer-modified-bitumen-flat-roof-installation.html  200
+/blog/field-notes/common-flat-roof-drain-problems-in-san-francisco-and-how-to-fix-them  /blog/field-notes/common-flat-roof-drain-problems-in-san-francisco-and-how-to-fix-them.html  200
+/blog/field-notes/torch-down-roof-installation-in-san-mateo-a-durable  /blog/field-notes/torch-down-roof-installation-in-san-mateo-a-durable.html  200
+/blog/field-notes/gravel-and-tar-roof-removal-in-san-francisco  /blog/field-notes/gravel-and-tar-roof-removal-in-san-francisco.html  200
+/blog/field-notes/south-san-francisco-chimney-leak-repair  /blog/field-notes/south-san-francisco-chimney-leak-repair.html  200
+/blog/field-notes/roof-maintenance-in-san-francisco-the-bay-area  /blog/field-notes/roof-maintenance-in-san-francisco-the-bay-area.html  200
+/blog/field-notes/flat-roof-project-completed-in-san-francisco-torch-down  /blog/field-notes/flat-roof-project-completed-in-san-francisco-torch-down.html  200
+/blog/field-notes/leak-detection-services-in-san-francisco-the-bay-area  /blog/field-notes/leak-detection-services-in-san-francisco-the-bay-area.html  200
+/blog/field-notes/ponding-water-near-roof-drains  /blog/field-notes/ponding-water-near-roof-drains.html  200
+/blog/field-notes/the-ultimate-roof-maintenance-calendar-what-to-check  /blog/field-notes/the-ultimate-roof-maintenance-calendar-what-to-check.html  200
+/blog/field-notes/new-shingle-roof-installation-in-daly-city-2026-guide  /blog/field-notes/new-shingle-roof-installation-in-daly-city-2026-guide.html  200
+/blog/field-notes/flat-roof-repair-9-warning-signs-best-fixes  /blog/field-notes/flat-roof-repair-9-warning-signs-best-fixes.html  200
+/blog/field-notes/chimney-leak-repair-in-daly-city-2026-guide  /blog/field-notes/chimney-leak-repair-in-daly-city-2026-guide.html  200
+/blog/field-notes/emergency-roof-repair-in-san-carlos-2026-guide  /blog/field-notes/emergency-roof-repair-in-san-carlos-2026-guide.html  200
+/blog/field-notes/flat-roof-installation-san-francisco-roof-expressprofessional  /blog/field-notes/flat-roof-installation-san-francisco-roof-expressprofessional.html  200
+/blog/field-notes/roof-decking-in-san-bruno-2026-guide  /blog/field-notes/roof-decking-in-san-bruno-2026-guide.html  200
+/blog/field-notes/new-flat-roof-installation-in-san-mateo-2026-guide  /blog/field-notes/new-flat-roof-installation-in-san-mateo-2026-guide.html  200
+/blog/field-notes/torch-down-roofing-in-san-mateo-2026-guide  /blog/field-notes/torch-down-roofing-in-san-mateo-2026-guide.html  200
+/blog/field-notes/roof-replacement-in-millbrae-the-bay-area  /blog/field-notes/roof-replacement-in-millbrae-the-bay-area.html  200
+/blog/field-notes/roof-replacement-in-san-francisco-the-bay-area  /blog/field-notes/roof-replacement-in-san-francisco-the-bay-area.html  200
+/blog/field-notes/the-complete-guide-to-roof-replacement-in-the-bay-area-2026-homeowner-guide  /blog/field-notes/the-complete-guide-to-roof-replacement-in-the-bay-area-2026-homeowner-guide.html  200
+/blog/field-notes/hillsborough-roof-inspection-process-with-roof-express  /blog/field-notes/hillsborough-roof-inspection-process-with-roof-express.html  200
+/blog/field-notes/roof-leak-detection-in-south-san-francisco-2026-guide  /blog/field-notes/roof-leak-detection-in-south-san-francisco-2026-guide.html  200
+/blog/field-notes/diamonddeck-certainteed-ice-barrier-layers-complete-roofing  /blog/field-notes/diamonddeck-certainteed-ice-barrier-layers-complete-roofing.html  200
+/blog/field-notes/roof-decking-plywood-the-foundation-of-a  /blog/field-notes/roof-decking-plywood-the-foundation-of-a.html  200
+/blog/field-notes/roof-insulation-guide-2026  /blog/field-notes/roof-insulation-guide-2026.html  200
+/blog/field-notes/new-flat-roof-installation-in-pescadero-ca  /blog/field-notes/new-flat-roof-installation-in-pescadero-ca.html  200
+/blog/field-notes/new-shingle-roof-installation-in-san-mateo-2026-guide  /blog/field-notes/new-shingle-roof-installation-in-san-mateo-2026-guide.html  200
+/blog/field-notes/tear-off-shingle-roof-replacement-in-san-mateo-2026-guide  /blog/field-notes/tear-off-shingle-roof-replacement-in-san-mateo-2026-guide.html  200
+/blog/field-notes/multi-unit-for-hoa-communities-in-san-francisco  /blog/field-notes/multi-unit-for-hoa-communities-in-san-francisco.html  200
+/blog/field-notes/how-to-choose-the-right-roof-and-avoid-costly-mistakes  /blog/field-notes/how-to-choose-the-right-roof-and-avoid-costly-mistakes.html  200
+/blog/field-notes/roof-replacement-vs  /blog/field-notes/roof-replacement-vs.html  200
