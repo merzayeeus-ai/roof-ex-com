@@ -1326,6 +1326,23 @@
       "imageWidth": 1200,
       "imageHeight": 1600,
       "imageBytes": 556174
+    },
+    {
+      "id": "3584234618",
+      "slug": "what-is-the-roof-express-process-for-repairing-or-replacing-a-roof",
+      "city": "San Francisco",
+      "state": "California",
+      "thumbnail": "/images/field-notes/3584234618-83815088fba67395-thumb.webp",
+      "fullSize": "/images/field-notes/3584234618-696e8f3fffcf766e.webp",
+      "createdAt": 1789975064,
+      "localImage": "/images/field-notes/3584234618-696e8f3fffcf766e.webp",
+      "title": "What Is the Roof Express Process for Repairing or Replacing a Roof",
+      "excerpt": "What Is the Roof Express Process for Repairing or Replacing a Roof? A roofing project should come with a clear plan. From the first inspection to the final c...",
+      "updatedAt": 1789975149,
+      "contentHash": "eda2caa7276bb792165af16bd79285ad9c3cb305aded5681f4f8dcceea9fa878",
+      "imageWidth": 1600,
+      "imageHeight": 900,
+      "imageBytes": 234930
     }
   ]
 }

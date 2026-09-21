@@ -10242,7 +10242,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/blog/field-notes</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
@@ -11024,6 +11024,16 @@
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/3560277053-6c678c7052b46c02.webp</image:loc>
       <image:caption>Berkeley Roof Replacement</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://roof-ex.com/blog/field-notes/what-is-the-roof-express-process-for-repairing-or-replacing-a-roof</loc>
+    <lastmod>2026-09-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://roof-ex.com/images/field-notes/3584234618-696e8f3fffcf766e.webp</image:loc>
+      <image:caption>What Is the Roof Express Process for Repairing or Replacing a Roof</image:caption>
     </image:image>
   </url>
 </urlset>
