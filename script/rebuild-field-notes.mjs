@@ -82,21 +82,107 @@ var init_city_zips = __esm({
   }
 });
 
-// shared/job-photo-reviews.ts
-var JOB_PHOTO_REVIEWS;
-var init_job_photo_reviews = __esm({
-  "shared/job-photo-reviews.ts"() {
+// shared/companycam-photo-seo.ts
+function normalize(value) {
+  return value.normalize("NFKC").trim().toLowerCase().replace(/&/g, " and ").replace(/[_-]+/g, " ").replace(/[^a-z0-9 ]+/g, " ").replace(/\s+/g, " ");
+}
+function knownCity(value) {
+  if (!value || normalize(value) === "bay area") return void 0;
+  return CITY_NAMES.get(normalize(value).replace(/\s+ca$/, ""));
+}
+function servicesFromValues(values) {
+  const services = /* @__PURE__ */ new Set();
+  for (const value of values) {
+    const normalized = normalize(value);
+    for (const [pattern, service] of SERVICE_ALIASES) {
+      if (pattern.test(normalized)) services.add(service);
+    }
+  }
+  return SERVICE_ORDER.filter((service) => services.has(service));
+}
+function exactTaggedServices(tags) {
+  const services = /* @__PURE__ */ new Set();
+  for (const tag of tags) {
+    const normalized = normalize(tag);
+    for (const [pattern, service] of SERVICE_ALIASES) {
+      const exact = new RegExp(`^(?:${pattern.source.replace(/^\\b|\\b$/g, "")})$`, "i");
+      if (exact.test(normalized)) services.add(service);
+    }
+  }
+  return SERVICE_ORDER.filter((service) => services.has(service));
+}
+function sentenceCase(value) {
+  return value.charAt(0).toUpperCase() + value.slice(1);
+}
+function withArticle(value) {
+  return `${/^[aeiou]/i.test(value) ? "an" : "a"} ${value}`;
+}
+function joinedServices(services) {
+  if (services.length === 1) return services[0];
+  if (services.length === 2) return `${services[0]} and ${services[1]}`;
+  return `${services.slice(0, -1).join(", ")}, and ${services[services.length - 1]}`;
+}
+function getCompanyCamPhotoSeo(photo, kind = "project") {
+  const city = knownCity(photo.city);
+  const taggedServices = exactTaggedServices(photo.tags ?? []);
+  const services = taggedServices.length > 0 ? taggedServices : kind === "field-note" && photo.title ? servicesFromValues([photo.title]) : [];
+  const knownServices = services.length > 0 ? services : ["roofing"];
+  const service = knownServices[0];
+  const beforeAndAfterCategory = (photo.tags ?? []).some((tag) => normalize(tag) === "before and after");
+  const serviceTitle = sentenceCase(service);
+  const titleLocation = city ? ` \u2014 ${city}, CA` : " \u2014 ROOF EXPRESS";
+  const categoryNote = beforeAndAfterCategory ? " in the Before and After gallery" : "";
+  if (kind === "field-note") {
+    const audience = city ? ` for ${city}, California` : "";
+    const subjects = joinedServices(knownServices);
+    return {
+      alt: `Image accompanying a ROOF EXPRESS Field Note about ${service}${audience}.`,
+      title: `${serviceTitle} Field Note Image${titleLocation}`,
+      caption: `Image for a ROOF EXPRESS Field Note about ${service}${audience}.`,
+      description: city ? `This image accompanies a ROOF EXPRESS Field Note about ${subjects} for ${city}, California. It is part of our collection of roofing guides and field notes.` : `This image accompanies a ROOF EXPRESS Field Note about ${subjects}. It is part of our collection of roofing guides and field notes.`
+    };
+  }
+  const location = city ? ` in ${city}, California` : "";
+  const baseAlt = `ROOF EXPRESS photo from ${withArticle(service)} project${location}`;
+  const categorizedAlt = `${baseAlt}${categoryNote}.`;
+  const otherServices = knownServices.slice(1);
+  return {
+    alt: categorizedAlt.length <= 160 ? categorizedAlt : `${baseAlt}.`,
+    title: `${serviceTitle} Project Photo${titleLocation}`,
+    caption: city ? `${serviceTitle} project documented by ROOF EXPRESS in ${city}, California${categoryNote}.` : `${serviceTitle} project documentation from ROOF EXPRESS${categoryNote}.`,
+    description: `This CompanyCam photo is associated with a ROOF EXPRESS ${service} project${location}.` + (otherServices.length > 0 ? ` It is also categorized for ${joinedServices(otherServices)}.` : "") + (!city ? " No specific job location is published." : "")
+  };
+}
+var CITY_NAMES, SERVICE_ALIASES, SERVICE_ORDER;
+var init_companycam_photo_seo = __esm({
+  "shared/companycam-photo-seo.ts"() {
     "use strict";
-    JOB_PHOTO_REVIEWS = [
-      { id: "3524792493", sha256: "1b7981279ce71f1878fd04914d1330dde66d641af049d464e0546c21eedd8954", cropBottom: 0.18 },
-      { id: "3506074506", sha256: "7e1e1e948083f601c201b487c789408ddee4ad1d849b95b4e2112e0ac21c9941", cropBottom: 0.18 },
-      { id: "3506019549", sha256: "d66254f0543c0d39fe2b99ca48b348c3d7d19722e5c4b8f1a76be5d3e471d5ac", cropBottom: 0.18 },
-      { id: "3501785633", sha256: "7820eb0af1b88450380f835c478c4e300544cede64ddd5373d02f0e107ec2494", cropBottom: 0.18 },
-      { id: "3501775336", sha256: "63b31e3e0d2307e214dc8313dcdcf77309525fe09a78684da298a83ddbf2599e", cropBottom: 0.18 },
-      { id: "3501746920", sha256: "f22834f55e67db385934a392cb13e3bdf6cec3f52ac3ee26d724b3580128e78c", cropBottom: 0.18 },
-      { id: "3496065714", sha256: "9ce66437aa8a8f89de7a763324bf8c10f97b5322f397a19edca6bc3046a696e1", cropBottom: 0.18 },
-      { id: "3491903395", sha256: "25ad0d17d0567da5772b3d4eb276cbee1cf1fe615939ab566d62cda183b9e984", cropBottom: 0.18 },
-      { id: "3483424552", sha256: "89b2e0fb27c22c04d86c9d64a4da9dc1ce57c70d8fb5b1673e1280d945831c83", cropBottom: 0.18 }
+    init_city_zips();
+    CITY_NAMES = /* @__PURE__ */ new Map();
+    for (const slug of Object.keys(cityZips)) {
+      const name = slug.split("-").map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
+      CITY_NAMES.set(normalize(name), name);
+      CITY_NAMES.set(normalize(slug), name);
+    }
+    SERVICE_ALIASES = [
+      [/\b(?:roof repairs?|leak repairs?)\b/i, "roof repair"],
+      [/\b(?:roof replacements?|reroof|re roof)\b/i, "roof replacement"],
+      [/\b(?:residential roofing|asphalt shingles?|asphalt shingle roofing|shingle roofing)\b/i, "residential roofing"],
+      [/\b(?:commercial roofing|commercial systems?)\b/i, "commercial roofing"],
+      [/\b(?:gutters?|gutter installation|gutter replacement)\b/i, "gutter service"],
+      [/\b(?:flat roof(?:ing)?|low slope(?: roofing)?)\b/i, "flat-roofing service"],
+      [/\b(?:skylights?|skylight installation|skylight repair)\b/i, "skylight service"],
+      [/\b(?:emergency(?: roof repair| roofing| repairs?| services?)?|storm damage repair|emergency tarping)\b/i, "emergency roofing service"]
+    ];
+    SERVICE_ORDER = [
+      "roof repair",
+      "roof replacement",
+      "residential roofing",
+      "commercial roofing",
+      "gutter service",
+      "flat-roofing service",
+      "skylight service",
+      "emergency roofing service"
     ];
   }
 });
@@ -115,11 +201,126 @@ function normalizeGalleryCity(value) {
   const normalized = normalizeWords(value).replace(/\s+ca$/, "");
   return CITY_BY_NORMALIZED_NAME.get(normalized)?.name;
 }
-var SERVICE_TAG_ALIASES, PUBLIC_SERVICE_TAGS, CITY_BY_NORMALIZED_NAME;
+function isRecord(value) {
+  return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+function invalidPhoto(index, reason) {
+  const location = index === void 0 ? "manifest" : `photo ${index}`;
+  throw new Error(`Invalid tagged job photo ${location}: ${reason}`);
+}
+function requiredString(record, key, index) {
+  if (typeof record[key] !== "string" || record[key].trim().length === 0) {
+    invalidPhoto(index, `${key} must be a non-empty string`);
+  }
+  return record[key];
+}
+function optionalString(record, key, index) {
+  if (!(key in record)) return void 0;
+  if (typeof record[key] !== "string") invalidPhoto(index, `${key} must be a string`);
+  return record[key];
+}
+function validatePhotoSeo(value, index) {
+  if (value === void 0) return;
+  if (!isRecord(value)) invalidPhoto(index, "photoSeo must be an object");
+  for (const key of ["alt", "title", "caption", "description"]) {
+    if (typeof value[key] !== "string" || value[key].trim().length === 0) {
+      invalidPhoto(index, `photoSeo.${key} must be a non-empty string`);
+    }
+  }
+}
+function localAssetPath2(value, key, index) {
+  if (typeof value !== "string" || !/^\/images\/(?:projects|field-notes)\/[^/]+\.webp$/.test(value)) {
+    invalidPhoto(index, `${key} must be a local WebP asset path`);
+  }
+  return value;
+}
+function parseTaggedJobPhotos(payload) {
+  if (!Array.isArray(payload)) invalidPhoto(void 0, "expected an array");
+  const ids = /* @__PURE__ */ new Set();
+  const thumbnails = /* @__PURE__ */ new Set();
+  const fullSizes = /* @__PURE__ */ new Set();
+  return payload.map((value, index) => {
+    if (!isRecord(value)) invalidPhoto(index, "expected an object");
+    const id = requiredString(value, "id", index);
+    if (ids.has(id)) invalidPhoto(index, `duplicate id ${id}`);
+    ids.add(id);
+    const thumbnail = localAssetPath2(value.thumbnail, "thumbnail", index);
+    const fullSize = localAssetPath2(value.fullSize, "fullSize", index);
+    if (thumbnails.has(thumbnail)) invalidPhoto(index, `duplicate thumbnail ${thumbnail}`);
+    if (fullSizes.has(fullSize)) invalidPhoto(index, `duplicate fullSize ${fullSize}`);
+    thumbnails.add(thumbnail);
+    fullSizes.add(fullSize);
+    if (typeof value.createdAt !== "number" || !Number.isFinite(value.createdAt)) {
+      invalidPhoto(index, "createdAt must be finite");
+    }
+    if (!Array.isArray(value.tags) || value.tags.some((tag) => typeof tag !== "string")) {
+      invalidPhoto(index, "tags must be an array of strings");
+    }
+    const tags = value.tags.map((tag) => normalizeGalleryTag(tag) ?? normalizeGalleryCity(tag)).filter((tag) => Boolean(tag));
+    const city = requiredString(value, "city", index);
+    const normalizedCity = city === BAY_AREA ? BAY_AREA : normalizeGalleryCity(city);
+    if (!normalizedCity) invalidPhoto(index, "city must be a known city or Bay Area");
+    if (!tags.some((tag) => Boolean(normalizeGalleryTag(tag)))) {
+      invalidPhoto(index, "at least one public service tag is required");
+    }
+    validatePhotoSeo(value.photoSeo, index);
+    const photoSeo = getCompanyCamPhotoSeo({ city: normalizedCity, tags });
+    const photo = {
+      id,
+      thumbnail,
+      fullSize,
+      createdAt: value.createdAt,
+      tags: [...new Set(tags)],
+      city: normalizedCity,
+      description: photoSeo.description,
+      photoSeo
+    };
+    for (const key of ["state"]) {
+      const optionalValue = optionalString(value, key, index);
+      if (optionalValue !== void 0) photo[key] = optionalValue;
+    }
+    if ("isVideo" in value) {
+      if (value.isVideo !== false) invalidPhoto(index, "isVideo must be false");
+      photo.isVideo = false;
+    }
+    if ("videoUrl" in value) {
+      if (value.videoUrl !== "") invalidPhoto(index, "videoUrl must be empty");
+      photo.videoUrl = "";
+    }
+    if ("coordinates" in value) {
+      if (value.coordinates !== null) invalidPhoto(index, "coordinates must be null");
+      photo.coordinates = null;
+    }
+    return photo;
+  });
+}
+function requestedTag(value) {
+  const service = normalizeGalleryTag(value);
+  if (service) return { service };
+  const city = normalizeGalleryCity(value);
+  if (city) return { city };
+  return {};
+}
+function filterTaggedJobPhotos(photos, filter = {}) {
+  const requested = filter.tag ? requestedTag(filter.tag) : {};
+  const service = requested.service ?? (filter.tag ? void 0 : void 0);
+  const tagCity = requested.city;
+  if (filter.tag && !service && !tagCity) return [];
+  const requestedCity = filter.city ? normalizeGalleryCity(filter.city) : tagCity;
+  if (filter.city && !requestedCity) return [];
+  if (tagCity && filter.city && requestedCity !== tagCity) return [];
+  return photos.filter((photo) => {
+    const hasService = !service || photo.tags.some((tag) => normalizeGalleryTag(tag) === service);
+    const hasCity = !requestedCity || photo.city !== BAY_AREA && normalizeGalleryCity(photo.city) === requestedCity;
+    return hasService && hasCity;
+  });
+}
+var SERVICE_TAG_ALIASES, PUBLIC_SERVICE_TAGS, BAY_AREA, CITY_BY_NORMALIZED_NAME;
 var init_tagged_job_photos = __esm({
   "shared/tagged-job-photos.ts"() {
     "use strict";
     init_city_zips();
+    init_companycam_photo_seo();
     SERVICE_TAG_ALIASES = {
       "roof repair": "Roof Repair",
       "roof repairs": "Roof Repair",
@@ -165,6 +366,7 @@ var init_tagged_job_photos = __esm({
       "storm damage repair": "Emergency"
     };
     PUBLIC_SERVICE_TAGS = new Set(Object.values(SERVICE_TAG_ALIASES));
+    BAY_AREA = "Bay Area";
     CITY_BY_NORMALIZED_NAME = /* @__PURE__ */ new Map();
     for (const slug of Object.keys(cityZips)) {
       const name = titleFromSlug(slug);
@@ -174,9 +376,29 @@ var init_tagged_job_photos = __esm({
   }
 });
 
+// shared/job-photo-reviews.ts
+var JOB_PHOTO_REVIEWS;
+var init_job_photo_reviews = __esm({
+  "shared/job-photo-reviews.ts"() {
+    "use strict";
+    JOB_PHOTO_REVIEWS = [
+      { id: "3524792493", sha256: "1b7981279ce71f1878fd04914d1330dde66d641af049d464e0546c21eedd8954", cropBottom: 0.18 },
+      { id: "3506074506", sha256: "7e1e1e948083f601c201b487c789408ddee4ad1d849b95b4e2112e0ac21c9941", cropBottom: 0.18 },
+      { id: "3506019549", sha256: "d66254f0543c0d39fe2b99ca48b348c3d7d19722e5c4b8f1a76be5d3e471d5ac", cropBottom: 0.18 },
+      { id: "3501785633", sha256: "7820eb0af1b88450380f835c478c4e300544cede64ddd5373d02f0e107ec2494", cropBottom: 0.18 },
+      { id: "3501775336", sha256: "63b31e3e0d2307e214dc8313dcdcf77309525fe09a78684da298a83ddbf2599e", cropBottom: 0.18 },
+      { id: "3501746920", sha256: "f22834f55e67db385934a392cb13e3bdf6cec3f52ac3ee26d724b3580128e78c", cropBottom: 0.18 },
+      { id: "3496065714", sha256: "9ce66437aa8a8f89de7a763324bf8c10f97b5322f397a19edca6bc3046a696e1", cropBottom: 0.18 },
+      { id: "3491903395", sha256: "25ad0d17d0567da5772b3d4eb276cbee1cf1fe615939ab566d62cda183b9e984", cropBottom: 0.18 },
+      { id: "3483424552", sha256: "89b2e0fb27c22c04d86c9d64a4da9dc1ce57c70d8fb5b1673e1280d945831c83", cropBottom: 0.18 }
+    ];
+  }
+});
+
 // script/generate-city-job-photos.ts
 var generate_city_job_photos_exports = {};
 __export(generate_city_job_photos_exports, {
+  backfillTaggedJobPhotoMetadata: () => backfillTaggedJobPhotoMetadata,
   generateCityJobPhotos: () => generateCityJobPhotos,
   syncTaggedJobPhotos: () => syncTaggedJobPhotos
 });
@@ -193,7 +415,7 @@ import {
 } from "fs/promises";
 import path3 from "path";
 import sharp2 from "sharp";
-function isRecord(value) {
+function isRecord2(value) {
   return value !== null && typeof value === "object" && !Array.isArray(value);
 }
 async function companyCamFetch2(url, token, fetcher) {
@@ -210,10 +432,10 @@ async function companyCamFetch2(url, token, fetcher) {
 }
 function pageFromPayload(payload) {
   if (Array.isArray(payload)) return { values: payload };
-  if (!isRecord(payload)) throw new Error("CompanyCam API returned an invalid paginated response");
+  if (!isRecord2(payload)) throw new Error("CompanyCam API returned an invalid paginated response");
   const values = Array.isArray(payload.data) ? payload.data : Array.isArray(payload.results) ? payload.results : Array.isArray(payload.items) ? payload.items : Array.isArray(payload.tags) ? payload.tags : Array.isArray(payload.photos) ? payload.photos : void 0;
   if (!values) throw new Error("CompanyCam API returned an invalid paginated response");
-  const metadata = isRecord(payload.meta) ? payload.meta : isRecord(payload.pagination) ? payload.pagination : payload;
+  const metadata = isRecord2(payload.meta) ? payload.meta : isRecord2(payload.pagination) ? payload.pagination : payload;
   const total = typeof metadata.total === "number" ? metadata.total : void 0;
   const totalPages = typeof metadata.total_pages === "number" ? metadata.total_pages : typeof metadata.totalPages === "number" ? metadata.totalPages : typeof metadata.pages === "number" ? metadata.pages : void 0;
   const nextRaw = metadata.next_page ?? metadata.nextPage;
@@ -277,7 +499,7 @@ function embeddedPublicTags(photo, tagById) {
   const labels = [];
   if (Array.isArray(photo.tags)) {
     for (const raw of photo.tags) {
-      const tag = typeof raw === "string" ? { id: raw, display_value: raw } : isRecord(raw) ? {
+      const tag = typeof raw === "string" ? { id: raw, display_value: raw } : isRecord2(raw) ? {
         id: typeof raw.id === "string" || typeof raw.id === "number" ? raw.id : "",
         display_value: typeof raw.display_value === "string" ? raw.display_value : typeof raw.displayValue === "string" ? raw.displayValue : typeof raw.name === "string" ? raw.name : ""
       } : void 0;
@@ -331,7 +553,7 @@ function epochSeconds(value) {
 }
 function extractCity(value) {
   if (typeof value === "string") return normalizeGalleryCity(value);
-  if (!isRecord(value)) return void 0;
+  if (!isRecord2(value)) return void 0;
   for (const key of ["city", "locality", "town"]) {
     const city = value[key];
     if (typeof city === "string") {
@@ -342,8 +564,8 @@ function extractCity(value) {
   return void 0;
 }
 function resolveProjectCity(project) {
-  if (!isRecord(project)) return void 0;
-  return (isRecord(project.project) ? resolveProjectCity(project.project) : void 0) ?? extractCity(project.city) ?? extractCity(project.address) ?? extractCity(project.location);
+  if (!isRecord2(project)) return void 0;
+  return (isRecord2(project.project) ? resolveProjectCity(project.project) : void 0) ?? extractCity(project.city) ?? extractCity(project.address) ?? extractCity(project.location);
 }
 function originalUri(photo) {
   const original = photo.uris?.find((uri) => uri.type === "original" && typeof uri.uri === "string" && uri.uri.length > 0);
@@ -380,13 +602,14 @@ function publicPhoto(photo, asset, tags, city) {
   const id = String(photo.id);
   const createdAt = epochSeconds(photo.created_at);
   if (!id.trim() || createdAt === void 0 || tags.length === 0) return void 0;
-  const alt = "ROOF EXPRESS roofing work documented with CompanyCam";
+  const photoSeo = getCompanyCamPhotoSeo({ city, tags });
   return {
     id,
     thumbnail: asset,
     fullSize: asset,
     createdAt,
-    description: alt,
+    description: photoSeo.description,
+    photoSeo,
     city,
     state: "CA",
     isVideo: false,
@@ -396,16 +619,21 @@ function publicPhoto(photo, asset, tags, city) {
   };
 }
 function cityPhoto(photo) {
+  const photoSeo = getCompanyCamPhotoSeo(photo);
   return {
     src: photo.thumbnail,
-    alt: photo.description ?? "ROOF EXPRESS roofing work documented with CompanyCam",
-    caption: "Tagged roofing project photo \u2014 ROOF EXPRESS"
+    alt: photoSeo.alt,
+    caption: photoSeo.caption,
+    title: photoSeo.title,
+    description: photoSeo.description,
+    photoSeo
   };
 }
 function generatedCitySource(result2) {
   return `// Generated from tagged CompanyCam roofing photos. Do not edit by hand.
 // Only local WebP derivatives and generic public copy are published.
-export interface CityProjectPhoto { src: string; alt: string; caption: string; }
+export interface CompanyCamPhotoSeo { alt: string; title: string; caption: string; description: string; }
+export interface CityProjectPhoto { src: string; alt: string; caption: string; title?: string; description?: string; photoSeo?: CompanyCamPhotoSeo; }
 export let CITY_PROJECT_PHOTOS: Record<string, CityProjectPhoto[]> = ${JSON.stringify(result2, null, 2)};
 export function setCityProjectPhotos(photos: Record<string, CityProjectPhoto[]>): void { CITY_PROJECT_PHOTOS = photos; }
 export function getCityProjectPhotos(slug: string): CityProjectPhoto[] { return CITY_PROJECT_PHOTOS[slug] || []; }
@@ -506,7 +734,7 @@ async function syncTaggedJobPhotos(options = {}) {
     }
   }
   const cachePayload = await readJson(cachePath, []);
-  const cache = Array.isArray(cachePayload) ? cachePayload.filter((item) => isRecord(item) && typeof item.id === "string" && typeof item.sourceKey === "string" && typeof item.asset === "string") : [];
+  const cache = Array.isArray(cachePayload) ? cachePayload.filter((item) => isRecord2(item) && typeof item.id === "string" && typeof item.sourceKey === "string" && typeof item.asset === "string") : [];
   const cacheById = new Map(cache.map((item) => [item.id, item]));
   const reviewById = new Map(JOB_PHOTO_REVIEWS.map((review) => [review.id, review]));
   const publicPhotos = [];
@@ -515,7 +743,7 @@ async function syncTaggedJobPhotos(options = {}) {
   const previousById = /* @__PURE__ */ new Map();
   if (Array.isArray(previousPayload)) {
     for (const item of previousPayload) {
-      if (isRecord(item) && typeof item.id === "string") previousById.set(item.id, item);
+      if (isRecord2(item) && typeof item.id === "string") previousById.set(item.id, item);
     }
   }
   for (const [id, photo] of byId) {
@@ -527,7 +755,7 @@ async function syncTaggedJobPhotos(options = {}) {
     const embeddedProjectCity = resolveProjectCity(photo.project);
     const project = !embeddedProjectCity && uniqueCityTags.length === 0 ? await fetchProject(photo, token, fetcher) : void 0;
     const actualProjectCity = embeddedProjectCity ?? resolveProjectCity(project);
-    const city = actualProjectCity ?? (uniqueCityTags.length === 1 ? uniqueCityTags[0] : BAY_AREA);
+    const city = actualProjectCity ?? (uniqueCityTags.length === 1 ? uniqueCityTags[0] : BAY_AREA2);
     const key = sourceKey(photo);
     const cached = cacheById.get(id);
     const cachedAsset = cached && key && cached.sourceKey === key ? safeAssetPath(cached.asset) : void 0;
@@ -544,7 +772,7 @@ async function syncTaggedJobPhotos(options = {}) {
   nextCache.sort((a, b) => a.id.localeCompare(b.id));
   const result2 = {};
   for (const photo of publicPhotos) {
-    const slug = photo.city === BAY_AREA ? void 0 : citySlug2(photo.city);
+    const slug = photo.city === BAY_AREA2 ? void 0 : citySlug2(photo.city);
     if (!slug) continue;
     (result2[slug] ??= []).push(cityPhoto(photo));
   }
@@ -569,6 +797,25 @@ async function syncTaggedJobPhotos(options = {}) {
     unchanged,
     cityProjectPhotos: result2
   };
+}
+async function backfillTaggedJobPhotoMetadata(options = {}) {
+  const projectRoot = path3.resolve(options.projectRoot ?? process.cwd());
+  const snapshotPath = path3.resolve(
+    options.snapshotPath ?? path3.join(projectRoot, "client/public/data/job-photos.json")
+  );
+  const manifestPath = path3.resolve(
+    options.manifestPath ?? path3.join(projectRoot, "shared/city-project-photos.ts")
+  );
+  const payload = JSON.parse(await readFile3(snapshotPath, "utf8"));
+  const photos = parseTaggedJobPhotos(payload);
+  const result2 = {};
+  for (const photo of photos) {
+    const slug = photo.city === BAY_AREA2 ? void 0 : citySlug2(photo.city);
+    if (slug) (result2[slug] ??= []).push(cityPhoto(photo));
+  }
+  const snapshotChanged = await atomicWrite(snapshotPath, JSON.stringify(photos));
+  const manifestChanged = await atomicWrite(manifestPath, generatedCitySource(result2));
+  return { changed: snapshotChanged || manifestChanged, count: photos.length };
 }
 async function generateCityJobPhotos(options = {}) {
   if (!Object.prototype.hasOwnProperty.call(options, "reviews")) {
@@ -629,16 +876,25 @@ async function generateReviewedCompatibility(options) {
     const filename = `tagged-${review.id}-${createHash2("sha256").update(webp).digest("hex").slice(0, 12)}.webp`;
     await writeFile3(path3.join(stagingDir, filename), webp);
     const src = `/images/projects/${filename}`;
-    const alt = "ROOF EXPRESS roofing work documented with CompanyCam";
-    const caption = "Tagged roofing job photo \u2014 ROOF EXPRESS";
-    photos.push({ src, alt, caption });
+    const photoSeo = getCompanyCamPhotoSeo({ city: BAY_AREA2 });
+    const alt = photoSeo.alt;
+    const caption = photoSeo.caption;
+    photos.push({
+      src,
+      alt,
+      caption,
+      title: photoSeo.title,
+      description: photoSeo.description,
+      photoSeo
+    });
     snapshot.push({
       id: review.id,
       thumbnail: src,
       fullSize: src,
       createdAt: epochSeconds(photo.created_at) ?? 0,
-      description: alt,
-      city: BAY_AREA,
+      description: photoSeo.description,
+      photoSeo,
+      city: BAY_AREA2,
       state: "CA",
       isVideo: false,
       videoUrl: "",
@@ -660,18 +916,24 @@ async function generateReviewedCompatibility(options) {
   return result2;
 }
 async function runCli() {
+  if (process.argv.includes("--metadata-only")) {
+    const result2 = await backfillTaggedJobPhotoMetadata();
+    console.log(`Backfilled metadata for ${result2.count} saved gallery photos${result2.changed ? "" : " (no changes)"}.`);
+    return;
+  }
   await syncTaggedJobPhotos({ token: process.env.COMPANYCAM_API_TOKEN });
 }
-var API, PAGE_SIZE2, BAY_AREA, DEFAULT_BOTTOM_CROP;
+var API, PAGE_SIZE2, BAY_AREA2, DEFAULT_BOTTOM_CROP;
 var init_generate_city_job_photos = __esm({
   "script/generate-city-job-photos.ts"() {
     "use strict";
     init_city_zips();
     init_job_photo_reviews();
     init_tagged_job_photos();
+    init_companycam_photo_seo();
     API = "https://api.companycam.com/v2";
     PAGE_SIZE2 = 100;
-    BAY_AREA = "Bay Area";
+    BAY_AREA2 = "Bay Area";
     DEFAULT_BOTTOM_CROP = 0.18;
     if (process.argv[1] && path3.basename(process.argv[1]) === "generate-city-job-photos.ts" && path3.resolve(process.argv[1]) === fileURLToPath2(import.meta.url)) {
       runCli().catch((error) => {
@@ -737,6 +999,12 @@ function toFieldNoteSummary(post) {
   const { description: _description, ...summary } = post;
   return summary;
 }
+
+// server/field-notes-renderer.ts
+init_companycam_photo_seo();
+
+// shared/field-notes-schema.ts
+init_companycam_photo_seo();
 
 // shared/public-site-config.ts
 var PUBLIC_SITE_CONFIG = {
@@ -1328,6 +1596,7 @@ function imageForPost(post) {
   }
   const url = `${SITE_URL2}${path5}`;
   const thumbnailPath = localAssetPath(post.thumbnail);
+  const photoSeo = getCompanyCamPhotoSeo(post, "field-note");
   return {
     id: `${postUrl(post.slug)}#primaryimage`,
     node: {
@@ -1337,7 +1606,10 @@ function imageForPost(post) {
       contentUrl: url,
       width: post.imageWidth,
       height: post.imageHeight,
-      encodingFormat
+      encodingFormat,
+      name: photoSeo.title,
+      caption: photoSeo.caption,
+      description: photoSeo.description
     },
     ...thumbnailPath ? { thumbnailUrl: `${SITE_URL2}${thumbnailPath}` } : {}
   };
@@ -1757,8 +2029,9 @@ function renderRelated(post, allPosts) {
     <h2 class="text-lg font-bold text-brandNavy mb-4">More Field Notes</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">${related.slice(0, 3).map((candidate) => {
     const image = localThumbnailPath(candidate);
+    const photoSeo = getCompanyCamPhotoSeo(candidate, "field-note");
     return `<a href="${FIELD_NOTES_PATH}/${encodeURIComponent(candidate.slug)}" class="group block bg-white rounded-xl border border-slate-100 overflow-hidden hover:shadow-md transition">
-        ${image ? `<div class="aspect-[16/10] overflow-hidden"><img src="${escapeHtml(image)}" alt="${escapeHtml(titleFor(candidate))}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" width="${candidate.imageWidth}" height="${candidate.imageHeight}" /></div>` : ""}
+        ${image ? `<div class="aspect-[16/10] overflow-hidden"><img src="${escapeHtml(image)}" alt="${escapeHtml(photoSeo.alt)}" title="${escapeHtml(photoSeo.title)}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" width="${candidate.imageWidth}" height="${candidate.imageHeight}" /></div>` : ""}
         <div class="p-4"><p class="text-xs text-slate-400 mb-1">${escapeHtml(candidate.city)} \xB7 ${escapeHtml(displayDate(candidate.createdAt, false))}</p><h3 class="text-sm font-bold text-brandNavy line-clamp-2 group-hover:text-brandOrange transition">${escapeHtml(titleFor(candidate))}</h3></div>
       </a>`;
   }).join("")}</div>
@@ -1775,9 +2048,10 @@ function renderFieldNoteHtml(baseHtml, post, allPosts) {
   const published = isoDate2(post.createdAt);
   const modified = isoDate2(post.updatedAt);
   const blocks = parseContent(post.description, title);
+  const photoSeo = getCompanyCamPhotoSeo(post, "field-note");
   const headings = blocks.map((block, index) => block.type === "heading" ? { id: `section-${index}`, text: block.text } : null).filter((heading) => heading !== null);
   const toc = headings.length >= 2 ? `<nav class="bg-slate-50 rounded-xl border border-slate-100 mb-8 overflow-hidden" aria-label="Table of contents"><div class="p-5"><h2 class="text-xs font-black text-brandNavy uppercase tracking-widest m-0">In This Note <span class="text-[10px] font-bold text-slate-400 normal-case tracking-normal">(${headings.length} sections)</span></h2></div><ol class="space-y-1.5 px-5 pb-5">${headings.map((heading, index) => `<li><a href="#${heading.id}" class="flex items-center gap-2.5 text-sm text-slate-600 hover:text-brandOrange transition leading-snug"><span class="w-5 h-5 rounded-md bg-brandNavy/5 text-brandNavy text-[10px] font-bold flex items-center justify-center shrink-0">${index + 1}</span><span>${escapeHtml(heading.text)}</span></a></li>`).join("")}</ol></nav>` : "";
-  const imageHtml = image ? `<figure class="rounded-2xl overflow-hidden mb-8 shadow-lg"><img src="${escapeHtml(image)}" alt="${escapeHtml(title)} \u2014 roofing field note in ${escapeHtml(post.city)}" class="w-full aspect-[16/10] object-cover" width="${post.imageWidth}" height="${post.imageHeight}" loading="eager" fetchpriority="high" decoding="async" /><figcaption class="sr-only">${escapeHtml(title)} \u2014 ROOF EXPRESS roofing field note in ${escapeHtml(post.city)}</figcaption></figure>` : "";
+  const imageHtml = image ? `<figure class="mb-8"><div class="relative rounded-2xl overflow-hidden shadow-lg"><img src="${escapeHtml(image)}" alt="${escapeHtml(photoSeo.alt)}" title="${escapeHtml(photoSeo.title)}" class="w-full aspect-[16/10] object-cover" width="${post.imageWidth}" height="${post.imageHeight}" loading="eager" fetchpriority="high" decoding="async" /></div><figcaption class="mt-3 text-sm text-slate-600"><details class="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3"><summary class="cursor-pointer font-bold text-brandNavy">${escapeHtml(photoSeo.caption)}</summary><p class="mt-2 leading-relaxed">${escapeHtml(photoSeo.description)}</p></details></figcaption></figure>` : "";
   const articleHtml = `<div id="field-note-prerendered" data-post-id="${escapeHtml(post.id)}"><article class="max-w-4xl mx-auto px-4 py-8">
     <nav class="flex items-center gap-2 text-xs text-slate-400 mb-6" aria-label="Breadcrumb"><a href="/" class="hover:text-brandOrange transition">Home</a><span aria-hidden="true">/</span><a href="/blog" class="hover:text-brandOrange transition">Blog</a><span aria-hidden="true">/</span><a href="${FIELD_NOTES_PATH}" class="hover:text-brandOrange transition">Field Notes</a><span aria-hidden="true">/</span><span class="text-brandNavy font-medium" aria-current="page">${escapeHtml(title)}</span></nav>
     <header class="mb-8"><h1 class="text-2xl md:text-3xl lg:text-4xl font-black text-brandNavy leading-tight mb-4">${escapeHtml(title)}</h1><div class="flex flex-wrap items-center gap-3 text-sm text-slate-500 mb-4"><span class="inline-flex items-center gap-1.5 bg-brandNavy/5 text-brandNavy px-3 py-1 rounded-full text-xs font-bold">${escapeHtml(post.city)}, ${escapeHtml(post.state)}</span><time datetime="${published}">${escapeHtml(displayDate(post.createdAt))}</time><span aria-hidden="true">\xB7</span><span>${Math.max(1, Math.ceil(post.description.split(/\s+/).filter(Boolean).length / 200))} min read</span></div></header>
@@ -1800,8 +2074,9 @@ function renderFieldNoteHtml(baseHtml, post, allPosts) {
 function summaryCard(post, featured = false) {
   const image = localThumbnailPath(post);
   const title = titleFor(post);
+  const photoSeo = getCompanyCamPhotoSeo(post, "field-note");
   return `<a href="${FIELD_NOTES_PATH}/${encodeURIComponent(post.slug)}" class="group block" data-field-note-slug="${escapeHtml(post.slug)}"><article class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 h-full flex ${featured ? "lg:flex-row" : "flex-col"}">
-    ${image ? `<div class="${featured ? "lg:w-3/5 aspect-[4/3]" : "aspect-[5/4]"} relative overflow-hidden"><img src="${escapeHtml(image)}" alt="${escapeHtml(title)}" class="w-full h-full object-cover" loading="${featured ? "eager" : "lazy"}" ${featured ? 'fetchpriority="high"' : ""} width="${post.imageWidth}" height="${post.imageHeight}" /></div>` : ""}
+    ${image ? `<div class="${featured ? "lg:w-3/5 aspect-[4/3]" : "aspect-[5/4]"} relative overflow-hidden"><img src="${escapeHtml(image)}" alt="${escapeHtml(photoSeo.alt)}" title="${escapeHtml(photoSeo.title)}" class="w-full h-full object-cover" loading="${featured ? "eager" : "lazy"}" ${featured ? 'fetchpriority="high"' : ""} width="${post.imageWidth}" height="${post.imageHeight}" /></div>` : ""}
     <div class="${featured ? "lg:w-2/5 p-8" : "p-4"} flex flex-col"><p class="text-brandOrange text-[10px] font-black uppercase tracking-widest mb-3">${escapeHtml(post.city)} \xB7 ${escapeHtml(displayDate(post.createdAt, false))}</p><h${featured ? "2" : "3"} class="${featured ? "text-2xl lg:text-3xl" : "text-sm"} font-black text-brandNavy leading-tight group-hover:text-brandOrange transition">${escapeHtml(title)}</h${featured ? "2" : "3"}><p class="text-slate-500 text-sm leading-relaxed mt-3 ${featured ? "" : "line-clamp-2"}">${escapeHtml(excerptFor(post))}</p></div>
   </article></a>`;
 }
@@ -1885,6 +2160,16 @@ function validateFieldNoteArchive(value) {
         throw new Error(`Field Notes archive post ${index} has invalid ${field}`);
       }
     }
+    if (post.photoSeo !== void 0) {
+      if (!post.photoSeo || typeof post.photoSeo !== "object") {
+        throw new Error(`Field Notes archive post ${index} has invalid photoSeo`);
+      }
+      for (const field of ["alt", "title", "caption", "description"]) {
+        if (typeof post.photoSeo[field] !== "string" || !post.photoSeo[field].trim()) {
+          throw new Error(`Field Notes archive post ${index} has invalid photoSeo.${field}`);
+        }
+      }
+    }
     const localImage = localImagePath(post);
     if (!localImage) throw new Error(`Field Notes archive post ${index} must have a localImage path`);
     const { id, slug } = post;
@@ -1899,6 +2184,8 @@ function validateFieldNoteArchive(value) {
 }
 
 // script/refresh-field-notes-published.ts
+init_companycam_photo_seo();
+init_tagged_job_photos();
 var SITE_URL4 = "https://roof-ex.com";
 async function exists(filePath) {
   try {
@@ -1960,6 +2247,51 @@ function xmlEscape(value) {
 function htmlEscape(value) {
   return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 }
+var SERVICE_GALLERY_ROUTES = {
+  "residential": "Asphalt Shingle Roofing",
+  "commercial": "Commercial Systems",
+  "flat": "Flat Roof",
+  "roof-repair": "Roof Repair",
+  "roof-replacement": "Roof Replacement",
+  "gutters": "Gutters",
+  "skylights": "Skylights",
+  "emergency": "Emergency"
+};
+var CITY_SERVICE_GALLERY_TAGS = {
+  "roof-repair": "Roof Repair",
+  "roof-replacement": "Roof Replacement",
+  "residential-roofing": "Asphalt Shingle Roofing",
+  "commercial-roofing": "Commercial Systems",
+  "gutters": "Gutters",
+  "flat-roof": "Flat Roof",
+  "skylight-installation": "Skylights",
+  "asphalt-shingle": "Asphalt Shingle Roofing"
+};
+function galleryFigure(photo) {
+  const seo = photo.photoSeo ?? getCompanyCamPhotoSeo(photo);
+  const details = seo.description && seo.description !== seo.caption ? `<details><summary>Photo details</summary><p>${htmlEscape(seo.description)}</p></details>` : "";
+  return `<figure><img src="${htmlEscape(photo.src)}" alt="${htmlEscape(seo.alt)}" title="${htmlEscape(seo.title)}" loading="lazy" width="800" /><figcaption>${htmlEscape(seo.caption)}</figcaption>${details}</figure>`;
+}
+function representativeGalleryMarkup(photos, filter, limit) {
+  const filtered = filterTaggedJobPhotos(photos.map((photo, index) => ({
+    id: photo.id ?? String(index),
+    thumbnail: photo.src,
+    fullSize: photo.src,
+    createdAt: 0,
+    tags: [...photo.tags ?? []],
+    city: photo.city ?? "Bay Area",
+    description: photo.alt
+  })), filter).slice(0, limit);
+  const paths = new Set(filtered.map((photo) => photo.thumbnail));
+  const figures = photos.filter((photo) => paths.has(photo.src)).slice(0, limit).map(galleryFigure).join("");
+  return figures ? `<!-- companycam-gallery:start --><section aria-label="ROOF EXPRESS project photos"><h2>Recent Roofing Project Photos</h2><p>Tagged CompanyCam photos from ROOF EXPRESS projects across the Bay Area.</p>${figures}</section><!-- companycam-gallery:end -->` : "";
+}
+function reconcileRepresentativeGallery(current, replacement) {
+  const bounded = /<!-- companycam-gallery:start -->[\s\S]*?<!-- companycam-gallery:end -->/;
+  if (bounded.test(current)) return current.replace(bounded, replacement);
+  if (!replacement) return current;
+  return current.replace(/(<\/div>\s*<script[^>]*type="module")/, `${replacement}$1`);
+}
 function cityProjectsMarkup(city, entries) {
   return `<h2>Recent ROOF EXPRESS Roofing Projects in ${htmlEscape(city)}</h2><p>Real, documented jobs our crews completed in ${htmlEscape(city)} \u2014 each links to a full write-up with photos, the project date, and what we found on the roof:</p><ul>${entries.slice(0, 5).map((entry) => `<li><a href="/blog/field-notes/${encodeURIComponent(entry.slug)}">${htmlEscape(entry.title)}</a> (${htmlEscape(entry.dateLabel)}) \u2014 ${htmlEscape(entry.excerpt)}</li>`).join("")}</ul><p>Browse all <a href="/blog/field-notes">Field Notes from our crew</a> for more documented projects across the Bay Area.</p>`;
 }
@@ -1975,11 +2307,12 @@ function fieldNoteSitemapEntries(posts) {
     <priority>0.6</priority>
   </url>`;
   return [hub, ...posts.map((post) => {
-    const title = post.title || getFieldNoteTitle(post.description);
+    const photoSeo = getCompanyCamPhotoSeo(post, "field-note");
     const image = post.localImage ? `
     <image:image>
       <image:loc>${xmlEscape(`${SITE_URL4}${post.localImage}`)}</image:loc>
-      <image:caption>${xmlEscape(title)}</image:caption>
+      <image:title>${xmlEscape(photoSeo.title)}</image:title>
+      <image:caption>${xmlEscape(photoSeo.caption)}</image:caption>
     </image:image>` : "";
     return `  <url>
     <loc>${SITE_URL4}/blog/field-notes/${encodeURIComponent(post.slug)}</loc>
@@ -2092,13 +2425,49 @@ async function refreshPublishedGallerySsr(options) {
     const photos = options.cityProjectPhotos[slug] ?? [];
     const pagePath = path.join(staticRoot, `${slug}.html`);
     if (!await exists(pagePath)) continue;
-    const figures = photos.map(
-      (photo) => `<figure><img src="${htmlEscape(photo.src)}" alt="${htmlEscape(photo.alt)}" loading="lazy" width="800" /><figcaption>${htmlEscape(photo.caption)}</figcaption></figure>`
-    ).join("");
-    const replacement = photos.length ? `<h2>Real Roofing Job Photos</h2><p>Tagged CompanyCam photos from ROOF EXPRESS projects across the Bay Area.</p>${figures}` : "";
+    const figures = photos.map(galleryFigure).join("");
+    const replacement = photos.length ? `<!-- companycam-city-gallery:start --><h2>Real Roofing Job Photos</h2><p>Tagged CompanyCam photos from ROOF EXPRESS projects across the Bay Area.</p>${figures}<!-- companycam-city-gallery:end -->` : "";
     const current = await readFile(pagePath, "utf8");
-    const gallerySection = /<h2>Real Roofing Job Photos<\/h2><p>Tagged CompanyCam photos from ROOF EXPRESS projects across the Bay Area\.<\/p>(?:<figure>[\s\S]*?<\/figure>)*/;
-    const next = gallerySection.test(current) ? current.replace(gallerySection, replacement) : photos.length ? current.replace(/<h2>Roofing Services Available in /, `${replacement}<h2>Roofing Services Available in `) : current;
+    const boundedGallery = /<!-- companycam-city-gallery:start -->[\s\S]*?<!-- companycam-city-gallery:end -->/;
+    const legacyGallery = /<h2>Real Roofing Job Photos<\/h2><p>Tagged CompanyCam photos from ROOF EXPRESS projects across the Bay Area\.<\/p>(?:<figure>[\s\S]*?<\/figure>)*/;
+    const next = boundedGallery.test(current) ? current.replace(boundedGallery, replacement) : legacyGallery.test(current) ? current.replace(legacyGallery, replacement) : photos.length ? current.replace(/<h2>Roofing Services Available in /, `${replacement}<h2>Roofing Services Available in `) : current;
+    if (next !== current && await writeIfChanged(pagePath, next)) written += 1;
+  }
+  const snapshotPath = options.sourceMode ? path.join(root, "client", "public", "data", "job-photos.json") : path.join(staticRoot, "data", "job-photos.json");
+  let galleryPhotos = [];
+  try {
+    const raw = JSON.parse(await readFile(snapshotPath, "utf8"));
+    const parsed = parseTaggedJobPhotos(raw);
+    galleryPhotos = parsed.map((photo) => {
+      return {
+        id: photo.id,
+        src: photo.thumbnail,
+        alt: photo.photoSeo?.alt ?? photo.description ?? "ROOF EXPRESS roofing work documented with CompanyCam",
+        caption: photo.photoSeo?.caption ?? "Tagged roofing project photo \u2014 ROOF EXPRESS",
+        city: photo.city,
+        tags: photo.tags,
+        title: photo.photoSeo?.title,
+        photoSeo: photo.photoSeo
+      };
+    });
+  } catch {
+  }
+  const representativeRoutes = [
+    { file: "gallery.html", limit: 12 },
+    ...Object.entries(SERVICE_GALLERY_ROUTES).map(([file, tag]) => ({ file: `${file}.html`, tag, limit: 6 }))
+  ];
+  for (const slug of Object.keys(cityZips)) {
+    const city = slug.split("-").map((word) => `${word[0]?.toUpperCase() ?? ""}${word.slice(1)}`).join(" ");
+    for (const [service, tag] of Object.entries(CITY_SERVICE_GALLERY_TAGS)) {
+      representativeRoutes.push({ file: path.join(slug, `${service}.html`), city, tag, limit: 6 });
+    }
+  }
+  for (const route of representativeRoutes) {
+    const pagePath = path.join(staticRoot, route.file);
+    if (!await exists(pagePath)) continue;
+    const current = await readFile(pagePath, "utf8");
+    const replacement = representativeGalleryMarkup(galleryPhotos, { city: route.city, tag: route.tag }, route.limit);
+    const next = reconcileRepresentativeGallery(current, replacement);
     if (next !== current && await writeIfChanged(pagePath, next)) written += 1;
   }
   if (options.sourceMode) {
@@ -2146,6 +2515,7 @@ function titleToSlug(description) {
 }
 
 // script/sync-field-notes.ts
+init_companycam_photo_seo();
 var API_ROOT = "https://api.companycam.com/v2";
 var PAGE_SIZE = 100;
 var DEFAULT_CONCURRENCY = 6;
@@ -2574,11 +2944,19 @@ async function syncFieldNotes(options = {}) {
         contentHash: contentHash(source.description),
         imageWidth: image?.imageWidth ?? cached.imageWidth,
         imageHeight: image?.imageHeight ?? cached.imageHeight,
-        imageBytes: image?.imageBytes ?? cached.imageBytes
+        imageBytes: image?.imageBytes ?? cached.imageBytes,
+        photoSeo: getCompanyCamPhotoSeo({
+          city: source.city,
+          title: getFieldNoteTitle(source.description),
+          photoSeo: cached?.photoSeo
+        }, "field-note")
       });
     }
     const retainedBecauseAbsent = previousPosts.filter((post) => !fetched.some((current) => current.id === post.id));
-    const posts = sortFieldNotesNewestFirst([...reconciled.values()]);
+    const posts = sortFieldNotesNewestFirst([...reconciled.values()].map((post) => ({
+      ...post,
+      photoSeo: getCompanyCamPhotoSeo(post, "field-note")
+    })));
     const postsChanged = JSON.stringify(posts) !== JSON.stringify(sortFieldNotesNewestFirst(previousPosts));
     const manifestNeedsWrite = !previousManifest || postsChanged || JSON.stringify(posts) !== JSON.stringify(previousPosts);
     const ids = /* @__PURE__ */ new Set();

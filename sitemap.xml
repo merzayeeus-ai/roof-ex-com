@@ -72,7 +72,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/gallery</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -98,16 +98,6 @@
     <image:image>
       <image:loc>https://roof-ex.com/opengraph.jpg</image:loc>
       <image:caption>Roofing Blog — Bay Area Tips &amp; Cost Guides | ROOF EXPRESS</image:caption>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://roof-ex.com/blog/field-notes</loc>
-    <lastmod>2026-09-12</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-    <image:image>
-      <image:loc>https://roof-ex.com/opengraph.jpg</image:loc>
-      <image:caption>Field Notes — Roofing Knowledge Base | ROOF EXPRESS</image:caption>
     </image:image>
   </url>
   <url>
@@ -182,7 +172,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/residential</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -192,7 +182,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/commercial</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -202,7 +192,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/flat</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -212,7 +202,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/roof-repair</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -222,7 +212,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/roof-replacement</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -232,7 +222,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/gutters</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -242,7 +232,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/skylights</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -282,7 +272,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/belmont</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -302,7 +292,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/burlingame</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -352,7 +342,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/foster-city</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -362,7 +352,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/half-moon-bay</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -382,7 +372,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/millbrae</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -432,7 +422,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/san-carlos</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -472,7 +462,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/cupertino</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -502,7 +492,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/los-gatos</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -522,7 +512,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/mountain-view</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -532,7 +522,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/palo-alto</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -542,7 +532,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/san-jose</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -552,7 +542,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/santa-clara</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -572,7 +562,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/sunnyvale</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -612,7 +602,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/fremont</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -652,7 +642,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/oakland</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -662,7 +652,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/piedmont</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -752,7 +742,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/walnut-creek</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -762,7 +752,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/orinda</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -852,7 +842,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/san-anselmo</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -882,7 +872,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/east-palo-alto</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -892,7 +882,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/hillsborough</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -902,7 +892,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/pescadero</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -3372,7 +3362,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/belmont/residential-roofing</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -3422,7 +3412,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/belmont/asphalt-shingle</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -3532,7 +3522,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/burlingame/residential-roofing</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -3582,7 +3572,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/burlingame/asphalt-shingle</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -3882,7 +3872,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/daly-city/flat-roof</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -3932,7 +3922,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/foster-city/residential-roofing</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -3982,7 +3972,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/foster-city/asphalt-shingle</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -4042,7 +4032,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/half-moon-bay/flat-roof</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -4162,7 +4152,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/millbrae/roof-replacement</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -4472,7 +4462,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/san-bruno/roof-repair</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -4482,7 +4472,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/san-bruno/roof-replacement</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -4492,7 +4482,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/san-bruno/residential-roofing</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -4512,7 +4502,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/san-bruno/gutters</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -4542,7 +4532,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/san-bruno/asphalt-shingle</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -4572,7 +4562,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/san-carlos/residential-roofing</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -4612,7 +4602,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/san-carlos/skylight-installation</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -4622,7 +4612,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/san-carlos/asphalt-shingle</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -4632,7 +4622,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/san-mateo/roof-repair</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -4642,7 +4632,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/san-mateo/roof-replacement</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -4662,7 +4652,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/san-mateo/commercial-roofing</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -4682,7 +4672,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/san-mateo/flat-roof</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -4692,7 +4682,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/san-mateo/skylight-installation</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -4712,7 +4702,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/south-san-francisco/roof-repair</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -4722,7 +4712,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/south-san-francisco/roof-replacement</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -4732,7 +4722,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/south-san-francisco/residential-roofing</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -4752,7 +4742,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/south-san-francisco/gutters</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -4772,7 +4762,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/south-san-francisco/skylight-installation</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -4782,7 +4772,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/south-san-francisco/asphalt-shingle</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -4882,7 +4872,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/cupertino/roof-replacement</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -4892,7 +4882,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/cupertino/residential-roofing</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -4942,7 +4932,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/cupertino/asphalt-shingle</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -5162,7 +5152,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/los-gatos/flat-roof</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -5212,7 +5202,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/milpitas/residential-roofing</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -5262,7 +5252,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/milpitas/asphalt-shingle</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -5442,7 +5432,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/san-jose/roof-replacement</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -5452,7 +5442,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/san-jose/residential-roofing</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -5472,7 +5462,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/san-jose/gutters</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -5502,7 +5492,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/san-jose/asphalt-shingle</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -5562,7 +5552,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/santa-clara/flat-roof</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -5682,7 +5672,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/sunnyvale/roof-replacement</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -5692,7 +5682,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/sunnyvale/residential-roofing</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -5732,7 +5722,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/sunnyvale/skylight-installation</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -5742,7 +5732,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/sunnyvale/asphalt-shingle</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -6042,7 +6032,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/fremont/flat-roof</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -6322,7 +6312,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/oakland/roof-replacement</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -6332,7 +6322,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/oakland/residential-roofing</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -6362,7 +6352,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/oakland/flat-roof</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -6382,7 +6372,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/oakland/asphalt-shingle</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -6412,7 +6402,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/piedmont/residential-roofing</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -6462,7 +6452,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/piedmont/asphalt-shingle</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -6792,7 +6782,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/san-francisco/roof-repair</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -6802,7 +6792,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/san-francisco/roof-replacement</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -6812,7 +6802,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/san-francisco/residential-roofing</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -6822,7 +6812,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/san-francisco/commercial-roofing</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -6832,7 +6822,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/san-francisco/gutters</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -6842,7 +6832,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/san-francisco/flat-roof</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -6852,7 +6842,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/san-francisco/skylight-installation</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -6862,7 +6852,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/san-francisco/asphalt-shingle</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -7152,7 +7142,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/walnut-creek/gutters</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -7202,7 +7192,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/orinda/roof-replacement</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -7212,7 +7202,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/orinda/residential-roofing</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -7262,7 +7252,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/orinda/asphalt-shingle</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -7922,7 +7912,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/san-anselmo/roof-replacement</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -7932,7 +7922,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/san-anselmo/residential-roofing</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -7982,7 +7972,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/san-anselmo/asphalt-shingle</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -8162,7 +8152,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/east-palo-alto/roof-replacement</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -8172,7 +8162,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/east-palo-alto/residential-roofing</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -8222,7 +8212,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/east-palo-alto/asphalt-shingle</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -8252,7 +8242,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/hillsborough/residential-roofing</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -8282,7 +8272,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/hillsborough/flat-roof</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -8302,7 +8292,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/hillsborough/asphalt-shingle</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -8362,7 +8352,7 @@
   </url>
   <url>
     <loc>https://roof-ex.com/pescadero/flat-roof</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -10251,13 +10241,31 @@
     </image:image>
   </url>
   <url>
+    <loc>https://roof-ex.com/blog/field-notes</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://roof-ex.com/blog/field-notes/professional-roofing-services-in-belmont-california</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://roof-ex.com/images/field-notes/3592578881-d71137637216da70.webp</image:loc>
+      <image:title>Roofing Field Note Image — Belmont, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roofing for Belmont, California.</image:caption>
+    </image:image>
+  </url>
+  <url>
     <loc>https://roof-ex.com/blog/field-notes/what-is-the-roof-express-process-for-repairing-or-replacing-a-roof</loc>
     <lastmod>2026-09-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/3584234618-696e8f3fffcf766e.webp</image:loc>
-      <image:caption>What Is the Roof Express Process for Repairing or Replacing a Roof</image:caption>
+      <image:title>Roofing Field Note Image — San Francisco, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roofing for San Francisco, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10267,7 +10275,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/3560277053-6c678c7052b46c02.webp</image:loc>
-      <image:caption>Berkeley Roof Replacement</image:caption>
+      <image:title>Roof replacement Field Note Image — Berkeley, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roof replacement for Berkeley, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10277,7 +10286,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/3506074506-87945dafe8579b90.webp</image:loc>
-      <image:caption>Asphalt Shingle Reroofing Project in San Mateo, CA</image:caption>
+      <image:title>Residential roofing Field Note Image — San Mateo, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about residential roofing for San Mateo, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10287,7 +10297,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/3496059338-1cddcb6220b0bcc6.webp</image:loc>
-      <image:caption>Flat Roof Ready for Solar Installation</image:caption>
+      <image:title>Flat-roofing service Field Note Image — San Francisco, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about flat-roofing service for San Francisco, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10297,7 +10308,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/3443236416-cd0a9390c7770d01.webp</image:loc>
-      <image:caption>Flat Roof Replacement in San FranciscoComplete Homeowner Guide</image:caption>
+      <image:title>Roof replacement Field Note Image — San Francisco, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roof replacement for San Francisco, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10307,7 +10319,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/3466541248-9dba59965a4986f0.webp</image:loc>
-      <image:caption>Roof Replacement in Woodside</image:caption>
+      <image:title>Roof replacement Field Note Image — Woodside, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roof replacement for Woodside, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10317,7 +10330,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/3459320542-2c5843b108a28c80.webp</image:loc>
-      <image:caption>Shingle Roof Replacement in San Jose, CA</image:caption>
+      <image:title>Roof replacement Field Note Image — San Jose, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roof replacement for San Jose, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10327,7 +10341,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/3460805873-c7bf2bdbd4bebcf8.webp</image:loc>
-      <image:caption>3-Layer Torch-Down Flat Roof Replacement</image:caption>
+      <image:title>Roof replacement Field Note Image — San Francisco, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roof replacement for San Francisco, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10337,7 +10352,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/3450186447-9a3151c504f2a0c8.webp</image:loc>
-      <image:caption>Roof Replacement in San Francisco, CA</image:caption>
+      <image:title>Roof replacement Field Note Image — San Francisco, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roof replacement for San Francisco, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10347,7 +10363,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/3434434792-a7f136efbef6e77d.webp</image:loc>
-      <image:caption>Roof Replacement in San Jose,</image:caption>
+      <image:title>Roof replacement Field Note Image — San Jose, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roof replacement for San Jose, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10357,7 +10374,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/3487001778-67d0bdbb41b1a7cc.webp</image:loc>
-      <image:caption>What Is El Niño</image:caption>
+      <image:title>Roofing Field Note Image — San Francisco, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roofing for San Francisco, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10367,7 +10385,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/3428756618-8e9219cf632247b7.webp</image:loc>
-      <image:caption>New Asphalt Shingle Roof Installation in Santa Clara, CA</image:caption>
+      <image:title>Residential roofing Field Note Image — Santa Clara, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about residential roofing for Santa Clara, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10377,7 +10396,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/3406190998-e4e2283f16937ae2.webp</image:loc>
-      <image:caption>New Roof Installation Completed in Burlingame</image:caption>
+      <image:title>Roofing Field Note Image — Burlingame, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roofing for Burlingame, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10387,7 +10407,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/3398364468-dbff0b69c88f860c.webp</image:loc>
-      <image:caption>San Anselmo Roof Replacement</image:caption>
+      <image:title>Roof replacement Field Note Image — San Anselmo, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roof replacement for San Anselmo, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10397,7 +10418,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/3386031299-e72bddef2353a704.webp</image:loc>
-      <image:caption>New CertainTeed Presidential TL Roof Installation in Milpitas, CA</image:caption>
+      <image:title>Roofing Field Note Image — Milpitas, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roofing for Milpitas, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10407,7 +10429,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/3447706017-a2603421aee89437.webp</image:loc>
-      <image:caption>Protecting San Francisco Roofs</image:caption>
+      <image:title>Roofing Field Note Image — San Francisco, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roofing for San Francisco, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10417,7 +10440,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/3376440563-5e9e29fd12dbc09c.webp</image:loc>
-      <image:caption>Completing a Beautiful, Durable Shingle Roof in Walnut Creek</image:caption>
+      <image:title>Roofing Field Note Image — Walnut Creek, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roofing for Walnut Creek, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10427,7 +10451,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/3202801750-f201b3c62debcc47.webp</image:loc>
-      <image:caption>Solar-Ready Roof Installation in San Francisco | ROOF EXPRESS</image:caption>
+      <image:title>Roofing Field Note Image — San Francisco, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roofing for San Francisco, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10437,7 +10462,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/3210957707-5d707ced9e02134e.webp</image:loc>
-      <image:caption>Bay Area Roofing Done Right</image:caption>
+      <image:title>Roofing Field Note Image — San Francisco, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roofing for San Francisco, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10447,7 +10473,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/3184064932-a7b5825ef80edaae.webp</image:loc>
-      <image:caption>Roof Replacement in Milpitas, CA</image:caption>
+      <image:title>Roof replacement Field Note Image — Milpitas, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roof replacement for Milpitas, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10457,7 +10484,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/3199035795-9bfb3b735593d410.webp</image:loc>
-      <image:caption>$0 Down Roofing in the Bay Area</image:caption>
+      <image:title>Roofing Field Note Image — San Francisco, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roofing for San Francisco, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10467,7 +10495,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/3192743757-6c4f07844765fd05.webp</image:loc>
-      <image:caption>CertainTeed Presidential TL Roof Installation in Milpitas, CA</image:caption>
+      <image:title>Roofing Field Note Image — Milpitas, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roofing for Milpitas, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10477,7 +10506,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/3170948649-aa45300ac8a1378a.webp</image:loc>
-      <image:caption>New Custom Skylight Installation in San Francisco, CA</image:caption>
+      <image:title>Skylight service Field Note Image — San Francisco, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about skylight service for San Francisco, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10487,7 +10517,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/3148878142-090f3216fda75bf8.webp</image:loc>
-      <image:caption>Asphalt Shingle Roof Installation in San Bruno, CA</image:caption>
+      <image:title>Residential roofing Field Note Image — San Bruno, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about residential roofing for San Bruno, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10497,7 +10528,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/3071353831-c320d903d24a019d.webp</image:loc>
-      <image:caption>Flat Roof Installation Fremont | ROOF EXPRESSProfessional Flat</image:caption>
+      <image:title>Flat-roofing service Field Note Image — Fremont, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about flat-roofing service for Fremont, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10507,7 +10539,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/3150252770-58c241e0049c7f8a.webp</image:loc>
-      <image:caption>Asphalt Shingle Roof Replacement in San Bruno | Roof Express</image:caption>
+      <image:title>Roof replacement Field Note Image — San Bruno, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roof replacement for San Bruno, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10517,7 +10550,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/2975951029-0fc5857539a1b66a.webp</image:loc>
-      <image:caption>White GTA 3-Layer Modified Bitumen Flat Roof Installation</image:caption>
+      <image:title>Flat-roofing service Field Note Image — San Mateo, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about flat-roofing service for San Mateo, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10527,7 +10561,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/3136391714-f70dae1a82d79d7f.webp</image:loc>
-      <image:caption>New Asphalt Shingle Roof Installation in Belmont | ROOF EXPRESS</image:caption>
+      <image:title>Residential roofing Field Note Image — Belmont, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about residential roofing for Belmont, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10537,7 +10572,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/3126732518-06ec6d27badb0ad7.webp</image:loc>
-      <image:caption>New Shingle Roof Installation in Piedmont, CA | ROOF EXPRESS</image:caption>
+      <image:title>Roofing Field Note Image — Piedmont, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roofing for Piedmont, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10547,7 +10583,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/3119124309-a80ce718d239b0d7.webp</image:loc>
-      <image:caption>Why Choose ROOF EXPRESS for Bay Area</image:caption>
+      <image:title>Roofing Field Note Image — Daly City, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roofing for Daly City, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10557,7 +10594,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/3005315456-c66b0b8447c55d01.webp</image:loc>
-      <image:caption>New Shingle Roof San Francisco | ROOF EXPRESSExpert</image:caption>
+      <image:title>Roofing Field Note Image — San Francisco, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roofing for San Francisco, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10567,7 +10605,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/2871914158-7284bf937acad8d0.webp</image:loc>
-      <image:caption>Flat Roof Installation San Francisco | ROOF EXPRESSProfessional</image:caption>
+      <image:title>Flat-roofing service Field Note Image — San Francisco, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about flat-roofing service for San Francisco, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10577,7 +10616,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/3096880045-430d3373e2910875.webp</image:loc>
-      <image:caption>Skylight &amp; Sun Tunnel Installation San Francisco |</image:caption>
+      <image:title>Skylight service Field Note Image — San Francisco, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about skylight service for San Francisco, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10587,7 +10627,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/3105970756-a6c044c6b7feb347.webp</image:loc>
-      <image:caption>New Shingle Roof Installation Walnut Creek | ROOF EXPRESS</image:caption>
+      <image:title>Roofing Field Note Image — Walnut Creek, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roofing for Walnut Creek, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10597,7 +10638,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/3079624962-33f72eca6b84c0c4.webp</image:loc>
-      <image:caption>New Shingle Roof Installation in Oakland | ROOF EXPRESS</image:caption>
+      <image:title>Roofing Field Note Image — Oakland, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roofing for Oakland, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10607,7 +10649,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/3044711731-7e2409887385bc16.webp</image:loc>
-      <image:caption>Shingle Roof Replacement in Sunnyvale</image:caption>
+      <image:title>Roof replacement Field Note Image — Sunnyvale, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roof replacement for Sunnyvale, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10617,7 +10660,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/3043726300-be943d1f1ec315d3.webp</image:loc>
-      <image:caption>3-Ply Torch Down Roof Replacement in San Francisco</image:caption>
+      <image:title>Roof replacement Field Note Image — San Francisco, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roof replacement for San Francisco, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10627,7 +10671,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/3031719117-95e4dd89af7e0968.webp</image:loc>
-      <image:caption>Roof Replacement in the Bay Area by Certified Experts – ROOF EXPRESS</image:caption>
+      <image:title>Roof replacement Field Note Image — San Carlos, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roof replacement for San Carlos, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10637,7 +10682,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/3010974386-33c22f6f803d7f30.webp</image:loc>
-      <image:caption>Multi-Unit for HOA Communities in San Francisco</image:caption>
+      <image:title>Roofing Field Note Image — San Francisco, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roofing for San Francisco, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10647,7 +10693,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/3003619187-bd8a9d52e2ec2cee.webp</image:loc>
-      <image:caption>How to Maintain a Newly Installed Roof in San Francisco</image:caption>
+      <image:title>Roofing Field Note Image — San Francisco, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roofing for San Francisco, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10657,7 +10704,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/2971251057-3c1cda094950b537.webp</image:loc>
-      <image:caption>Common Flat Roof Drain Problems in San Francisco (And How to Fix Them)</image:caption>
+      <image:title>Flat-roofing service Field Note Image — San Francisco, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about flat-roofing service for San Francisco, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10667,7 +10715,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/2998924489-5609262a683cb439.webp</image:loc>
-      <image:caption>A New Asphalt Shingle Roof Completed in San Francisco</image:caption>
+      <image:title>Residential roofing Field Note Image — San Francisco, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about residential roofing for San Francisco, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10677,7 +10726,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/2994469402-67c7eb1e269be306.webp</image:loc>
-      <image:caption>Vent pipe waterproofing prevents roof leaks</image:caption>
+      <image:title>Roofing Field Note Image — San Francisco, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roofing for San Francisco, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10687,7 +10737,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/2991641742-983135ce429673f4.webp</image:loc>
-      <image:caption>Shingle Roof Leak Repair in Sunnyvale</image:caption>
+      <image:title>Roof repair Field Note Image — Sunnyvale, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roof repair for Sunnyvale, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10697,7 +10748,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/2988028879-d214f57e0c91cdb6.webp</image:loc>
-      <image:caption>Asphalt Shingle Roof Replacement in San Francisco</image:caption>
+      <image:title>Roof replacement Field Note Image — San Francisco, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roof replacement for San Francisco, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10707,7 +10759,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/2988020565-fadbde4eed9b5f0f.webp</image:loc>
-      <image:caption>How to Protect Your Roof and Choose the Right Roofing Contractor</image:caption>
+      <image:title>Roofing Field Note Image — San Bruno, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roofing for San Bruno, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10717,7 +10770,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/2983975027-88a85f6b1f2657db.webp</image:loc>
-      <image:caption>How to Choose the Best Roofing Company in South San Francisco</image:caption>
+      <image:title>Roofing Field Note Image — South San Francisco, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roofing for South San Francisco, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10727,7 +10781,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/2983561994-2db7d325df6982d5.webp</image:loc>
-      <image:caption>San Francisco Roofing Guide for Homeowners – Protecting</image:caption>
+      <image:title>Roofing Field Note Image — San Francisco, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roofing for San Francisco, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10737,7 +10792,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/2983560087-28009aeed4783945.webp</image:loc>
-      <image:caption>Fighting the Fog: The Best Roofing Materials for Daly City Coastal Homes</image:caption>
+      <image:title>Roofing Field Note Image — Daly City, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roofing for Daly City, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10747,7 +10803,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/2983556749-0db95da74ba37367.webp</image:loc>
-      <image:caption>Guide to Finding the Best Roofing Company in Daly City, CA</image:caption>
+      <image:title>Roofing Field Note Image — Daly City, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roofing for Daly City, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10757,7 +10814,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/2982766130-45a77deace15712f.webp</image:loc>
-      <image:caption>Two-Day Flat Roof Replacement in San Francisco: Permit-Approved</image:caption>
+      <image:title>Roof replacement Field Note Image — San Francisco, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roof replacement for San Francisco, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10767,7 +10825,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/2776030933-f98b32555a887d20.webp</image:loc>
-      <image:caption>Roof Replacement in Millbrae &amp; the Bay Area:</image:caption>
+      <image:title>Roof replacement Field Note Image — Millbrae, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roof replacement for Millbrae, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10777,7 +10836,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/2653249310-b6c3b938fe1b269b.webp</image:loc>
-      <image:caption>New Flat Roof Installation in Pescadero, CA</image:caption>
+      <image:title>Flat-roofing service Field Note Image — Pescadero, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about flat-roofing service for Pescadero, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10787,7 +10847,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/2705954695-094fa42f925d2d9b.webp</image:loc>
-      <image:caption>Hillsborough Roof Inspection Process with Roof Express</image:caption>
+      <image:title>Roofing Field Note Image — Hillsborough, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roofing for Hillsborough, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10797,7 +10858,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/2966791161-c937f42122017b4b.webp</image:loc>
-      <image:caption>Gravel and Tar Roof Removal in San Francisco</image:caption>
+      <image:title>Roofing Field Note Image — San Francisco, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roofing for San Francisco, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10807,7 +10869,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/2968387101-890830765158d223.webp</image:loc>
-      <image:caption>Torch-Down Roof Installation in San Mateo: A Durable</image:caption>
+      <image:title>Roofing Field Note Image — San Mateo, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roofing for San Mateo, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10817,7 +10880,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/2965285748-9b348231f732561e.webp</image:loc>
-      <image:caption>South San Francisco Chimney Leak Repair</image:caption>
+      <image:title>Roof repair Field Note Image — South San Francisco, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roof repair for South San Francisco, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10827,7 +10891,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/2438487601-d17a90d366ce3b89.webp</image:loc>
-      <image:caption>Tear-Off Shingle Roof Replacement in San Mateo (2026 Guide)</image:caption>
+      <image:title>Roof replacement Field Note Image — San Mateo, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roof replacement for San Mateo, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10837,7 +10902,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/2442254846-b1c06afd82bec2d7.webp</image:loc>
-      <image:caption>New Shingle Roof Installation in San Mateo (2026 Guide)</image:caption>
+      <image:title>Roofing Field Note Image — San Mateo, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roofing for San Mateo, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10847,7 +10913,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/2785194426-3edcffe0c5b2bce1.webp</image:loc>
-      <image:caption>New Flat Roof Installation in San Mateo (2026 Guide)</image:caption>
+      <image:title>Flat-roofing service Field Note Image — San Mateo, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about flat-roofing service for San Mateo, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10857,7 +10924,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/2785174292-79352b776c4940ed.webp</image:loc>
-      <image:caption>Torch-Down Roofing in San Mateo (2026 Guide)</image:caption>
+      <image:title>Roofing Field Note Image — San Mateo, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roofing for San Mateo, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10867,7 +10935,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/2846455258-ca750e8352d41153.webp</image:loc>
-      <image:caption>Roof Decking in San Bruno (2026 Guide)</image:caption>
+      <image:title>Roofing Field Note Image — San Bruno, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roofing for San Bruno, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10877,7 +10946,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/2905118187-f1b416f23e0cd2f7.webp</image:loc>
-      <image:caption>Chimney Leak Repair in Daly City (2026 Guide)</image:caption>
+      <image:title>Roof repair Field Note Image — Daly City, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roof repair for Daly City, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10887,7 +10957,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/2922011357-77663081c6a72d11.webp</image:loc>
-      <image:caption>New Shingle Roof Installation in Daly City (2026 Guide)</image:caption>
+      <image:title>Roofing Field Note Image — Daly City, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roofing for Daly City, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10897,7 +10968,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/2876316924-56b464cdd68277e8.webp</image:loc>
-      <image:caption>Emergency Roof Repair in San Carlos (2026 Guide)</image:caption>
+      <image:title>Roof repair Field Note Image — San Bruno, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roof repair for San Bruno, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10907,7 +10979,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/2681862991-fd351b01760b0f55.webp</image:loc>
-      <image:caption>Roof Insulation Guide (2026)</image:caption>
+      <image:title>Roofing Field Note Image — South San Francisco, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roofing for South San Francisco, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10917,7 +10990,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/2685480196-94435caecda1292d.webp</image:loc>
-      <image:caption>Roof Decking &amp; Plywood: The Foundation of a</image:caption>
+      <image:title>Roofing Field Note Image — South San Francisco, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roofing for South San Francisco, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10927,7 +11001,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/2687226759-483417004299e86e.webp</image:loc>
-      <image:caption>DiamondDeck® &amp; CertainTeed Ice Barrier Layers (Complete Roofing</image:caption>
+      <image:title>Roofing Field Note Image — South San Francisco, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roofing for South San Francisco, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10937,7 +11012,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/2695563124-c20f537c6d395920.webp</image:loc>
-      <image:caption>Roof Leak Detection in South San Francisco (2026 Guide)</image:caption>
+      <image:title>Roofing Field Note Image — South San Francisco, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roofing for South San Francisco, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10947,7 +11023,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/1701945845-be31c9d09cd9f8ce.webp</image:loc>
-      <image:caption>Roof Replacement vs</image:caption>
+      <image:title>Roof replacement Field Note Image — San Bruno, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roof replacement for San Bruno, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10957,7 +11034,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/2964188134-d60091336636c675.webp</image:loc>
-      <image:caption>Flat Roof Project Completed in San Francisco: Torch-Down</image:caption>
+      <image:title>Flat-roofing service Field Note Image — San Francisco, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about flat-roofing service for San Francisco, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10967,7 +11045,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/2956800462-960338497a8cd9ca.webp</image:loc>
-      <image:caption>Ponding Water Near Roof Drains</image:caption>
+      <image:title>Roofing Field Note Image — San Francisco, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roofing for San Francisco, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10977,7 +11056,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/2964926030-ff5f5d4ae9b8fcec.webp</image:loc>
-      <image:caption>Roof Maintenance in San Francisco &amp; the Bay Area</image:caption>
+      <image:title>Roofing Field Note Image — San Francisco, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roofing for San Francisco, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10987,7 +11067,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/2749076180-d6e44774f8212259.webp</image:loc>
-      <image:caption>Roof Replacement in San Francisco &amp; the Bay Area</image:caption>
+      <image:title>Roof replacement Field Note Image — San Francisco, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roof replacement for San Francisco, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -10997,7 +11078,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/2959388409-cbd1e37a96aaeb51.webp</image:loc>
-      <image:caption>Leak Detection Services in San Francisco &amp; the Bay Area</image:caption>
+      <image:title>Roofing Field Note Image — San Jose, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roofing for San Jose, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -11007,7 +11089,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/2732003790-1ffcf8f40f8c6c04.webp</image:loc>
-      <image:caption>The Complete Guide to Roof Replacement in the Bay Area (2026 Homeowner Guide)</image:caption>
+      <image:title>Roof replacement Field Note Image — Berkeley, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roof replacement for Berkeley, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -11017,7 +11100,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/2949877820-11884407cbb07059.webp</image:loc>
-      <image:caption>The Ultimate Roof Maintenance Calendar: What to Check</image:caption>
+      <image:title>Roofing Field Note Image — San Bruno, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roofing for San Bruno, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -11027,7 +11111,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/2912486811-da7ae757dce8938f.webp</image:loc>
-      <image:caption>Flat Roof Repair: 9 Warning Signs, Best Fixes,</image:caption>
+      <image:title>Roof repair Field Note Image — Oakland, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roof repair for Oakland, California.</image:caption>
     </image:image>
   </url>
   <url>
@@ -11037,7 +11122,8 @@
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://roof-ex.com/images/field-notes/1715961736-715f4b0a8a19a7fa.webp</image:loc>
-      <image:caption>How to Choose the Right Roof (And Avoid Costly Mistakes)</image:caption>
+      <image:title>Roofing Field Note Image — Mountain View, CA</image:title>
+      <image:caption>Image for a ROOF EXPRESS Field Note about roofing for Mountain View, California.</image:caption>
     </image:image>
   </url>
 </urlset>
