@@ -1343,6 +1343,23 @@
       "imageWidth": 1600,
       "imageHeight": 900,
       "imageBytes": 234930
+    },
+    {
+      "id": "3592578881",
+      "slug": "professional-roofing-services-in-belmont-california",
+      "city": "Belmont",
+      "state": "California",
+      "thumbnail": "/images/field-notes/3592578881-f2c51a07897c4619-thumb.webp",
+      "fullSize": "/images/field-notes/3592578881-d71137637216da70.webp",
+      "createdAt": 1790150032,
+      "localImage": "/images/field-notes/3592578881-d71137637216da70.webp",
+      "title": "Professional Roofing Services in Belmont, California",
+      "excerpt": "Professional Roofing Services in Belmont, California Your roof is one of the most important systems protecting your Belmont home. Between seasonal rain, stro...",
+      "updatedAt": 1790150182,
+      "contentHash": "99186c6796811d297968d008589883ab51755de13e60cc3ce17a80e32428059e",
+      "imageWidth": 1536,
+      "imageHeight": 1024,
+      "imageBytes": 380098
     }
   ]
 }
