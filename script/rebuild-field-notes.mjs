@@ -693,6 +693,37 @@ import { copyFile, mkdir, readFile, rename, stat, writeFile } from "node:fs/prom
 import path from "node:path";
 
 // shared/field-notes.ts
+function fieldNoteTimestamp(value) {
+  if (typeof value === "number") {
+    if (!Number.isFinite(value) || value <= 0) return void 0;
+    return value < 1e11 ? value * 1e3 : value;
+  }
+  if (typeof value !== "string") return void 0;
+  const clean = value.trim();
+  if (!clean) return void 0;
+  const numeric = Number(clean);
+  if (Number.isFinite(numeric) && numeric > 0) {
+    return numeric < 1e11 ? numeric * 1e3 : numeric;
+  }
+  const parsed = Date.parse(clean);
+  return Number.isFinite(parsed) ? parsed : void 0;
+}
+function compareText(left, right) {
+  return left < right ? -1 : left > right ? 1 : 0;
+}
+function sortFieldNotesNewestFirst(posts) {
+  return [...posts].sort((left, right) => {
+    const leftCreated = fieldNoteTimestamp(left.createdAt);
+    const rightCreated = fieldNoteTimestamp(right.createdAt);
+    const leftUpdated = fieldNoteTimestamp(left.updatedAt) ?? leftCreated;
+    const rightUpdated = fieldNoteTimestamp(right.updatedAt) ?? rightCreated;
+    const effectiveDifference = (rightUpdated ?? Number.NEGATIVE_INFINITY) - (leftUpdated ?? Number.NEGATIVE_INFINITY);
+    if (effectiveDifference) return effectiveDifference;
+    const createdDifference = (rightCreated ?? Number.NEGATIVE_INFINITY) - (leftCreated ?? Number.NEGATIVE_INFINITY);
+    if (createdDifference) return createdDifference;
+    return compareText(left.id, right.id) || compareText(left.slug, right.slug);
+  });
+}
 function getFieldNoteTitle(description) {
   const firstLine = description.split(/[\n.!?]/)[0].trim();
   const title = firstLine.length > 8 && firstLine.length <= 80 ? firstLine : description.split(/\s+/).slice(0, 8).join(" ");
@@ -1667,7 +1698,7 @@ function summaryFor(post) {
   return toFieldNoteSummary(publicPost);
 }
 function summariesFor(posts) {
-  return posts.map(summaryFor);
+  return sortFieldNotesNewestFirst(posts).map(summaryFor);
 }
 function publicPostForBootstrap(post) {
   return {
@@ -1711,7 +1742,9 @@ function setFieldNoteHead(html, title, description, canonical, image, type) {
   return result2;
 }
 function relatedPostsFor(post, allPosts) {
-  const others = allPosts.filter((candidate) => candidate.slug !== post.slug && candidate.id !== post.id);
+  const others = sortFieldNotesNewestFirst(
+    allPosts.filter((candidate) => candidate.slug !== post.slug && candidate.id !== post.id)
+  );
   const sameCity = others.filter((candidate) => candidate.city === post.city);
   const nearby = others.filter((candidate) => Math.abs(dateValue(candidate.createdAt).getTime() - dateValue(post.createdAt).getTime()) < 90 * 864e5 && candidate.city !== post.city);
   const rest = others.filter((candidate) => !sameCity.includes(candidate) && !nearby.includes(candidate));
@@ -1773,9 +1806,10 @@ function summaryCard(post, featured = false) {
   </article></a>`;
 }
 function renderFieldNotesHubHtml(baseHtml, posts) {
-  const summaries = summariesFor(posts);
+  const orderedPosts = sortFieldNotesNewestFirst(posts);
+  const summaries = summariesFor(orderedPosts);
   const canonical = `${SITE_URL3}${FIELD_NOTES_PATH}`;
-  const staticPosts = posts.length ? `<section class="py-20 bg-slate-50 px-6"><div class="container mx-auto max-w-screen-xl"><div class="mb-10"><p class="text-brandOrange text-[10px] font-black uppercase tracking-widest mb-3">Live from the Field</p><h2 class="text-3xl md:text-4xl font-black text-brandNavy">Recent Field Notes</h2><p class="text-slate-500 text-[15px] mt-2">${posts.length} archived posts</p></div><div class="mb-10">${summaryCard(posts[0], true)}</div><div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">${posts.slice(1).map((post) => summaryCard(post)).join("")}</div></div></section>` : `<section class="py-20 bg-slate-50 px-6"><div class="container mx-auto max-w-screen-xl"><h2 class="text-3xl font-black text-brandNavy">Field Notes</h2><p class="text-slate-500 mt-3">Archived field notes will appear here.</p></div></section>`;
+  const staticPosts = orderedPosts.length ? `<section class="py-20 bg-slate-50 px-6"><div class="container mx-auto max-w-screen-xl"><div class="mb-10"><p class="text-brandOrange text-[10px] font-black uppercase tracking-widest mb-3">Live from the Field</p><h2 class="text-3xl md:text-4xl font-black text-brandNavy">Recent Field Notes</h2><p class="text-slate-500 text-[15px] mt-2">${orderedPosts.length} archived posts</p></div><div class="mb-10">${summaryCard(orderedPosts[0], true)}</div><div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">${orderedPosts.slice(1).map((post) => summaryCard(post)).join("")}</div></div></section>` : `<section class="py-20 bg-slate-50 px-6"><div class="container mx-auto max-w-screen-xl"><h2 class="text-3xl font-black text-brandNavy">Field Notes</h2><p class="text-slate-500 mt-3">Archived field notes will appear here.</p></div></section>`;
   const curated = `<section class="py-20 bg-white px-6"><div class="container mx-auto max-w-screen-xl"><div class="text-center mb-12"><p class="text-brandOrange text-[10px] font-black uppercase tracking-widest mb-3">In-Depth Guides</p><h2 class="text-3xl md:text-4xl font-black text-brandNavy">Expert Guides</h2></div><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">${CURATED_GUIDES.map((guide) => `<a href="/blog/${guide.slug}" class="group bg-white rounded-2xl p-8 border border-slate-100 hover:shadow-xl transition"><h3 class="text-xl font-black text-brandNavy mb-2 group-hover:text-brandOrange transition">${guide.title}</h3><p class="text-sm text-slate-500">${guide.description}</p><span class="inline-flex mt-5 text-xs font-black text-brandOrange uppercase tracking-widest">Read Article \u2192</span></a>`).join("")}</div></div></section>`;
   const hero = `<section class="relative overflow-hidden bg-brandNavy min-h-[85vh] text-white py-28 lg:py-40 px-4 flex items-center"><div class="absolute inset-0"><img src="/images/field-notes-hero.webp" alt="ROOF EXPRESS roofer overlooking the Bay Area from a rooftop" class="w-full h-full object-cover" loading="eager" fetchpriority="high" decoding="async" width="1200" height="800" /></div><div class="absolute inset-0 bg-gradient-to-b from-brandNavy/40 via-brandNavy/50 to-brandNavy/80"></div><div class="container mx-auto max-w-screen-xl relative z-10 px-4 md:px-6"><div class="max-w-2xl"><div class="flex items-center gap-3 mb-4 flex-wrap"><a href="/blog" class="inline-flex items-center bg-white/10 backdrop-blur border border-white/20 px-4 py-1.5 rounded-full">\u2190 <span class="ml-2 text-[10px] md:text-xs font-black uppercase tracking-[0.3em]">Blog</span></a><span class="inline-flex items-center bg-white/10 backdrop-blur border border-white/20 px-4 py-1.5 rounded-full text-[10px] md:text-xs font-black uppercase tracking-[0.3em] text-brandOrangeLight">Field Notes</span></div><h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-3 leading-[1] tracking-tight">Field Notes \u2014 <span class="text-brandOrangeLight">From the Roof (2026)</span></h1><p class="text-sm md:text-base text-white/80 max-w-lg mb-6 leading-relaxed">A practical roofing knowledge base for homeowners. Plain-English guides to the materials, systems, and codes that protect your Bay Area home.</p><div class="flex flex-wrap items-center gap-3"><a href="https://clienthub.getjobber.com/hubs/fadfd1d3-6aef-4c07-a4c9-58294a0539f2/public/requests/447045/new?source=website" target="_blank" rel="noreferrer noopener" class="bg-brandOrange text-white px-6 py-3 md:px-8 md:py-4 rounded-full font-black text-xs md:text-sm uppercase tracking-widest border border-white/20">Get a Free Quote</a><a href="tel:6506665554" class="bg-white/10 backdrop-blur text-white px-6 py-3 md:px-8 md:py-4 rounded-full font-black text-xs md:text-sm uppercase tracking-widest border border-white/20">Call 650-666-5554</a></div></div></div></section>`;
   let html = setFieldNoteHead(baseHtml, "Roofing Field Notes | ROOF EXPRESS", "Real roofing project notes and practical guides from ROOF EXPRESS crews across the Bay Area.", canonical, "", "website");
@@ -1795,8 +1829,10 @@ function imageMime(image) {
   return "image/jpeg";
 }
 function generateFieldNotesFeed(posts) {
-  const stableLastBuild = posts.length ? Math.max(...posts.map((post) => dateValue(post.updatedAt).getTime())) : 0;
-  const items = posts.slice(0, 50).map((post) => {
+  const orderedPosts = sortFieldNotesNewestFirst(posts);
+  const validUpdatedTimes = posts.map((post) => dateValue(post.updatedAt).getTime()).filter(Number.isFinite);
+  const stableLastBuild = validUpdatedTimes.length ? Math.max(...validUpdatedTimes) : 0;
+  const items = orderedPosts.slice(0, 50).map((post) => {
     const image = localImagePath(post);
     const link = `${SITE_URL3}${FIELD_NOTES_PATH}/${encodeURIComponent(post.slug)}`;
     const enclosure = image ? `
@@ -1978,12 +2014,13 @@ async function refreshPublishedFieldNotes(options) {
     throw new Error(`Published static site was not found at ${staticRoot}; Field Notes archive remains unchanged`);
   }
   const baseHtml = await readFile(basePath, "utf8");
-  const posts = archive.posts;
+  const posts = sortFieldNotesNewestFirst(archive.posts);
+  const orderedArchive = { ...archive, posts };
   let written = 0;
   const write = async (filePath, contents) => {
     if (await writeIfChanged(filePath, contents)) written += 1;
   };
-  await write(path.join(staticRoot, "data", "field-notes.json"), `${JSON.stringify(archive, null, 2)}
+  await write(path.join(staticRoot, "data", "field-notes.json"), `${JSON.stringify(orderedArchive, null, 2)}
 `);
   await write(path.join(staticRoot, "data", "field-notes", "index.json"), `${JSON.stringify({
     version: 1,
@@ -1992,10 +2029,8 @@ async function refreshPublishedFieldNotes(options) {
 `);
   for (const post of posts) {
     const detailPath = path.join(staticRoot, "data", "field-notes", `${post.slug}.json`);
-    if (!await exists(detailPath)) {
-      await write(detailPath, `${JSON.stringify(post, null, 2)}
+    await write(detailPath, `${JSON.stringify(post, null, 2)}
 `);
-    }
   }
   await write(path.join(staticRoot, "blog", "field-notes.html"), renderFieldNotesHubHtml(baseHtml, posts));
   if (options.sourceMode) {
@@ -2003,19 +2038,26 @@ async function refreshPublishedFieldNotes(options) {
       for (const image of [post.localImage, post.thumbnail]) {
         const relative = image.replace(/^\//, "");
         const destination = path.join(staticRoot, relative);
-        if (!await exists(destination)) {
-          await mkdir(path.dirname(destination), { recursive: true });
-          await copyFile(path.join(root, "client", "public", relative), destination);
-          written += 1;
+        const source = path.join(root, "client", "public", relative);
+        const sourceBytes = await readFile(source);
+        let destinationBytes;
+        try {
+          destinationBytes = await readFile(destination);
+        } catch (error) {
+          if (error.code !== "ENOENT") throw error;
         }
+        if (destinationBytes?.equals(sourceBytes)) continue;
+        await mkdir(path.dirname(destination), { recursive: true });
+        const staged = `${destination}.field-notes-${process.pid}.tmp`;
+        await writeFile(staged, sourceBytes);
+        await rename(staged, destination);
+        written += 1;
       }
     }
   }
   for (const post of posts) {
     const articlePath = path.join(staticRoot, "blog", "field-notes", `${post.slug}.html`);
-    if (!await exists(articlePath)) {
-      await write(articlePath, renderFieldNoteHtml(baseHtml, post, posts));
-    }
+    await write(articlePath, renderFieldNoteHtml(baseHtml, post, posts));
   }
   await write(path.join(staticRoot, "feed.xml"), generateFieldNotesFeed(posts));
   if (await refreshSitemap(staticRoot, posts)) written += 1;
@@ -2172,12 +2214,12 @@ async function listCompanyCamPages(resource, token, fetcher) {
   }
 }
 function getPlainTextDescription(photo) {
-  if (typeof photo.description === "string") return photo.description;
+  if (typeof photo.description === "string") return photo.description.trim() ? photo.description : void 0;
   if (photo.description && typeof photo.description === "object") {
     const plain = photo.description.plain_text_content ?? photo.description.plain_text;
-    if (typeof plain === "string") return plain;
+    if (typeof plain === "string") return plain.trim() ? plain : void 0;
   }
-  throw new Error(`Wiki photo ${String(photo.id)} has no plain_text description`);
+  return void 0;
 }
 function getSourceImageUrl(photo) {
   const uris = photo.uris ?? [];
@@ -2210,7 +2252,11 @@ async function fetchWikiPosts(token, fetcher = fetch, concurrency = DEFAULT_CONC
     token,
     fetcher
   );
-  const projectIds = [...new Set(wikiPhotos.map((photo) => {
+  const publishablePhotos = wikiPhotos.flatMap((photo) => {
+    const description = getPlainTextDescription(photo);
+    return description === void 0 ? [] : [{ photo, description }];
+  });
+  const projectIds = [...new Set(publishablePhotos.map(({ photo }) => {
     if (photo.project_id === void 0 || photo.project_id === null) {
       throw new Error(`Wiki photo ${String(photo.id)} has no project`);
     }
@@ -2231,7 +2277,7 @@ async function fetchWikiPosts(token, fetcher = fetch, concurrency = DEFAULT_CONC
   });
   const projectMap = new Map(projects);
   const ids = /* @__PURE__ */ new Set();
-  return wikiPhotos.map((photo) => {
+  return publishablePhotos.map(({ photo, description }) => {
     const id = asString(String(photo.id), "photo id");
     if (ids.has(id)) throw new Error(`CompanyCam returned duplicate wiki photo ${id}`);
     ids.add(id);
@@ -2248,7 +2294,7 @@ async function fetchWikiPosts(token, fetcher = fetch, concurrency = DEFAULT_CONC
       createdAt,
       updatedAt,
       hasReliableImageVersion,
-      description: getPlainTextDescription(photo),
+      description,
       sourceImageUrl: getSourceImageUrl(photo)
     };
   });
@@ -2378,7 +2424,7 @@ function getPaths(options) {
 async function downloadDerivative(post, fetcher, cachedPost, publicDir) {
   let image = Buffer.alloc(0);
   let reused = false;
-  const canReuse = cachedPost && cachedPost.contentHash === contentHash(post.description) && post.hasReliableImageVersion && cachedPost.updatedAt === post.updatedAt && /^\/images\/field-notes\/[^/]+\.webp$/i.test(cachedPost.localImage) && cachedPost.localImage === cachedPost.fullSize;
+  const canReuse = cachedPost && post.hasReliableImageVersion && cachedPost.updatedAt === post.updatedAt && /^\/images\/field-notes\/[^/]+\.webp$/i.test(cachedPost.localImage) && cachedPost.localImage === cachedPost.fullSize;
   if (canReuse) {
     try {
       image = await readFile2(path2.join(publicDir, cachedPost.localImage.slice(1)));
@@ -2469,66 +2515,74 @@ async function syncFieldNotes(options = {}) {
   await mkdir2(stageDetails, { recursive: true });
   try {
     const previousById = new Map(previousPosts.map((post) => [post.id, post]));
-    const newFetched = fetched.filter((post) => !previousById.has(post.id));
-    if (newFetched.length === 0) {
-      const manifest2 = previousManifest ?? {
-        version: 1,
-        generatedAt: options.generatedAt ?? (/* @__PURE__ */ new Date()).toISOString(),
-        posts: []
-      };
-      const index2 = { version: 1, posts: manifest2.posts.map(toFieldNoteSummary) };
-      return {
-        manifest: manifest2,
-        index: index2,
-        downloadedImages: 0,
-        changed: false,
-        retainedPosts: previousPosts.filter((post) => !fetched.some((current) => current.id === post.id)).length
-      };
-    }
     const imageResults = await mapWithConcurrency(
-      newFetched,
+      fetched,
       options.concurrency ?? DEFAULT_CONCURRENCY,
-      (post) => downloadDerivative(
-        post,
-        fetcher,
-        void 0,
-        paths.publicDir
-      )
+      async (post) => {
+        const cached = previousById.get(post.id);
+        const sourceChanged = !cached || !post.hasReliableImageVersion || cached.updatedAt !== post.updatedAt;
+        let assetsPresent = false;
+        if (cached && !sourceChanged) {
+          try {
+            await Promise.all([
+              readFile2(path2.join(paths.publicDir, cached.localImage.slice(1))),
+              readFile2(path2.join(paths.publicDir, cached.thumbnail.slice(1)))
+            ]);
+            assetsPresent = true;
+          } catch {
+            assetsPresent = false;
+          }
+        }
+        return sourceChanged || !assetsPresent ? downloadDerivative(post, fetcher, cached, paths.publicDir) : void 0;
+      }
     );
-    const fetchedPosts = [];
-    for (let i = 0; i < newFetched.length; i += 1) {
-      const source = newFetched[i];
+    const reconciled = new Map(previousPosts.map((post) => [post.id, post]));
+    for (let i = 0; i < fetched.length; i += 1) {
+      const source = fetched[i];
       const image = imageResults[i];
+      const cached = previousById.get(source.id);
       const slug = slugById.get(source.id);
       if (!slug) throw new Error(`No stable slug assigned for Field Note ${source.id}`);
-      await writeFile2(path2.join(stageImages, image.filename), image.data);
-      await writeFile2(path2.join(stageImages, image.thumbnailFilename), image.thumbnailData);
-      fetchedPosts.push({
+      if (image) {
+        for (const [filename, data] of [
+          [image.filename, image.data],
+          [image.thumbnailFilename, image.thumbnailData]
+        ]) {
+          let existing;
+          try {
+            existing = await readFile2(path2.join(paths.imagesDir, filename));
+          } catch (error) {
+            if (error.code !== "ENOENT") throw error;
+          }
+          if (!existing?.equals(data)) await writeFile2(path2.join(stageImages, filename), data);
+        }
+      }
+      if (!image && !cached) throw new Error(`No local image prepared for Field Note ${source.id}`);
+      reconciled.set(source.id, {
         id: source.id,
         slug,
         city: source.city,
         state: source.state,
-        thumbnail: image.thumbnail,
-        fullSize: image.localImage,
+        thumbnail: image?.thumbnail ?? cached.thumbnail,
+        fullSize: image?.localImage ?? cached.fullSize,
         createdAt: source.createdAt,
         description: source.description,
-        localImage: image.localImage,
+        localImage: image?.localImage ?? cached.localImage,
         title: getFieldNoteTitle(source.description),
         excerpt: getFieldNoteExcerpt(source.description),
         updatedAt: source.updatedAt,
         contentHash: contentHash(source.description),
-        imageWidth: image.imageWidth,
-        imageHeight: image.imageHeight,
-        imageBytes: image.imageBytes
+        imageWidth: image?.imageWidth ?? cached.imageWidth,
+        imageHeight: image?.imageHeight ?? cached.imageHeight,
+        imageBytes: image?.imageBytes ?? cached.imageBytes
       });
     }
-    const retainedPosts = previousPosts;
-    retainedPosts.forEach(assertLocalImage);
     const retainedBecauseAbsent = previousPosts.filter((post) => !fetched.some((current) => current.id === post.id));
-    const posts = [...retainedPosts, ...fetchedPosts];
+    const posts = sortFieldNotesNewestFirst([...reconciled.values()]);
+    const postsChanged = JSON.stringify(posts) !== JSON.stringify(sortFieldNotesNewestFirst(previousPosts));
+    const manifestNeedsWrite = !previousManifest || postsChanged || JSON.stringify(posts) !== JSON.stringify(previousPosts);
     const ids = /* @__PURE__ */ new Set();
     const slugsSeen = /* @__PURE__ */ new Set();
-    const newIds = new Set(fetchedPosts.map((post) => post.id));
     for (const post of posts) {
       if (ids.has(post.id) || slugsSeen.has(post.slug)) {
         throw new Error(`Field Notes archive contains duplicate ID or slug (${post.id}, ${post.slug})`);
@@ -2536,21 +2590,38 @@ async function syncFieldNotes(options = {}) {
       ids.add(post.id);
       slugsSeen.add(post.slug);
       assertLocalImage(post);
-      if (newIds.has(post.id)) {
-        await writeFile2(path2.join(stageDetails, `${post.slug}.json`), `${JSON.stringify(post, null, 2)}
-`);
+      const detail = `${JSON.stringify(post, null, 2)}
+`;
+      let existing;
+      try {
+        existing = await readFile2(path2.join(paths.detailsDir, `${post.slug}.json`), "utf8");
+      } catch (error) {
+        if (error.code !== "ENOENT") throw error;
       }
+      if (existing !== detail) await writeFile2(path2.join(stageDetails, `${post.slug}.json`), detail);
     }
-    const generatedAt = options.generatedAt ?? (/* @__PURE__ */ new Date()).toISOString();
+    const generatedAt = postsChanged ? options.generatedAt ?? (/* @__PURE__ */ new Date()).toISOString() : previousManifest?.generatedAt ?? options.generatedAt ?? (/* @__PURE__ */ new Date()).toISOString();
     const manifest = { version: 1, generatedAt, posts };
     const index = {
       version: 1,
       posts: posts.map(toFieldNoteSummary)
     };
-    await writeFile2(path2.join(stage, "field-notes.json"), `${JSON.stringify(manifest, null, 2)}
+    const indexContents = `${JSON.stringify(index, null, 2)}
+`;
+    let indexNeedsWrite = postsChanged || !previousManifest;
+    if (!indexNeedsWrite) {
+      try {
+        indexNeedsWrite = await readFile2(paths.indexPath, "utf8") !== indexContents;
+      } catch (error) {
+        if (error.code !== "ENOENT") throw error;
+        indexNeedsWrite = true;
+      }
+    }
+    if (manifestNeedsWrite) {
+      await writeFile2(path2.join(stage, "field-notes.json"), `${JSON.stringify(manifest, null, 2)}
 `);
-    await writeFile2(path2.join(stage, "index.json"), `${JSON.stringify(index, null, 2)}
-`);
+    }
+    if (indexNeedsWrite) await writeFile2(path2.join(stage, "index.json"), indexContents);
     await mkdir2(paths.imagesDir, { recursive: true });
     for (const image of await readdir(stageImages)) {
       await rename2(path2.join(stageImages, image), path2.join(paths.imagesDir, image));
@@ -2561,13 +2632,17 @@ async function syncFieldNotes(options = {}) {
     }
     await mkdir2(path2.dirname(paths.indexPath), { recursive: true });
     await mkdir2(path2.dirname(paths.manifestPath), { recursive: true });
-    await rename2(path2.join(stage, "index.json"), paths.indexPath);
-    await rename2(path2.join(stage, "field-notes.json"), paths.manifestPath);
+    if (indexNeedsWrite) {
+      await rename2(path2.join(stage, "index.json"), paths.indexPath);
+    }
+    if (manifestNeedsWrite) {
+      await rename2(path2.join(stage, "field-notes.json"), paths.manifestPath);
+    }
     return {
       manifest,
       index,
-      downloadedImages: imageResults.filter((image) => !image.reused).length,
-      changed: true,
+      downloadedImages: imageResults.filter((image) => image && !image.reused).length,
+      changed: postsChanged || !previousManifest,
       retainedPosts: retainedBecauseAbsent.length
     };
   } finally {
@@ -2625,7 +2700,7 @@ async function refreshCompanyCamContent(options = {}) {
   let wiki;
   try {
     wikiResult = await syncFieldNotes({ ...wikiPaths, token, fetcher: options.fetcher });
-    const published = wikiResult.changed ? await refreshPublishedFieldNotes({
+    const published = wikiResult.changed || wikiResult.manifest.posts.length > 0 ? await refreshPublishedFieldNotes({
       projectRoot: root,
       archive: wikiResult.manifest,
       sourceMode: mode === "source"
@@ -2645,11 +2720,11 @@ async function refreshCompanyCamContent(options = {}) {
     const syncTaggedJobPhotos2 = galleryModule.syncTaggedJobPhotos;
     if (!syncTaggedJobPhotos2) throw new Error("Tagged job photo refresher is not available");
     const galleryResult = await syncTaggedJobPhotos2({ token, projectRoot: root, fetcher: options.fetcher });
-    const published = galleryResult.changed ? await refreshPublishedGallerySsr({
+    const published = await refreshPublishedGallerySsr({
       projectRoot: root,
       sourceMode: mode === "source",
       cityProjectPhotos: galleryResult.cityProjectPhotos
-    }) : { written: 0 };
+    });
     galleries = {
       ok: true,
       changed: galleryResult.changed,
