@@ -14,5 +14,11 @@
   "contentHash": "99186c6796811d297968d008589883ab51755de13e60cc3ce17a80e32428059e",
   "imageWidth": 1536,
   "imageHeight": 1024,
-  "imageBytes": 380098
+  "imageBytes": 380098,
+  "photoSeo": {
+    "alt": "Image accompanying a ROOF EXPRESS Field Note about roofing for Belmont, California.",
+    "title": "Roofing Field Note Image — Belmont, CA",
+    "caption": "Image for a ROOF EXPRESS Field Note about roofing for Belmont, California.",
+    "description": "This image accompanies a ROOF EXPRESS Field Note about roofing for Belmont, California. It is part of our collection of roofing guides and field notes."
+  }
 }

@@ -66,6 +66,104 @@ var cityZips = {
   "pescadero": { zip: "94060", zips: ["94060"], county: "San Mateo" }
 };
 
+// shared/companycam-photo-seo.ts
+var CITY_NAMES = /* @__PURE__ */ new Map();
+for (const slug of Object.keys(cityZips)) {
+  const name = slug.split("-").map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
+  CITY_NAMES.set(normalize(name), name);
+  CITY_NAMES.set(normalize(slug), name);
+}
+var SERVICE_ALIASES = [
+  [/\b(?:roof repairs?|leak repairs?)\b/i, "roof repair"],
+  [/\b(?:roof replacements?|reroof|re roof)\b/i, "roof replacement"],
+  [/\b(?:residential roofing|asphalt shingles?|asphalt shingle roofing|shingle roofing)\b/i, "residential roofing"],
+  [/\b(?:commercial roofing|commercial systems?)\b/i, "commercial roofing"],
+  [/\b(?:gutters?|gutter installation|gutter replacement)\b/i, "gutter service"],
+  [/\b(?:flat roof(?:ing)?|low slope(?: roofing)?)\b/i, "flat-roofing service"],
+  [/\b(?:skylights?|skylight installation|skylight repair)\b/i, "skylight service"],
+  [/\b(?:emergency(?: roof repair| roofing| repairs?| services?)?|storm damage repair|emergency tarping)\b/i, "emergency roofing service"]
+];
+var SERVICE_ORDER = [
+  "roof repair",
+  "roof replacement",
+  "residential roofing",
+  "commercial roofing",
+  "gutter service",
+  "flat-roofing service",
+  "skylight service",
+  "emergency roofing service"
+];
+function normalize(value) {
+  return value.normalize("NFKC").trim().toLowerCase().replace(/&/g, " and ").replace(/[_-]+/g, " ").replace(/[^a-z0-9 ]+/g, " ").replace(/\s+/g, " ");
+}
+function knownCity(value) {
+  if (!value || normalize(value) === "bay area") return void 0;
+  return CITY_NAMES.get(normalize(value).replace(/\s+ca$/, ""));
+}
+function servicesFromValues(values) {
+  const services = /* @__PURE__ */ new Set();
+  for (const value of values) {
+    const normalized = normalize(value);
+    for (const [pattern, service] of SERVICE_ALIASES) {
+      if (pattern.test(normalized)) services.add(service);
+    }
+  }
+  return SERVICE_ORDER.filter((service) => services.has(service));
+}
+function exactTaggedServices(tags) {
+  const services = /* @__PURE__ */ new Set();
+  for (const tag of tags) {
+    const normalized = normalize(tag);
+    for (const [pattern, service] of SERVICE_ALIASES) {
+      const exact = new RegExp(`^(?:${pattern.source.replace(/^\\b|\\b$/g, "")})$`, "i");
+      if (exact.test(normalized)) services.add(service);
+    }
+  }
+  return SERVICE_ORDER.filter((service) => services.has(service));
+}
+function sentenceCase(value) {
+  return value.charAt(0).toUpperCase() + value.slice(1);
+}
+function withArticle(value) {
+  return `${/^[aeiou]/i.test(value) ? "an" : "a"} ${value}`;
+}
+function joinedServices(services) {
+  if (services.length === 1) return services[0];
+  if (services.length === 2) return `${services[0]} and ${services[1]}`;
+  return `${services.slice(0, -1).join(", ")}, and ${services[services.length - 1]}`;
+}
+function getCompanyCamPhotoSeo(photo, kind = "project") {
+  const city = knownCity(photo.city);
+  const taggedServices = exactTaggedServices(photo.tags ?? []);
+  const services = taggedServices.length > 0 ? taggedServices : kind === "field-note" && photo.title ? servicesFromValues([photo.title]) : [];
+  const knownServices = services.length > 0 ? services : ["roofing"];
+  const service = knownServices[0];
+  const beforeAndAfterCategory = (photo.tags ?? []).some((tag) => normalize(tag) === "before and after");
+  const serviceTitle = sentenceCase(service);
+  const titleLocation = city ? ` \u2014 ${city}, CA` : " \u2014 ROOF EXPRESS";
+  const categoryNote = beforeAndAfterCategory ? " in the Before and After gallery" : "";
+  if (kind === "field-note") {
+    const audience = city ? ` for ${city}, California` : "";
+    const subjects = joinedServices(knownServices);
+    return {
+      alt: `Image accompanying a ROOF EXPRESS Field Note about ${service}${audience}.`,
+      title: `${serviceTitle} Field Note Image${titleLocation}`,
+      caption: `Image for a ROOF EXPRESS Field Note about ${service}${audience}.`,
+      description: city ? `This image accompanies a ROOF EXPRESS Field Note about ${subjects} for ${city}, California. It is part of our collection of roofing guides and field notes.` : `This image accompanies a ROOF EXPRESS Field Note about ${subjects}. It is part of our collection of roofing guides and field notes.`
+    };
+  }
+  const location = city ? ` in ${city}, California` : "";
+  const baseAlt = `ROOF EXPRESS photo from ${withArticle(service)} project${location}`;
+  const categorizedAlt = `${baseAlt}${categoryNote}.`;
+  const otherServices = knownServices.slice(1);
+  return {
+    alt: categorizedAlt.length <= 160 ? categorizedAlt : `${baseAlt}.`,
+    title: `${serviceTitle} Project Photo${titleLocation}`,
+    caption: city ? `${serviceTitle} project documented by ROOF EXPRESS in ${city}, California${categoryNote}.` : `${serviceTitle} project documentation from ROOF EXPRESS${categoryNote}.`,
+    description: `This CompanyCam photo is associated with a ROOF EXPRESS ${service} project${location}.` + (otherServices.length > 0 ? ` It is also categorized for ${joinedServices(otherServices)}.` : "") + (!city ? " No specific job location is published." : "")
+  };
+}
+
 // shared/tagged-job-photos.ts
 var SERVICE_TAG_ALIASES = {
   "roof repair": "Roof Repair",
@@ -161,6 +259,15 @@ function optionalString(record, key, index) {
   if (typeof record[key] !== "string") invalidPhoto(index, `${key} must be a string`);
   return record[key];
 }
+function validatePhotoSeo(value, index) {
+  if (value === void 0) return;
+  if (!isRecord(value)) invalidPhoto(index, "photoSeo must be an object");
+  for (const key of ["alt", "title", "caption", "description"]) {
+    if (typeof value[key] !== "string" || value[key].trim().length === 0) {
+      invalidPhoto(index, `photoSeo.${key} must be a non-empty string`);
+    }
+  }
+}
 function localAssetPath(value, key, index) {
   if (typeof value !== "string" || !/^\/images\/(?:projects|field-notes)\/[^/]+\.webp$/.test(value)) {
     invalidPhoto(index, `${key} must be a local WebP asset path`);
@@ -196,15 +303,19 @@ function parseTaggedJobPhotos(payload) {
     if (!tags.some((tag) => Boolean(normalizeGalleryTag(tag)))) {
       invalidPhoto(index, "at least one public service tag is required");
     }
+    validatePhotoSeo(value.photoSeo, index);
+    const photoSeo = getCompanyCamPhotoSeo({ city: normalizedCity, tags });
     const photo = {
       id,
       thumbnail,
       fullSize,
       createdAt: value.createdAt,
       tags: [...new Set(tags)],
-      city: normalizedCity
+      city: normalizedCity,
+      description: photoSeo.description,
+      photoSeo
     };
-    for (const key of ["description", "state"]) {
+    for (const key of ["state"]) {
       const optionalValue = optionalString(value, key, index);
       if (optionalValue !== void 0) photo[key] = optionalValue;
     }
@@ -261,7 +372,7 @@ function getPublicGalleryTags(photos) {
 // cloudflare-worker.js
 var COMPANYCAM_API = "https://api.companycam.com/v2";
 var CACHE_TTL = 3600;
-var STATIC_FIELD_NOTES = [{ "id": "3506074506", "slug": "asphalt-shingle-reroofing-project-in-san-mateo-ca" }, { "id": "3496059338", "slug": "flat-roof-ready-for-solar-installation" }, { "id": "3487001778", "slug": "what-is-el-ni-o" }, { "id": "3466541248", "slug": "roof-replacement-in-woodside" }, { "id": "3460805873", "slug": "3-layer-torch-down-flat-roof-replacement" }, { "id": "3459320542", "slug": "shingle-roof-replacement-in-san-jose-ca" }, { "id": "3450186447", "slug": "roof-replacement-in-san-francisco-ca" }, { "id": "3447706017", "slug": "protecting-san-francisco-roofs" }, { "id": "3443236416", "slug": "flat-roof-replacement-in-san-franciscocomplete-homeowner-guide" }, { "id": "3434434792", "slug": "roof-replacement-in-san-jose" }, { "id": "3428756618", "slug": "new-asphalt-shingle-roof-installation-in-santa-clara-ca" }, { "id": "3406190998", "slug": "new-roof-installation-completed-in-burlingame" }, { "id": "3398364468", "slug": "san-anselmo-roof-replacement" }, { "id": "3386031299", "slug": "new-certainteed-presidential-tl-roof-installation-in-milpitas-ca" }, { "id": "3376440563", "slug": "completing-a-beautiful-durable-shingle-roof-in-walnut-creek" }, { "id": "3210957707", "slug": "bay-area-roofing-done-right" }, { "id": "3202801750", "slug": "solar-ready-roof-installation-in-san-francisco-roof-express" }, { "id": "3199035795", "slug": "0-down-roofing-in-the-bay-area" }, { "id": "3192743757", "slug": "certainteed-presidential-tl-roof-installation-in-milpitas-ca" }, { "id": "3184064932", "slug": "roof-replacement-in-milpitas-ca" }, { "id": "3170948649", "slug": "new-custom-skylight-installation-in-san-francisco-ca" }, { "id": "3150252770", "slug": "asphalt-shingle-roof-replacement-in-san-bruno-roof-express" }, { "id": "3148878142", "slug": "asphalt-shingle-roof-installation-in-san-bruno-ca" }, { "id": "3136391714", "slug": "new-asphalt-shingle-roof-installation-in-belmont-roof-express" }, { "id": "3126732518", "slug": "new-shingle-roof-installation-in-piedmont-ca-roof-express" }, { "id": "3119124309", "slug": "why-choose-roof-express-for-bay-area" }, { "id": "3105970756", "slug": "new-shingle-roof-installation-walnut-creek-roof-express" }, { "id": "3096880045", "slug": "skylight-sun-tunnel-installation-san-francisco" }, { "id": "3079624962", "slug": "new-shingle-roof-installation-in-oakland-roof-express" }, { "id": "3071353831", "slug": "flat-roof-installation-fremont-roof-expressprofessional-flat" }, { "id": "3044711731", "slug": "shingle-roof-replacement-in-sunnyvale" }, { "id": "3043726300", "slug": "3-ply-torch-down-roof-replacement-in-san-francisco" }, { "id": "3031719117", "slug": "roof-replacement-in-the-bay-area-by-certified-experts-roof-express" }, { "id": "3005315456", "slug": "new-shingle-roof-san-francisco-roof-expressexpert" }, { "id": "3003619187", "slug": "how-to-maintain-a-newly-installed-roof-in-san-francisco" }, { "id": "2998924489", "slug": "a-new-asphalt-shingle-roof-completed-in-san-francisco" }, { "id": "2994469402", "slug": "vent-pipe-waterproofing-prevents-roof-leaks" }, { "id": "2991641742", "slug": "shingle-roof-leak-repair-in-sunnyvale" }, { "id": "2988028879", "slug": "asphalt-shingle-roof-replacement-in-san-francisco" }, { "id": "2988020565", "slug": "how-to-protect-your-roof-and-choose-the-right-roofing-contractor" }, { "id": "2983975027", "slug": "how-to-choose-the-best-roofing-company-in-south-san-francisco" }, { "id": "2983561994", "slug": "san-francisco-roofing-guide-for-homeowners-protecting" }, { "id": "2983560087", "slug": "fighting-the-fog-the-best-roofing-materials-for-daly-city-coastal-homes" }, { "id": "2983556749", "slug": "guide-to-finding-the-best-roofing-company-in-daly-city-ca" }, { "id": "2982766130", "slug": "two-day-flat-roof-replacement-in-san-francisco-permit-approved" }, { "id": "2975951029", "slug": "white-gta-3-layer-modified-bitumen-flat-roof-installation" }, { "id": "2971251057", "slug": "common-flat-roof-drain-problems-in-san-francisco-and-how-to-fix-them" }, { "id": "2968387101", "slug": "torch-down-roof-installation-in-san-mateo-a-durable" }, { "id": "2966791161", "slug": "gravel-and-tar-roof-removal-in-san-francisco" }, { "id": "2965285748", "slug": "south-san-francisco-chimney-leak-repair" }, { "id": "2964926030", "slug": "roof-maintenance-in-san-francisco-the-bay-area" }, { "id": "2964188134", "slug": "flat-roof-project-completed-in-san-francisco-torch-down" }, { "id": "2959388409", "slug": "leak-detection-services-in-san-francisco-the-bay-area" }, { "id": "2956800462", "slug": "ponding-water-near-roof-drains" }, { "id": "2949877820", "slug": "the-ultimate-roof-maintenance-calendar-what-to-check" }, { "id": "2922011357", "slug": "new-shingle-roof-installation-in-daly-city-2026-guide" }, { "id": "2912486811", "slug": "flat-roof-repair-9-warning-signs-best-fixes" }, { "id": "2905118187", "slug": "chimney-leak-repair-in-daly-city-2026-guide" }, { "id": "2876316924", "slug": "emergency-roof-repair-in-san-carlos-2026-guide" }, { "id": "2871914158", "slug": "flat-roof-installation-san-francisco-roof-expressprofessional" }, { "id": "2846455258", "slug": "roof-decking-in-san-bruno-2026-guide" }, { "id": "2785194426", "slug": "new-flat-roof-installation-in-san-mateo-2026-guide" }, { "id": "2785174292", "slug": "torch-down-roofing-in-san-mateo-2026-guide" }, { "id": "2776030933", "slug": "roof-replacement-in-millbrae-the-bay-area" }, { "id": "2749076180", "slug": "roof-replacement-in-san-francisco-the-bay-area" }, { "id": "2732003790", "slug": "the-complete-guide-to-roof-replacement-in-the-bay-area-2026-homeowner-guide" }, { "id": "2705954695", "slug": "hillsborough-roof-inspection-process-with-roof-express" }, { "id": "2695563124", "slug": "roof-leak-detection-in-south-san-francisco-2026-guide" }, { "id": "2687226759", "slug": "diamonddeck-certainteed-ice-barrier-layers-complete-roofing" }, { "id": "2685480196", "slug": "roof-decking-plywood-the-foundation-of-a" }, { "id": "2681862991", "slug": "roof-insulation-guide-2026" }, { "id": "2653249310", "slug": "new-flat-roof-installation-in-pescadero-ca" }, { "id": "2442254846", "slug": "new-shingle-roof-installation-in-san-mateo-2026-guide" }, { "id": "2438487601", "slug": "tear-off-shingle-roof-replacement-in-san-mateo-2026-guide" }, { "id": "3010974386", "slug": "multi-unit-for-hoa-communities-in-san-francisco" }, { "id": "1715961736", "slug": "how-to-choose-the-right-roof-and-avoid-costly-mistakes" }, { "id": "1701945845", "slug": "roof-replacement-vs" }];
+var STATIC_FIELD_NOTES = [{ "id": "3592578881", "slug": "professional-roofing-services-in-belmont-california" }, { "id": "3584234618", "slug": "what-is-the-roof-express-process-for-repairing-or-replacing-a-roof" }, { "id": "3560277053", "slug": "berkeley-roof-replacement" }, { "id": "3506074506", "slug": "asphalt-shingle-reroofing-project-in-san-mateo-ca" }, { "id": "3496059338", "slug": "flat-roof-ready-for-solar-installation" }, { "id": "3443236416", "slug": "flat-roof-replacement-in-san-franciscocomplete-homeowner-guide" }, { "id": "3466541248", "slug": "roof-replacement-in-woodside" }, { "id": "3459320542", "slug": "shingle-roof-replacement-in-san-jose-ca" }, { "id": "3460805873", "slug": "3-layer-torch-down-flat-roof-replacement" }, { "id": "3450186447", "slug": "roof-replacement-in-san-francisco-ca" }, { "id": "3434434792", "slug": "roof-replacement-in-san-jose" }, { "id": "3487001778", "slug": "what-is-el-ni-o" }, { "id": "3428756618", "slug": "new-asphalt-shingle-roof-installation-in-santa-clara-ca" }, { "id": "3406190998", "slug": "new-roof-installation-completed-in-burlingame" }, { "id": "3398364468", "slug": "san-anselmo-roof-replacement" }, { "id": "3386031299", "slug": "new-certainteed-presidential-tl-roof-installation-in-milpitas-ca" }, { "id": "3447706017", "slug": "protecting-san-francisco-roofs" }, { "id": "3376440563", "slug": "completing-a-beautiful-durable-shingle-roof-in-walnut-creek" }, { "id": "3202801750", "slug": "solar-ready-roof-installation-in-san-francisco-roof-express" }, { "id": "3210957707", "slug": "bay-area-roofing-done-right" }, { "id": "3184064932", "slug": "roof-replacement-in-milpitas-ca" }, { "id": "3199035795", "slug": "0-down-roofing-in-the-bay-area" }, { "id": "3192743757", "slug": "certainteed-presidential-tl-roof-installation-in-milpitas-ca" }, { "id": "3170948649", "slug": "new-custom-skylight-installation-in-san-francisco-ca" }, { "id": "3148878142", "slug": "asphalt-shingle-roof-installation-in-san-bruno-ca" }, { "id": "3071353831", "slug": "flat-roof-installation-fremont-roof-expressprofessional-flat" }, { "id": "3150252770", "slug": "asphalt-shingle-roof-replacement-in-san-bruno-roof-express" }, { "id": "2975951029", "slug": "white-gta-3-layer-modified-bitumen-flat-roof-installation" }, { "id": "3136391714", "slug": "new-asphalt-shingle-roof-installation-in-belmont-roof-express" }, { "id": "3126732518", "slug": "new-shingle-roof-installation-in-piedmont-ca-roof-express" }, { "id": "3119124309", "slug": "why-choose-roof-express-for-bay-area" }, { "id": "3005315456", "slug": "new-shingle-roof-san-francisco-roof-expressexpert" }, { "id": "2871914158", "slug": "flat-roof-installation-san-francisco-roof-expressprofessional" }, { "id": "3096880045", "slug": "skylight-sun-tunnel-installation-san-francisco" }, { "id": "3105970756", "slug": "new-shingle-roof-installation-walnut-creek-roof-express" }, { "id": "3079624962", "slug": "new-shingle-roof-installation-in-oakland-roof-express" }, { "id": "3044711731", "slug": "shingle-roof-replacement-in-sunnyvale" }, { "id": "3043726300", "slug": "3-ply-torch-down-roof-replacement-in-san-francisco" }, { "id": "3031719117", "slug": "roof-replacement-in-the-bay-area-by-certified-experts-roof-express" }, { "id": "3010974386", "slug": "multi-unit-for-hoa-communities-in-san-francisco" }, { "id": "3003619187", "slug": "how-to-maintain-a-newly-installed-roof-in-san-francisco" }, { "id": "2971251057", "slug": "common-flat-roof-drain-problems-in-san-francisco-and-how-to-fix-them" }, { "id": "2998924489", "slug": "a-new-asphalt-shingle-roof-completed-in-san-francisco" }, { "id": "2994469402", "slug": "vent-pipe-waterproofing-prevents-roof-leaks" }, { "id": "2991641742", "slug": "shingle-roof-leak-repair-in-sunnyvale" }, { "id": "2988028879", "slug": "asphalt-shingle-roof-replacement-in-san-francisco" }, { "id": "2988020565", "slug": "how-to-protect-your-roof-and-choose-the-right-roofing-contractor" }, { "id": "2983975027", "slug": "how-to-choose-the-best-roofing-company-in-south-san-francisco" }, { "id": "2983561994", "slug": "san-francisco-roofing-guide-for-homeowners-protecting" }, { "id": "2983560087", "slug": "fighting-the-fog-the-best-roofing-materials-for-daly-city-coastal-homes" }, { "id": "2983556749", "slug": "guide-to-finding-the-best-roofing-company-in-daly-city-ca" }, { "id": "2982766130", "slug": "two-day-flat-roof-replacement-in-san-francisco-permit-approved" }, { "id": "2776030933", "slug": "roof-replacement-in-millbrae-the-bay-area" }, { "id": "2653249310", "slug": "new-flat-roof-installation-in-pescadero-ca" }, { "id": "2705954695", "slug": "hillsborough-roof-inspection-process-with-roof-express" }, { "id": "2966791161", "slug": "gravel-and-tar-roof-removal-in-san-francisco" }, { "id": "2968387101", "slug": "torch-down-roof-installation-in-san-mateo-a-durable" }, { "id": "2965285748", "slug": "south-san-francisco-chimney-leak-repair" }, { "id": "2438487601", "slug": "tear-off-shingle-roof-replacement-in-san-mateo-2026-guide" }, { "id": "2442254846", "slug": "new-shingle-roof-installation-in-san-mateo-2026-guide" }, { "id": "2785194426", "slug": "new-flat-roof-installation-in-san-mateo-2026-guide" }, { "id": "2785174292", "slug": "torch-down-roofing-in-san-mateo-2026-guide" }, { "id": "2846455258", "slug": "roof-decking-in-san-bruno-2026-guide" }, { "id": "2905118187", "slug": "chimney-leak-repair-in-daly-city-2026-guide" }, { "id": "2922011357", "slug": "new-shingle-roof-installation-in-daly-city-2026-guide" }, { "id": "2876316924", "slug": "emergency-roof-repair-in-san-carlos-2026-guide" }, { "id": "2681862991", "slug": "roof-insulation-guide-2026" }, { "id": "2685480196", "slug": "roof-decking-plywood-the-foundation-of-a" }, { "id": "2687226759", "slug": "diamonddeck-certainteed-ice-barrier-layers-complete-roofing" }, { "id": "2695563124", "slug": "roof-leak-detection-in-south-san-francisco-2026-guide" }, { "id": "1701945845", "slug": "roof-replacement-vs" }, { "id": "2964188134", "slug": "flat-roof-project-completed-in-san-francisco-torch-down" }, { "id": "2956800462", "slug": "ponding-water-near-roof-drains" }, { "id": "2964926030", "slug": "roof-maintenance-in-san-francisco-the-bay-area" }, { "id": "2749076180", "slug": "roof-replacement-in-san-francisco-the-bay-area" }, { "id": "2959388409", "slug": "leak-detection-services-in-san-francisco-the-bay-area" }, { "id": "2732003790", "slug": "the-complete-guide-to-roof-replacement-in-the-bay-area-2026-homeowner-guide" }, { "id": "2949877820", "slug": "the-ultimate-roof-maintenance-calendar-what-to-check" }, { "id": "2912486811", "slug": "flat-roof-repair-9-warning-signs-best-fixes" }, { "id": "1715961736", "slug": "how-to-choose-the-right-roof-and-avoid-costly-mistakes" }];
 var STATIC_SECURITY_HEADERS = { "Content-Security-Policy": "default-src 'self'; script-src 'self' 'unsafe-inline' https://static.elfsight.com https://elfsightcdn.com https://universe-static.elfsightcdn.com https://core.service.elfsight.com; script-src-attr 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://static.elfsight.com https://elfsightcdn.com https://universe-static.elfsightcdn.com; font-src 'self' data: https://fonts.gstatic.com https://static.elfsight.com https://elfsightcdn.com https://universe-static.elfsightcdn.com; img-src 'self' data: blob: https://cdn.prod.website-files.com https://www.gaf.com https://img1.wsimg.com https://upload.wikimedia.org https://lh3.googleusercontent.com https://s3-media0.fl.yelpcdn.com https://services-universe-prod.sfo3.digitaloceanspaces.com; connect-src 'self' https://static.elfsight.com https://elfsightcdn.com https://universe-static.elfsightcdn.com https://core.service.elfsight.com https://service-reviews-ultimate.elfsight.com; frame-src 'self' https://411102e72a00471d850bc6e93824202c.elf.site https://customer-uavvndfddze0763y.cloudflarestream.com https://iframe.cloudflarestream.com https://www.google.com https://www.youtube.com; media-src 'self' blob: https://customer-uavvndfddze0763y.cloudflarestream.com; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self' https://clienthub.getjobber.com; frame-ancestors 'self'; upgrade-insecure-requests", "X-Content-Type-Options": "nosniff", "X-Frame-Options": "SAMEORIGIN", "Referrer-Policy": "strict-origin-when-cross-origin", "Permissions-Policy": "camera=(), microphone=(), geolocation=()", "Strict-Transport-Security": "max-age=63072000; includeSubDomains; preload" };
 async function fetchAllTags(token) {
   if (typeof token !== "string" || token.trim() === "") {

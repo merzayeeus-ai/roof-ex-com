@@ -1,4 +1,100 @@
 {
+  "belmont": [
+    {
+      "slug": "professional-roofing-services-in-belmont-california",
+      "title": "Professional Roofing Services in Belmont, California",
+      "dateLabel": "September 2026",
+      "date": "2026-09-23",
+      "excerpt": "Professional Roofing Services in Belmont, California Your roof is one of the most important systems protecting your Belmont home. Between seasonal rain, stro...",
+      "img": "/images/field-notes/3592578881-d71137637216da70.webp",
+      "city": "Belmont"
+    },
+    {
+      "slug": "new-asphalt-shingle-roof-installation-in-belmont-roof-express",
+      "title": "New Asphalt Shingle Roof Installation in Belmont | ROOF EXPRESS",
+      "dateLabel": "April 2026",
+      "date": "2026-04-28",
+      "excerpt": "New Asphalt Shingle Roof Installation in Belmont | ROOF EXPRESS New asphalt shingle roof installation in Belmont. Durable, energy-efficient roofing by ROOF E...",
+      "img": "/images/field-notes/3136391714-f70dae1a82d79d7f.webp",
+      "city": "Belmont"
+    }
+  ],
+  "san-francisco": [
+    {
+      "slug": "what-is-the-roof-express-process-for-repairing-or-replacing-a-roof",
+      "title": "What Is the Roof Express Process for Repairing or Replacing a Roof",
+      "dateLabel": "September 2026",
+      "date": "2026-09-21",
+      "excerpt": "What Is the Roof Express Process for Repairing or Replacing a Roof? A roofing project should come with a clear plan. From the first inspection to the final c...",
+      "img": "/images/field-notes/3584234618-696e8f3fffcf766e.webp",
+      "city": "San Francisco"
+    },
+    {
+      "slug": "flat-roof-ready-for-solar-installation",
+      "title": "Flat Roof Ready for Solar Installation",
+      "dateLabel": "August 2026",
+      "date": "2026-08-21",
+      "excerpt": "Flat Roof Ready for Solar Installation Why Roofing Should Come First Installing solar panels is a major investment, but before mounting a new solar system on...",
+      "img": "/images/field-notes/3496059338-1cddcb6220b0bcc6.webp",
+      "city": "San Francisco"
+    },
+    {
+      "slug": "flat-roof-replacement-in-san-franciscocomplete-homeowner-guide",
+      "title": "Flat Roof Replacement in San FranciscoComplete Homeowner Guide",
+      "dateLabel": "August 2026",
+      "date": "2026-08-06",
+      "excerpt": "Flat Roof Replacement in San FranciscoComplete Homeowner Guide Flat and low-slope roofs are a major part of San Francisco's residential architecture. From th...",
+      "img": "/images/field-notes/3443236416-cd0a9390c7770d01.webp",
+      "city": "San Francisco"
+    },
+    {
+      "slug": "3-layer-torch-down-flat-roof-replacement",
+      "title": "3-Layer Torch-Down Flat Roof Replacement",
+      "dateLabel": "August 2026",
+      "date": "2026-08-11",
+      "excerpt": "3-Layer Torch-Down Flat Roof Replacement A Complete Modified Bitumen Roofing System When a flat or low-slope roof begins leaking, developing bubbles, separat...",
+      "img": "/images/field-notes/3460805873-c7bf2bdbd4bebcf8.webp",
+      "city": "San Francisco"
+    },
+    {
+      "slug": "roof-replacement-in-san-francisco-ca",
+      "title": "Roof Replacement in San Francisco, CA",
+      "dateLabel": "August 2026",
+      "date": "2026-08-07",
+      "excerpt": "Roof Replacement in San Francisco, CA Complete Homeowner Guide A roof replacement in San Francisco requires more than simply removing old roofing material an...",
+      "img": "/images/field-notes/3450186447-9a3151c504f2a0c8.webp",
+      "city": "San Francisco"
+    },
+    {
+      "slug": "what-is-el-ni-o",
+      "title": "What Is El Niño",
+      "dateLabel": "August 2026",
+      "date": "2026-08-19",
+      "excerpt": "What Is El Niño? Bay Area Rain & Roof Guide What Is El Niño? The Complete San Francisco Bay Area Homeowner’s Guide to El Niño, Rain & Roof Protection If you ...",
+      "img": "/images/field-notes/3487001778-67d0bdbb41b1a7cc.webp",
+      "city": "San Francisco"
+    }
+  ],
+  "berkeley": [
+    {
+      "slug": "berkeley-roof-replacement",
+      "title": "Berkeley Roof Replacement",
+      "dateLabel": "September 2026",
+      "date": "2026-09-12",
+      "excerpt": "Berkeley Roof Replacement Professional Roofing Services in Berkeley, CA When your roof begins showing signs of age, leaking, damaged shingles, deteriorated f...",
+      "img": "/images/field-notes/3560277053-6c678c7052b46c02.webp",
+      "city": "Berkeley"
+    },
+    {
+      "slug": "the-complete-guide-to-roof-replacement-in-the-bay-area-2026-homeowner-guide",
+      "title": "The Complete Guide to Roof Replacement in the Bay Area (2026 Homeowner Guide)",
+      "dateLabel": "November 2025",
+      "date": "2025-11-09",
+      "excerpt": "The Complete Guide to Roof Replacement in the Bay Area (2026 Homeowner Guide) Your roof is the most important protective system of your home. In the Bay Area...",
+      "img": "/images/field-notes/2732003790-1ffcf8f40f8c6c04.webp",
+      "city": "Berkeley"
+    }
+  ],
   "san-mateo": [
     {
       "slug": "asphalt-shingle-reroofing-project-in-san-mateo-ca",
@@ -28,21 +124,12 @@
       "city": "San Mateo"
     },
     {
-      "slug": "new-flat-roof-installation-in-san-mateo-2026-guide",
-      "title": "New Flat Roof Installation in San Mateo (2026 Guide)",
-      "dateLabel": "December 2025",
-      "date": "2025-12-03",
-      "excerpt": "New Flat Roof Installation in San Mateo (2026 Guide) Modern Waterproofing Systems for Commercial & Residential Buildings A new flat roof installation in San ...",
-      "img": "/images/field-notes/2785194426-3edcffe0c5b2bce1.webp",
-      "city": "San Mateo"
-    },
-    {
-      "slug": "torch-down-roofing-in-san-mateo-2026-guide",
-      "title": "Torch-Down Roofing in San Mateo (2026 Guide)",
-      "dateLabel": "December 2025",
-      "date": "2025-12-03",
-      "excerpt": "Torch-Down Roofing in San Mateo (2026 Guide) Commercial Flat Roof Installation & Replacement Torch-down roofing is one of the most reliable systems for comme...",
-      "img": "/images/field-notes/2785174292-79352b776c4940ed.webp",
+      "slug": "tear-off-shingle-roof-replacement-in-san-mateo-2026-guide",
+      "title": "Tear-Off Shingle Roof Replacement in San Mateo (2026 Guide)",
+      "dateLabel": "July 2025",
+      "date": "2025-07-17",
+      "excerpt": "Tear-Off Shingle Roof Replacement in San Mateo (2026 Guide) Why Full Removal Is the Best Long-Term Investment A tear-off shingle roof replacement in San Mate...",
+      "img": "/images/field-notes/2438487601-d17a90d366ce3b89.webp",
       "city": "San Mateo"
     },
     {
@@ -53,62 +140,15 @@
       "excerpt": "New Shingle Roof Installation in San Mateo (2026 Guide) Durable, Wind-Resistant Roofing for Bay Area Homes A new shingle roof installation in San Mateo is on...",
       "img": "/images/field-notes/2442254846-b1c06afd82bec2d7.webp",
       "city": "San Mateo"
-    }
-  ],
-  "san-francisco": [
-    {
-      "slug": "flat-roof-ready-for-solar-installation",
-      "title": "Flat Roof Ready for Solar Installation",
-      "dateLabel": "August 2026",
-      "date": "2026-08-21",
-      "excerpt": "Flat Roof Ready for Solar Installation Why Roofing Should Come First Installing solar panels is a major investment, but before mounting a new solar system on...",
-      "img": "/images/field-notes/3496059338-1cddcb6220b0bcc6.webp",
-      "city": "San Francisco"
     },
     {
-      "slug": "what-is-el-ni-o",
-      "title": "What Is El Niño",
-      "dateLabel": "August 2026",
-      "date": "2026-08-19",
-      "excerpt": "What Is El Niño? Bay Area Rain & Roof Guide What Is El Niño? The Complete San Francisco Bay Area Homeowner’s Guide to El Niño, Rain & Roof Protection If you ...",
-      "img": "/images/field-notes/3487001778-67d0bdbb41b1a7cc.webp",
-      "city": "San Francisco"
-    },
-    {
-      "slug": "3-layer-torch-down-flat-roof-replacement",
-      "title": "3-Layer Torch-Down Flat Roof Replacement",
-      "dateLabel": "August 2026",
-      "date": "2026-08-11",
-      "excerpt": "3-Layer Torch-Down Flat Roof Replacement A Complete Modified Bitumen Roofing System When a flat or low-slope roof begins leaking, developing bubbles, separat...",
-      "img": "/images/field-notes/3460805873-c7bf2bdbd4bebcf8.webp",
-      "city": "San Francisco"
-    },
-    {
-      "slug": "roof-replacement-in-san-francisco-ca",
-      "title": "Roof Replacement in San Francisco, CA",
-      "dateLabel": "August 2026",
-      "date": "2026-08-07",
-      "excerpt": "Roof Replacement in San Francisco, CA Complete Homeowner Guide A roof replacement in San Francisco requires more than simply removing old roofing material an...",
-      "img": "/images/field-notes/3450186447-9a3151c504f2a0c8.webp",
-      "city": "San Francisco"
-    },
-    {
-      "slug": "protecting-san-francisco-roofs",
-      "title": "Protecting San Francisco Roofs",
-      "dateLabel": "August 2026",
-      "date": "2026-08-07",
-      "excerpt": "Protecting San Francisco Roofs Why Local Property Owners Trust Roof Express From the dense foggy mornings in the Sunset District to the heavy atmospheric riv...",
-      "img": "/images/field-notes/3447706017-a2603421aee89437.webp",
-      "city": "San Francisco"
-    },
-    {
-      "slug": "flat-roof-replacement-in-san-franciscocomplete-homeowner-guide",
-      "title": "Flat Roof Replacement in San FranciscoComplete Homeowner Guide",
-      "dateLabel": "August 2026",
-      "date": "2026-08-06",
-      "excerpt": "Flat Roof Replacement in San FranciscoComplete Homeowner Guide Flat and low-slope roofs are a major part of San Francisco's residential architecture. From th...",
-      "img": "/images/field-notes/3443236416-cd0a9390c7770d01.webp",
-      "city": "San Francisco"
+      "slug": "new-flat-roof-installation-in-san-mateo-2026-guide",
+      "title": "New Flat Roof Installation in San Mateo (2026 Guide)",
+      "dateLabel": "December 2025",
+      "date": "2025-12-03",
+      "excerpt": "New Flat Roof Installation in San Mateo (2026 Guide) Modern Waterproofing Systems for Commercial & Residential Buildings A new flat roof installation in San ...",
+      "img": "/images/field-notes/2785194426-3edcffe0c5b2bce1.webp",
+      "city": "San Mateo"
     }
   ],
   "woodside": [
@@ -195,21 +235,21 @@
       "city": "Milpitas"
     },
     {
-      "slug": "certainteed-presidential-tl-roof-installation-in-milpitas-ca",
-      "title": "CertainTeed Presidential TL Roof Installation in Milpitas, CA",
-      "dateLabel": "May 2026",
-      "date": "2026-05-15",
-      "excerpt": "CertainTeed Presidential TL Roof Installation in Milpitas, CA ROOF EXPRESS recently completed a premium roof replacement in Milpitas featuring CertainTeed Pr...",
-      "img": "/images/field-notes/3192743757-6c4f07844765fd05.webp",
-      "city": "Milpitas"
-    },
-    {
       "slug": "roof-replacement-in-milpitas-ca",
       "title": "Roof Replacement in Milpitas, CA",
       "dateLabel": "May 2026",
       "date": "2026-05-13",
       "excerpt": "Roof Replacement in Milpitas, CA Everything Homeowners Need to Know | ROOF EXPRESS When your roof starts showing signs of age, leaks, or visible damage, repl...",
       "img": "/images/field-notes/3184064932-a7b5825ef80edaae.webp",
+      "city": "Milpitas"
+    },
+    {
+      "slug": "certainteed-presidential-tl-roof-installation-in-milpitas-ca",
+      "title": "CertainTeed Presidential TL Roof Installation in Milpitas, CA",
+      "dateLabel": "May 2026",
+      "date": "2026-05-15",
+      "excerpt": "CertainTeed Presidential TL Roof Installation in Milpitas, CA ROOF EXPRESS recently completed a premium roof replacement in Milpitas featuring CertainTeed Pr...",
+      "img": "/images/field-notes/3192743757-6c4f07844765fd05.webp",
       "city": "Milpitas"
     }
   ],
@@ -235,21 +275,21 @@
   ],
   "san-bruno": [
     {
-      "slug": "asphalt-shingle-roof-replacement-in-san-bruno-roof-express",
-      "title": "Asphalt Shingle Roof Replacement in San Bruno | Roof Express",
-      "dateLabel": "May 2026",
-      "date": "2026-05-03",
-      "excerpt": "Asphalt Shingle Roof Replacement in San Bruno | Roof Express Transforming Homes: A Complete Asphalt Shingle Roof Replacement in San Bruno When it comes to pr...",
-      "img": "/images/field-notes/3150252770-58c241e0049c7f8a.webp",
-      "city": "San Bruno"
-    },
-    {
       "slug": "asphalt-shingle-roof-installation-in-san-bruno-ca",
       "title": "Asphalt Shingle Roof Installation in San Bruno, CA",
       "dateLabel": "May 2026",
       "date": "2026-05-01",
       "excerpt": "Asphalt Shingle Roof Installation in San Bruno, CA San Bruno homeowners need roofing systems that can stand up to coastal fog, wind-driven rain, and year-rou...",
       "img": "/images/field-notes/3148878142-090f3216fda75bf8.webp",
+      "city": "San Bruno"
+    },
+    {
+      "slug": "asphalt-shingle-roof-replacement-in-san-bruno-roof-express",
+      "title": "Asphalt Shingle Roof Replacement in San Bruno | Roof Express",
+      "dateLabel": "May 2026",
+      "date": "2026-05-03",
+      "excerpt": "Asphalt Shingle Roof Replacement in San Bruno | Roof Express Transforming Homes: A Complete Asphalt Shingle Roof Replacement in San Bruno When it comes to pr...",
+      "img": "/images/field-notes/3150252770-58c241e0049c7f8a.webp",
       "city": "San Bruno"
     },
     {
@@ -262,12 +302,12 @@
       "city": "San Bruno"
     },
     {
-      "slug": "the-ultimate-roof-maintenance-calendar-what-to-check",
-      "title": "The Ultimate Roof Maintenance Calendar: What to Check",
-      "dateLabel": "February 2026",
-      "date": "2026-02-23",
-      "excerpt": "The Ultimate Roof Maintenance Calendar: What to Check Each Season to Prevent Leaks Most roof problems don’t start as emergencies. They start as small issues—...",
-      "img": "/images/field-notes/2949877820-11884407cbb07059.webp",
+      "slug": "roof-decking-in-san-bruno-2026-guide",
+      "title": "Roof Decking in San Bruno (2026 Guide)",
+      "dateLabel": "January 2026",
+      "date": "2026-01-07",
+      "excerpt": "Roof Decking in San Bruno (2026 Guide) Plywood & Roof Sheathing Replacement Services Roof decking is the structural foundation of your entire roofing system....",
+      "img": "/images/field-notes/2846455258-ca750e8352d41153.webp",
       "city": "San Bruno"
     },
     {
@@ -280,33 +320,24 @@
       "city": "San Bruno"
     },
     {
-      "slug": "roof-decking-in-san-bruno-2026-guide",
-      "title": "Roof Decking in San Bruno (2026 Guide)",
-      "dateLabel": "January 2026",
-      "date": "2026-01-07",
-      "excerpt": "Roof Decking in San Bruno (2026 Guide) Plywood & Roof Sheathing Replacement Services Roof decking is the structural foundation of your entire roofing system....",
-      "img": "/images/field-notes/2846455258-ca750e8352d41153.webp",
+      "slug": "roof-replacement-vs",
+      "title": "Roof Replacement vs",
+      "dateLabel": "July 2024",
+      "date": "2024-07-25",
+      "excerpt": "Roof Replacement vs. Roof Repair: How to Choose the Right Option (and Avoid Costly Mistakes) Quick Answer: When to Repair vs. Replace 7 Signs You Can Probabl...",
+      "img": "/images/field-notes/1701945845-be31c9d09cd9f8ce.webp",
       "city": "San Bruno"
     }
   ],
-  "belmont": [
+  "fremont": [
     {
-      "slug": "new-asphalt-shingle-roof-installation-in-belmont-roof-express",
-      "title": "New Asphalt Shingle Roof Installation in Belmont | ROOF EXPRESS",
+      "slug": "flat-roof-installation-fremont-roof-expressprofessional-flat",
+      "title": "Flat Roof Installation Fremont | ROOF EXPRESSProfessional Flat",
       "dateLabel": "April 2026",
-      "date": "2026-04-28",
-      "excerpt": "New Asphalt Shingle Roof Installation in Belmont | ROOF EXPRESS New asphalt shingle roof installation in Belmont. Durable, energy-efficient roofing by ROOF E...",
-      "img": "/images/field-notes/3136391714-f70dae1a82d79d7f.webp",
-      "city": "Belmont"
-    },
-    {
-      "slug": "professional-roofing-services-in-belmont-california",
-      "title": "Professional Roofing Services in Belmont, California",
-      "dateLabel": "September 2026",
-      "date": "2026-09-23",
-      "excerpt": "Professional Roofing Services in Belmont, California Your roof is one of the most important systems protecting your Belmont home. Between seasonal rain, stro...",
-      "img": "/images/field-notes/3592578881-d71137637216da70.webp",
-      "city": "Belmont"
+      "date": "2026-04-07",
+      "excerpt": "Flat Roof Installation Fremont | ROOF EXPRESSProfessional Flat Roofing Services in Fremont, CA If you're looking for flat roof installation in Fremont, you n...",
+      "img": "/images/field-notes/3071353831-c320d903d24a019d.webp",
+      "city": "Fremont"
     }
   ],
   "piedmont": [
@@ -349,21 +380,21 @@
       "city": "Daly City"
     },
     {
-      "slug": "new-shingle-roof-installation-in-daly-city-2026-guide",
-      "title": "New Shingle Roof Installation in Daly City (2026 Guide)",
-      "dateLabel": "February 2026",
-      "date": "2026-02-11",
-      "excerpt": "New Shingle Roof Installation in Daly City (2026 Guide) Installing a new shingle roof in Daly City is one of the most important investments you can make in y...",
-      "img": "/images/field-notes/2922011357-77663081c6a72d11.webp",
-      "city": "Daly City"
-    },
-    {
       "slug": "chimney-leak-repair-in-daly-city-2026-guide",
       "title": "Chimney Leak Repair in Daly City (2026 Guide)",
       "dateLabel": "February 2026",
       "date": "2026-02-04",
       "excerpt": "Chimney Leak Repair in Daly City (2026 Guide) Why Chimney Leaks Happen & Why Fast Repair Is Critical Chimney leaks are one of the most common roofing problem...",
       "img": "/images/field-notes/2905118187-f1b416f23e0cd2f7.webp",
+      "city": "Daly City"
+    },
+    {
+      "slug": "new-shingle-roof-installation-in-daly-city-2026-guide",
+      "title": "New Shingle Roof Installation in Daly City (2026 Guide)",
+      "dateLabel": "February 2026",
+      "date": "2026-02-11",
+      "excerpt": "New Shingle Roof Installation in Daly City (2026 Guide) Installing a new shingle roof in Daly City is one of the most important investments you can make in y...",
+      "img": "/images/field-notes/2922011357-77663081c6a72d11.webp",
       "city": "Daly City"
     }
   ],
@@ -385,17 +416,6 @@
       "excerpt": "Flat Roof Repair: 9 Warning Signs, Best Fixes, and How to Make a Flat Roof Last Longer Flat roofs are popular for commercial buildings and many modern homes ...",
       "img": "/images/field-notes/2912486811-da7ae757dce8938f.webp",
       "city": "Oakland"
-    }
-  ],
-  "fremont": [
-    {
-      "slug": "flat-roof-installation-fremont-roof-expressprofessional-flat",
-      "title": "Flat Roof Installation Fremont | ROOF EXPRESSProfessional Flat",
-      "dateLabel": "April 2026",
-      "date": "2026-04-07",
-      "excerpt": "Flat Roof Installation Fremont | ROOF EXPRESSProfessional Flat Roofing Services in Fremont, CA If you're looking for flat roof installation in Fremont, you n...",
-      "img": "/images/field-notes/3071353831-c320d903d24a019d.webp",
-      "city": "Fremont"
     }
   ],
   "sunnyvale": [
@@ -449,21 +469,12 @@
       "city": "South San Francisco"
     },
     {
-      "slug": "roof-leak-detection-in-south-san-francisco-2026-guide",
-      "title": "Roof Leak Detection in South San Francisco (2026 Guide)",
+      "slug": "roof-insulation-guide-2026",
+      "title": "Roof Insulation Guide (2026)",
       "dateLabel": "October 2025",
-      "date": "2025-10-24",
-      "excerpt": "Roof Leak Detection in South San Francisco (2026 Guide) Roof leak detection in South San Francisco is essential due to strong coastal winds, heavy seasonal r...",
-      "img": "/images/field-notes/2695563124-c20f537c6d395920.webp",
-      "city": "South San Francisco"
-    },
-    {
-      "slug": "diamonddeck-certainteed-ice-barrier-layers-complete-roofing",
-      "title": "DiamondDeck® & CertainTeed Ice Barrier Layers (Complete Roofing",
-      "dateLabel": "October 2025",
-      "date": "2025-10-22",
-      "excerpt": "DiamondDeck® & CertainTeed Ice Barrier Layers (Complete Roofing Guide 2026) What Is DiamondDeck® Underlayment? Key Benefits of DiamondDeck®: What Is an Ice &...",
-      "img": "/images/field-notes/2687226759-483417004299e86e.webp",
+      "date": "2025-10-20",
+      "excerpt": "Roof Insulation Guide (2026) Improve Energy Efficiency & Comfort in Your Home Roof insulation plays a major role in maintaining indoor comfort, reducing ener...",
+      "img": "/images/field-notes/2681862991-fd351b01760b0f55.webp",
       "city": "South San Francisco"
     },
     {
@@ -476,12 +487,21 @@
       "city": "South San Francisco"
     },
     {
-      "slug": "roof-insulation-guide-2026",
-      "title": "Roof Insulation Guide (2026)",
+      "slug": "diamonddeck-certainteed-ice-barrier-layers-complete-roofing",
+      "title": "DiamondDeck® & CertainTeed Ice Barrier Layers (Complete Roofing",
       "dateLabel": "October 2025",
-      "date": "2025-10-20",
-      "excerpt": "Roof Insulation Guide (2026) Improve Energy Efficiency & Comfort in Your Home Roof insulation plays a major role in maintaining indoor comfort, reducing ener...",
-      "img": "/images/field-notes/2681862991-fd351b01760b0f55.webp",
+      "date": "2025-10-22",
+      "excerpt": "DiamondDeck® & CertainTeed Ice Barrier Layers (Complete Roofing Guide 2026) What Is DiamondDeck® Underlayment? Key Benefits of DiamondDeck®: What Is an Ice &...",
+      "img": "/images/field-notes/2687226759-483417004299e86e.webp",
+      "city": "South San Francisco"
+    },
+    {
+      "slug": "roof-leak-detection-in-south-san-francisco-2026-guide",
+      "title": "Roof Leak Detection in South San Francisco (2026 Guide)",
+      "dateLabel": "October 2025",
+      "date": "2025-10-24",
+      "excerpt": "Roof Leak Detection in South San Francisco (2026 Guide) Roof leak detection in South San Francisco is essential due to strong coastal winds, heavy seasonal r...",
+      "img": "/images/field-notes/2695563124-c20f537c6d395920.webp",
       "city": "South San Francisco"
     }
   ],
@@ -496,24 +516,15 @@
       "city": "Millbrae"
     }
   ],
-  "berkeley": [
+  "pescadero": [
     {
-      "slug": "the-complete-guide-to-roof-replacement-in-the-bay-area-2026-homeowner-guide",
-      "title": "The Complete Guide to Roof Replacement in the Bay Area (2026 Homeowner Guide)",
-      "dateLabel": "November 2025",
-      "date": "2025-11-09",
-      "excerpt": "The Complete Guide to Roof Replacement in the Bay Area (2026 Homeowner Guide) Your roof is the most important protective system of your home. In the Bay Area...",
-      "img": "/images/field-notes/2732003790-1ffcf8f40f8c6c04.webp",
-      "city": "Berkeley"
-    },
-    {
-      "slug": "berkeley-roof-replacement",
-      "title": "Berkeley Roof Replacement",
-      "dateLabel": "September 2026",
-      "date": "2026-09-12",
-      "excerpt": "Berkeley Roof Replacement Professional Roofing Services in Berkeley, CA When your roof begins showing signs of age, leaking, damaged shingles, deteriorated f...",
-      "img": "/images/field-notes/3560277053-6c678c7052b46c02.webp",
-      "city": "Berkeley"
+      "slug": "new-flat-roof-installation-in-pescadero-ca",
+      "title": "New Flat Roof Installation in Pescadero, CA",
+      "dateLabel": "October 2025",
+      "date": "2025-10-08",
+      "excerpt": "New Flat Roof Installation in Pescadero, CA If you’re building a new home, adding an ADU, upgrading a commercial space, or replacing an older roof design, a ...",
+      "img": "/images/field-notes/2653249310-b6c3b938fe1b269b.webp",
+      "city": "Pescadero"
     }
   ],
   "hillsborough": [
@@ -525,17 +536,6 @@
       "excerpt": "Hillsborough Roof Inspection Process with Roof Express Your roof is one of the most important components of your home, protecting everything beneath it from ...",
       "img": "/images/field-notes/2705954695-094fa42f925d2d9b.webp",
       "city": "Hillsborough"
-    }
-  ],
-  "pescadero": [
-    {
-      "slug": "new-flat-roof-installation-in-pescadero-ca",
-      "title": "New Flat Roof Installation in Pescadero, CA",
-      "dateLabel": "October 2025",
-      "date": "2025-10-08",
-      "excerpt": "New Flat Roof Installation in Pescadero, CA If you’re building a new home, adding an ADU, upgrading a commercial space, or replacing an older roof design, a ...",
-      "img": "/images/field-notes/2653249310-b6c3b938fe1b269b.webp",
-      "city": "Pescadero"
     }
   ],
   "mountain-view": [

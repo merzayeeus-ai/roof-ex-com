@@ -14,5 +14,11 @@
   "contentHash": "8f05fa583735ed4e1484f838dbf40a1260be429e554a50877615b3ac71325de7",
   "imageWidth": 1200,
   "imageHeight": 1600,
-  "imageBytes": 556174
+  "imageBytes": 556174,
+  "photoSeo": {
+    "alt": "Image accompanying a ROOF EXPRESS Field Note about roof replacement for Berkeley, California.",
+    "title": "Roof replacement Field Note Image — Berkeley, CA",
+    "caption": "Image for a ROOF EXPRESS Field Note about roof replacement for Berkeley, California.",
+    "description": "This image accompanies a ROOF EXPRESS Field Note about roof replacement for Berkeley, California. It is part of our collection of roofing guides and field notes."
+  }
 }

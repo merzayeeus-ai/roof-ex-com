@@ -14,5 +14,11 @@
   "contentHash": "eda2caa7276bb792165af16bd79285ad9c3cb305aded5681f4f8dcceea9fa878",
   "imageWidth": 1600,
   "imageHeight": 900,
-  "imageBytes": 234930
+  "imageBytes": 234930,
+  "photoSeo": {
+    "alt": "Image accompanying a ROOF EXPRESS Field Note about roofing for San Francisco, California.",
+    "title": "Roofing Field Note Image — San Francisco, CA",
+    "caption": "Image for a ROOF EXPRESS Field Note about roofing for San Francisco, California.",
+    "description": "This image accompanies a ROOF EXPRESS Field Note about roofing for San Francisco, California. It is part of our collection of roofing guides and field notes."
+  }
 }
