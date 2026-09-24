@@ -2,6 +2,29 @@
   "version": 1,
   "posts": [
     {
+      "id": "3596887844",
+      "slug": "el-ni-o-in-san-francisco-the-bay-area",
+      "city": "San Francisco",
+      "state": "California",
+      "thumbnail": "/images/field-notes/3596887844-bcf086f8017ebba6-thumb.webp",
+      "fullSize": "/images/field-notes/3596887844-d4c44ad7d745d800.webp",
+      "createdAt": 1790235222,
+      "localImage": "/images/field-notes/3596887844-d4c44ad7d745d800.webp",
+      "title": "El Niño in San Francisco & the Bay Area",
+      "excerpt": "El Niño in San Francisco & the Bay Area How Homeowners Can Prepare Their Roof Before Heavy Rain By Roof Express | San Francisco Bay Area Roofing Professional...",
+      "updatedAt": 1790235266,
+      "contentHash": "187692b6137a7a97672d89c438210b407db9d1d1d22940fba616fe9196ec78be",
+      "imageWidth": 1448,
+      "imageHeight": 1086,
+      "imageBytes": 427360,
+      "photoSeo": {
+        "alt": "Image accompanying a ROOF EXPRESS Field Note about roofing for San Francisco, California.",
+        "title": "Roofing Field Note Image — San Francisco, CA",
+        "caption": "Image for a ROOF EXPRESS Field Note about roofing for San Francisco, California.",
+        "description": "This image accompanies a ROOF EXPRESS Field Note about roofing for San Francisco, California. It is part of our collection of roofing guides and field notes."
+      }
+    },
+    {
       "id": "3592578881",
       "slug": "professional-roofing-services-in-belmont-california",
       "city": "Belmont",

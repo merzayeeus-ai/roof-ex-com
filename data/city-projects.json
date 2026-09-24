@@ -1,25 +1,14 @@
 {
-  "belmont": [
-    {
-      "slug": "professional-roofing-services-in-belmont-california",
-      "title": "Professional Roofing Services in Belmont, California",
-      "dateLabel": "September 2026",
-      "date": "2026-09-23",
-      "excerpt": "Professional Roofing Services in Belmont, California Your roof is one of the most important systems protecting your Belmont home. Between seasonal rain, stro...",
-      "img": "/images/field-notes/3592578881-d71137637216da70.webp",
-      "city": "Belmont"
-    },
-    {
-      "slug": "new-asphalt-shingle-roof-installation-in-belmont-roof-express",
-      "title": "New Asphalt Shingle Roof Installation in Belmont | ROOF EXPRESS",
-      "dateLabel": "April 2026",
-      "date": "2026-04-28",
-      "excerpt": "New Asphalt Shingle Roof Installation in Belmont | ROOF EXPRESS New asphalt shingle roof installation in Belmont. Durable, energy-efficient roofing by ROOF E...",
-      "img": "/images/field-notes/3136391714-f70dae1a82d79d7f.webp",
-      "city": "Belmont"
-    }
-  ],
   "san-francisco": [
+    {
+      "slug": "el-ni-o-in-san-francisco-the-bay-area",
+      "title": "El Niño in San Francisco & the Bay Area",
+      "dateLabel": "September 2026",
+      "date": "2026-09-24",
+      "excerpt": "El Niño in San Francisco & the Bay Area How Homeowners Can Prepare Their Roof Before Heavy Rain By Roof Express | San Francisco Bay Area Roofing Professional...",
+      "img": "/images/field-notes/3596887844-d4c44ad7d745d800.webp",
+      "city": "San Francisco"
+    },
     {
       "slug": "what-is-the-roof-express-process-for-repairing-or-replacing-a-roof",
       "title": "What Is the Roof Express Process for Repairing or Replacing a Roof",
@@ -64,15 +53,26 @@
       "excerpt": "Roof Replacement in San Francisco, CA Complete Homeowner Guide A roof replacement in San Francisco requires more than simply removing old roofing material an...",
       "img": "/images/field-notes/3450186447-9a3151c504f2a0c8.webp",
       "city": "San Francisco"
+    }
+  ],
+  "belmont": [
+    {
+      "slug": "professional-roofing-services-in-belmont-california",
+      "title": "Professional Roofing Services in Belmont, California",
+      "dateLabel": "September 2026",
+      "date": "2026-09-23",
+      "excerpt": "Professional Roofing Services in Belmont, California Your roof is one of the most important systems protecting your Belmont home. Between seasonal rain, stro...",
+      "img": "/images/field-notes/3592578881-d71137637216da70.webp",
+      "city": "Belmont"
     },
     {
-      "slug": "what-is-el-ni-o",
-      "title": "What Is El Niño",
-      "dateLabel": "August 2026",
-      "date": "2026-08-19",
-      "excerpt": "What Is El Niño? Bay Area Rain & Roof Guide What Is El Niño? The Complete San Francisco Bay Area Homeowner’s Guide to El Niño, Rain & Roof Protection If you ...",
-      "img": "/images/field-notes/3487001778-67d0bdbb41b1a7cc.webp",
-      "city": "San Francisco"
+      "slug": "new-asphalt-shingle-roof-installation-in-belmont-roof-express",
+      "title": "New Asphalt Shingle Roof Installation in Belmont | ROOF EXPRESS",
+      "dateLabel": "April 2026",
+      "date": "2026-04-28",
+      "excerpt": "New Asphalt Shingle Roof Installation in Belmont | ROOF EXPRESS New asphalt shingle roof installation in Belmont. Durable, energy-efficient roofing by ROOF E...",
+      "img": "/images/field-notes/3136391714-f70dae1a82d79d7f.webp",
+      "city": "Belmont"
     }
   ],
   "berkeley": [
