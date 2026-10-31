@@ -187,6 +187,34 @@ var init_companycam_photo_seo = __esm({
   }
 });
 
+// shared/photo-privacy.ts
+function getPublicPhotoPrivacyRule(photoId) {
+  return LOCATION_STAMP_PHOTOS.has(photoId) ? { revision: 1, cropBottom: 0.2 } : { revision: 0, cropBottom: 0 };
+}
+var LOCATION_STAMP_PHOTOS;
+var init_photo_privacy = __esm({
+  "shared/photo-privacy.ts"() {
+    "use strict";
+    LOCATION_STAMP_PHOTOS = /* @__PURE__ */ new Set([
+      "2964188134",
+      "2966791161",
+      "2968387101",
+      "3005315456",
+      "3071353831",
+      "3126732518",
+      "3148878142",
+      "3170948649",
+      "3184064932",
+      "3434434792",
+      "3443236416",
+      "3450186447",
+      "3460805873",
+      "3506074506",
+      "3560277053"
+    ]);
+  }
+});
+
 // shared/tagged-job-photos.ts
 function normalizeWords(value) {
   return value.normalize("NFKC").trim().toLowerCase().replace(/&/g, " and ").replace(/[_-]+/g, " ").replace(/[.,/]+/g, " ").replace(/\s+/g, " ");
@@ -407,14 +435,14 @@ import { fileURLToPath as fileURLToPath2 } from "url";
 import {
   access,
   mkdir as mkdir3,
-  readFile as readFile3,
-  rename as rename3,
+  readFile as readFile4,
+  rename as rename4,
   rm as rm2,
   stat as stat2,
-  writeFile as writeFile3
+  writeFile as writeFile4
 } from "fs/promises";
-import path3 from "path";
-import sharp2 from "sharp";
+import path4 from "path";
+import sharp3 from "sharp";
 function isRecord2(value) {
   return value !== null && typeof value === "object" && !Array.isArray(value);
 }
@@ -592,7 +620,7 @@ async function directoryExists(directory) {
 }
 async function readJson(file, fallback) {
   try {
-    return JSON.parse(await readFile3(file, "utf8"));
+    return JSON.parse(await readFile4(file, "utf8"));
   } catch {
     return fallback;
   }
@@ -641,14 +669,14 @@ export function getCityProjectPhotos(slug: string): CityProjectPhoto[] { return 
 }
 async function atomicWrite(file, contents) {
   try {
-    if (await readFile3(file, "utf8") === contents) return false;
+    if (await readFile4(file, "utf8") === contents) return false;
   } catch {
   }
   const temporary = `${file}.staging-${process.pid}`;
-  await mkdir3(path3.dirname(file), { recursive: true });
+  await mkdir3(path4.dirname(file), { recursive: true });
   try {
-    await writeFile3(temporary, contents);
-    await rename3(temporary, file);
+    await writeFile4(temporary, contents);
+    await rename4(temporary, file);
     return true;
   } catch (error) {
     await rm2(temporary, { force: true });
@@ -663,21 +691,22 @@ async function downloadDerivative2(photo, outputDir, fetcher, reviewById) {
   const input = Buffer.from(await response.arrayBuffer());
   const sourceHash = createHash2("sha256").update(input).digest("hex");
   const review = reviewById.get(String(photo.id));
-  const cropBottom = review && review.sha256 === sourceHash && review.cropBottom >= 0 && review.cropBottom < 1 ? review.cropBottom : DEFAULT_BOTTOM_CROP;
-  const oriented = await sharp2(input).rotate().toBuffer();
-  const metadata = await sharp2(oriented).metadata();
+  const reviewedCropBottom = review && review.sha256 === sourceHash && review.cropBottom >= 0 && review.cropBottom < 1 ? review.cropBottom : DEFAULT_BOTTOM_CROP;
+  const cropBottom = Math.max(reviewedCropBottom, getPublicPhotoPrivacyRule(String(photo.id)).cropBottom);
+  const oriented = await sharp3(input).rotate().toBuffer();
+  const metadata = await sharp3(oriented).metadata();
   if (!metadata.width || !metadata.height) {
     throw new Error(`Tagged photo ${String(photo.id)} has no usable dimensions`);
   }
   const height = Math.max(1, Math.floor(metadata.height * (1 - cropBottom)));
-  const webp = await sharp2(oriented).extract({ left: 0, top: 0, width: metadata.width, height }).resize({ width: 800, withoutEnlargement: true }).webp({ quality: 82 }).toBuffer();
+  const webp = await sharp3(oriented).extract({ left: 0, top: 0, width: metadata.width, height }).resize({ width: 800, withoutEnlargement: true }).webp({ quality: 82 }).toBuffer();
   const filenameId = String(photo.id).replace(/[^a-zA-Z0-9_-]/g, "-");
   const filename = `tagged-${filenameId}-${createHash2("sha256").update(webp).digest("hex").slice(0, 12)}.webp`;
-  const target = path3.join(outputDir, filename);
+  const target = path4.join(outputDir, filename);
   if (!await fileExists(target)) {
     const temporary = `${target}.staging-${process.pid}`;
-    await writeFile3(temporary, webp);
-    await rename3(temporary, target);
+    await writeFile4(temporary, webp);
+    await rename4(temporary, target);
   }
   return `/images/projects/${filename}`;
 }
@@ -699,14 +728,14 @@ async function syncTaggedJobPhotos(options = {}) {
   if (!token) throw new Error("COMPANYCAM_API_TOKEN is required to sync tagged job photos");
   const fetcher = options.fetcher ?? globalThis.fetch;
   if (typeof fetcher !== "function") throw new Error("fetch is required to sync tagged job photos");
-  const projectRoot = path3.resolve(options.projectRoot ?? process.cwd());
-  const sourcePublicRoot = path3.join(projectRoot, "client/public");
-  const publishedLayout = !await directoryExists(sourcePublicRoot) && (await directoryExists(path3.join(projectRoot, "data")) || await directoryExists(path3.join(projectRoot, "images")));
+  const projectRoot = path4.resolve(options.projectRoot ?? process.cwd());
+  const sourcePublicRoot = path4.join(projectRoot, "client/public");
+  const publishedLayout = !await directoryExists(sourcePublicRoot) && (await directoryExists(path4.join(projectRoot, "data")) || await directoryExists(path4.join(projectRoot, "images")));
   const publicRoot = publishedLayout ? projectRoot : sourcePublicRoot;
-  const outputDir = path3.join(publicRoot, "images/projects");
-  const snapshotPath = path3.join(publicRoot, "data/job-photos.json");
-  const manifestPath = publishedLayout ? void 0 : path3.join(projectRoot, "shared/city-project-photos.ts");
-  const cachePath = path3.join(projectRoot, ".cache/tagged-job-photos.json");
+  const outputDir = path4.join(publicRoot, "images/projects");
+  const snapshotPath = path4.join(publicRoot, "data/job-photos.json");
+  const manifestPath = publishedLayout ? void 0 : path4.join(projectRoot, "shared/city-project-photos.ts");
+  const cachePath = path4.join(projectRoot, ".cache/tagged-job-photos.json");
   await mkdir3(outputDir, { recursive: true });
   const hadSnapshot = await fileExists(snapshotPath);
   const tags = await list("tags", token, fetcher);
@@ -756,10 +785,12 @@ async function syncTaggedJobPhotos(options = {}) {
     const project = !embeddedProjectCity && uniqueCityTags.length === 0 ? await fetchProject(photo, token, fetcher) : void 0;
     const actualProjectCity = embeddedProjectCity ?? resolveProjectCity(project);
     const city = actualProjectCity ?? (uniqueCityTags.length === 1 ? uniqueCityTags[0] : BAY_AREA2);
-    const key = sourceKey(photo);
+    const originalKey = sourceKey(photo);
+    const privacyRevision = getPublicPhotoPrivacyRule(id).revision;
+    const key = originalKey && privacyRevision ? `${originalKey}|privacy:${privacyRevision}` : originalKey;
     const cached = cacheById.get(id);
     const cachedAsset = cached && key && cached.sourceKey === key ? safeAssetPath(cached.asset) : void 0;
-    let asset = cachedAsset && await fileExists(path3.join(publicRoot, cachedAsset)) ? cachedAsset : void 0;
+    let asset = cachedAsset && await fileExists(path4.join(publicRoot, cachedAsset)) ? cachedAsset : void 0;
     if (!asset) {
       asset = await downloadDerivative2(photo, outputDir, fetcher, reviewById);
     }
@@ -799,14 +830,14 @@ async function syncTaggedJobPhotos(options = {}) {
   };
 }
 async function backfillTaggedJobPhotoMetadata(options = {}) {
-  const projectRoot = path3.resolve(options.projectRoot ?? process.cwd());
-  const snapshotPath = path3.resolve(
-    options.snapshotPath ?? path3.join(projectRoot, "client/public/data/job-photos.json")
+  const projectRoot = path4.resolve(options.projectRoot ?? process.cwd());
+  const snapshotPath = path4.resolve(
+    options.snapshotPath ?? path4.join(projectRoot, "client/public/data/job-photos.json")
   );
-  const manifestPath = path3.resolve(
-    options.manifestPath ?? path3.join(projectRoot, "shared/city-project-photos.ts")
+  const manifestPath = path4.resolve(
+    options.manifestPath ?? path4.join(projectRoot, "shared/city-project-photos.ts")
   );
-  const payload = JSON.parse(await readFile3(snapshotPath, "utf8"));
+  const payload = JSON.parse(await readFile4(snapshotPath, "utf8"));
   const photos = parseTaggedJobPhotos(payload);
   const result2 = {};
   for (const photo of photos) {
@@ -842,9 +873,9 @@ async function generateReviewedCompatibility(options) {
       if (reviewById.has(String(photo.id))) eligible.set(String(photo.id), photo);
     }
   }
-  const outputDir = path3.resolve(options.outputDir ?? "client/public/images/projects");
-  const manifestPath = path3.resolve(options.manifestPath ?? "shared/city-project-photos.ts");
-  const snapshotPath = path3.resolve(options.snapshotPath ?? (options.outputDir ? path3.join(path3.dirname(outputDir), "job-photos.json") : "client/public/data/job-photos.json"));
+  const outputDir = path4.resolve(options.outputDir ?? "client/public/images/projects");
+  const manifestPath = path4.resolve(options.manifestPath ?? "shared/city-project-photos.ts");
+  const snapshotPath = path4.resolve(options.snapshotPath ?? (options.outputDir ? path4.join(path4.dirname(outputDir), "job-photos.json") : "client/public/data/job-photos.json"));
   const stagingDir = `${outputDir}.staging`;
   await rm2(stagingDir, { recursive: true, force: true });
   await mkdir3(stagingDir, { recursive: true });
@@ -862,19 +893,19 @@ async function generateReviewedCompatibility(options) {
       console.warn(`  Excluding changed photo ${review.id}: visual review no longer applies`);
       continue;
     }
-    const oriented = await sharp2(input).rotate().toBuffer();
-    const metadata = await sharp2(oriented).metadata();
+    const oriented = await sharp3(input).rotate().toBuffer();
+    const metadata = await sharp3(oriented).metadata();
     if (!metadata.width || !metadata.height || review.cropBottom < 0 || review.cropBottom >= 1) {
       throw new Error("Invalid reviewed photo crop");
     }
-    const webp = await sharp2(oriented).extract({
+    const webp = await sharp3(oriented).extract({
       left: 0,
       top: 0,
       width: metadata.width,
       height: Math.floor(metadata.height * (1 - review.cropBottom))
     }).resize({ width: 800, withoutEnlargement: true }).webp({ quality: 82 }).toBuffer();
     const filename = `tagged-${review.id}-${createHash2("sha256").update(webp).digest("hex").slice(0, 12)}.webp`;
-    await writeFile3(path3.join(stagingDir, filename), webp);
+    await writeFile4(path4.join(stagingDir, filename), webp);
     const src = `/images/projects/${filename}`;
     const photoSeo = getCompanyCamPhotoSeo({ city: BAY_AREA2 });
     const alt = photoSeo.alt;
@@ -906,13 +937,13 @@ async function generateReviewedCompatibility(options) {
     for (const slug of options.citySlugs ?? Object.keys(cityZips)) result2[slug] = photos;
   }
   const source = generatedCitySource(result2);
-  await mkdir3(path3.dirname(snapshotPath), { recursive: true });
-  await writeFile3(`${manifestPath}.staging`, source);
-  await writeFile3(`${snapshotPath}.staging`, JSON.stringify(snapshot));
+  await mkdir3(path4.dirname(snapshotPath), { recursive: true });
+  await writeFile4(`${manifestPath}.staging`, source);
+  await writeFile4(`${snapshotPath}.staging`, JSON.stringify(snapshot));
   await rm2(outputDir, { recursive: true, force: true });
-  await rename3(stagingDir, outputDir);
-  await rename3(`${manifestPath}.staging`, manifestPath);
-  await rename3(`${snapshotPath}.staging`, snapshotPath);
+  await rename4(stagingDir, outputDir);
+  await rename4(`${manifestPath}.staging`, manifestPath);
+  await rename4(`${snapshotPath}.staging`, snapshotPath);
   return result2;
 }
 async function runCli() {
@@ -931,11 +962,12 @@ var init_generate_city_job_photos = __esm({
     init_job_photo_reviews();
     init_tagged_job_photos();
     init_companycam_photo_seo();
+    init_photo_privacy();
     API = "https://api.companycam.com/v2";
     PAGE_SIZE2 = 100;
     BAY_AREA2 = "Bay Area";
     DEFAULT_BOTTOM_CROP = 0.18;
-    if (process.argv[1] && path3.basename(process.argv[1]) === "generate-city-job-photos.ts" && path3.resolve(process.argv[1]) === fileURLToPath2(import.meta.url)) {
+    if (process.argv[1] && path4.basename(process.argv[1]) === "generate-city-job-photos.ts" && path4.resolve(process.argv[1]) === fileURLToPath2(import.meta.url)) {
       runCli().catch((error) => {
         console.error(error instanceof Error ? error.message : error);
         process.exitCode = 1;
@@ -946,67 +978,29 @@ var init_generate_city_job_photos = __esm({
 
 // script/refresh-companycam-content.ts
 import { stat as stat3 } from "node:fs/promises";
-import path4 from "node:path";
+import path5 from "node:path";
 import { fileURLToPath as fileURLToPath3 } from "node:url";
 
 // script/refresh-field-notes-published.ts
-init_city_zips();
-import { copyFile, mkdir, readFile, rename, stat, writeFile } from "node:fs/promises";
+import { copyFile, mkdir, readFile as readFile2, rename as rename2, stat, writeFile as writeFile2 } from "node:fs/promises";
+import path2 from "node:path";
+
+// script/discovery-documents.ts
+import { readFile, writeFile, rename } from "node:fs/promises";
 import path from "node:path";
 
-// shared/field-notes.ts
-function fieldNoteTimestamp(value) {
-  if (typeof value === "number") {
-    if (!Number.isFinite(value) || value <= 0) return void 0;
-    return value < 1e11 ? value * 1e3 : value;
-  }
-  if (typeof value !== "string") return void 0;
-  const clean = value.trim();
-  if (!clean) return void 0;
-  const numeric = Number(clean);
-  if (Number.isFinite(numeric) && numeric > 0) {
-    return numeric < 1e11 ? numeric * 1e3 : numeric;
-  }
-  const parsed = Date.parse(clean);
-  return Number.isFinite(parsed) ? parsed : void 0;
-}
-function compareText(left, right) {
-  return left < right ? -1 : left > right ? 1 : 0;
-}
-function sortFieldNotesNewestFirst(posts) {
-  return [...posts].sort((left, right) => {
-    const leftCreated = fieldNoteTimestamp(left.createdAt);
-    const rightCreated = fieldNoteTimestamp(right.createdAt);
-    const leftUpdated = fieldNoteTimestamp(left.updatedAt) ?? leftCreated;
-    const rightUpdated = fieldNoteTimestamp(right.updatedAt) ?? rightCreated;
-    const effectiveDifference = (rightUpdated ?? Number.NEGATIVE_INFINITY) - (leftUpdated ?? Number.NEGATIVE_INFINITY);
-    if (effectiveDifference) return effectiveDifference;
-    const createdDifference = (rightCreated ?? Number.NEGATIVE_INFINITY) - (leftCreated ?? Number.NEGATIVE_INFINITY);
-    if (createdDifference) return createdDifference;
-    return compareText(left.id, right.id) || compareText(left.slug, right.slug);
-  });
-}
-function getFieldNoteTitle(description) {
-  const firstLine = description.split(/[\n.!?]/)[0].trim();
-  const title = firstLine.length > 8 && firstLine.length <= 80 ? firstLine : description.split(/\s+/).slice(0, 8).join(" ");
-  return title || "Field Note";
-}
-function getFieldNoteExcerpt(description, maxLength = 160) {
-  const clean = description.replace(/\n+/g, " ").trim();
-  return clean.length <= maxLength ? clean : `${clean.slice(0, Math.max(0, maxLength - 3))}...`;
-}
-function toFieldNoteSummary(post) {
-  const { description: _description, ...summary } = post;
-  return summary;
-}
-
-// server/field-notes-renderer.ts
-init_companycam_photo_seo();
-
-// shared/field-notes-schema.ts
-init_companycam_photo_seo();
-
 // shared/public-site-config.ts
+var REGISTERED_TRADEMARK = {
+  name: "ROOF EXPRESS",
+  displayName: "ROOF EXPRESS\xAE",
+  registrationNumber: "8,520,304",
+  registrationDate: "2026-10-27",
+  registrationDateLabel: "October 27, 2026",
+  services: "roofing installation and roofing repair",
+  internationalClass: "37",
+  verificationUrl: "https://tsdr.uspto.gov/#caseNumber=99655861&caseSearchType=US_APPLICATION&caseType=DEFAULT&searchType=statusSearch",
+  statement: "ROOF EXPRESS is a registered U.S. service mark for roofing installation and roofing repair. U.S. Reg. No. 8,520,304."
+};
 var PUBLIC_SITE_CONFIG = {
   siteName: "Roof Express",
   siteUrl: "https://roof-ex.com",
@@ -1087,6 +1081,164 @@ var PUBLIC_SITE_CONFIG = {
   defaultImage: "/opengraph.jpg",
   schemaImage: "/images/roof-express-team.webp"
 };
+
+// shared/field-notes.ts
+function fieldNoteTimestamp(value) {
+  if (typeof value === "number") {
+    if (!Number.isFinite(value) || value <= 0) return void 0;
+    return value < 1e11 ? value * 1e3 : value;
+  }
+  if (typeof value !== "string") return void 0;
+  const clean = value.trim();
+  if (!clean) return void 0;
+  const numeric = Number(clean);
+  if (Number.isFinite(numeric) && numeric > 0) {
+    return numeric < 1e11 ? numeric * 1e3 : numeric;
+  }
+  const parsed = Date.parse(clean);
+  return Number.isFinite(parsed) ? parsed : void 0;
+}
+function compareText(left, right) {
+  return left < right ? -1 : left > right ? 1 : 0;
+}
+function sortFieldNotesNewestFirst(posts) {
+  return [...posts].sort((left, right) => {
+    const leftCreated = fieldNoteTimestamp(left.createdAt);
+    const rightCreated = fieldNoteTimestamp(right.createdAt);
+    const leftUpdated = fieldNoteTimestamp(left.updatedAt) ?? leftCreated;
+    const rightUpdated = fieldNoteTimestamp(right.updatedAt) ?? rightCreated;
+    const effectiveDifference = (rightUpdated ?? Number.NEGATIVE_INFINITY) - (leftUpdated ?? Number.NEGATIVE_INFINITY);
+    if (effectiveDifference) return effectiveDifference;
+    const createdDifference = (rightCreated ?? Number.NEGATIVE_INFINITY) - (leftCreated ?? Number.NEGATIVE_INFINITY);
+    if (createdDifference) return createdDifference;
+    return compareText(left.id, right.id) || compareText(left.slug, right.slug);
+  });
+}
+function getFieldNoteTitle(description) {
+  const firstLine = description.split(/[\n.!?]/)[0].trim();
+  const title = firstLine.length > 8 && firstLine.length <= 80 ? firstLine : description.split(/\s+/).slice(0, 8).join(" ");
+  return title || "Field Note";
+}
+function getFieldNoteExcerpt(description, maxLength = 160) {
+  const clean = description.replace(/\n+/g, " ").trim();
+  if (clean.length <= maxLength) return clean;
+  if (maxLength < 4) return clean.slice(0, Math.max(0, maxLength));
+  const prefix = clean.slice(0, maxLength - 3);
+  const boundary = prefix.lastIndexOf(" ");
+  return `${(boundary > 0 ? prefix.slice(0, boundary) : prefix).trimEnd()}...`;
+}
+function toFieldNoteSummary(post) {
+  const { description: _description, ...summary } = post;
+  return summary;
+}
+
+// script/discovery-documents.ts
+var excluded = /^(?:\/(?:thank-you|admin|404)(?:\/|$)|\/api(?:\/|$))/;
+function decode(value) {
+  const named = { amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", nbsp: " ", mdash: "\u2014", ndash: "\u2013", hellip: "\u2026" };
+  return value.replace(/&(#x[\da-f]+|#\d+|\w+);/gi, (match, entity) => {
+    if (entity.startsWith("#")) {
+      const number = entity[1].toLowerCase() === "x" ? parseInt(entity.slice(2), 16) : parseInt(entity.slice(1), 10);
+      return Number.isFinite(number) && number > 0 && number <= 1114111 ? String.fromCodePoint(number) : match;
+    }
+    return named[entity] ?? match;
+  });
+}
+function plainText(html) {
+  return decode(html.replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1>/gi, "").replace(/<\/(?:p|h[1-6]|li|section|ul|ol)>/gi, "\n\n").replace(/<br\s*\/?>/gi, "\n").replace(/<[^>]+>/g, "")).replace(/[ \t]+/g, " ").replace(/\n[ \t]+/g, "\n").replace(/\n{3,}/g, "\n\n").trim();
+}
+function extractPublicPageText(html) {
+  const section = html.match(/<!-- public-page-content:start -->([\s\S]*?)<!-- public-page-content:end -->/)?.[1];
+  return section ? plainText(section) : void 0;
+}
+function markdownLabel(value) {
+  return value.replace(/[\r\n]+/g, " ").replace(/([\\[\]])/g, "\\$1").trim();
+}
+function buildDiscoveryDocuments(pages, posts) {
+  const included = pages.filter((page) => {
+    const url = new URL(page.url);
+    return url.origin === PUBLIC_SITE_CONFIG.siteUrl && !excluded.test(url.pathname);
+  }).sort((a, b) => a.url.localeCompare(b.url));
+  const byUrl = new Map(posts.map((post) => [`${PUBLIC_SITE_CONFIG.siteUrl}/blog/field-notes/${post.slug}`, post]));
+  const introduction = [
+    "# ROOF EXPRESS",
+    "",
+    `> Roofing installation and repair serving the ${PUBLIC_SITE_CONFIG.serviceArea}.`,
+    "",
+    REGISTERED_TRADEMARK.statement,
+    "",
+    "Eligible systems may include up to 50-year manufacturer/material coverage and a separate 25-year workmanship warranty on qualifying new roof installations. Coverage, eligibility, registration and exclusions are confirmed in the written proposal and contract.",
+    "",
+    "This file describes public website content. It is not an endorsement by an AI provider or a promise of search placement.",
+    "Local permit guidance is informational; confirm current requirements with the relevant building department.",
+    ""
+  ];
+  const directory = included.map((page) => `- [${markdownLabel(page.title)}](${page.url}): ${page.description.replace(/\s+/g, " ").trim()}`);
+  const short = [...introduction, "## Website directory", "", ...directory, "", `Extended text: ${PUBLIC_SITE_CONFIG.siteUrl}/llms-full.txt`, ""].join("\n");
+  const full = [
+    ...introduction,
+    "## Website directory",
+    "",
+    ...directory,
+    "",
+    "## Extended page text",
+    "",
+    "Core pages, city overviews, city roofing guides and articles include their published text below. Individual city-service and ZIP pages provide summaries and canonical source links rather than repeating the same service boilerplate hundreds of times. Consult the linked page for its complete guidance.",
+    ""
+  ];
+  for (const page of included) {
+    const post = byUrl.get(page.url);
+    const pathname = new URL(page.url).pathname;
+    const includeBody = pathname.split("/").filter(Boolean).length <= 1 || pathname.startsWith("/blog/") || pathname.startsWith("/city-roofing-guides/");
+    const text = post?.description || (includeBody ? page.text : void 0) || page.description;
+    full.push(`### ${post ? post.title || getFieldNoteTitle(post.description) : page.title}`, "", `Source: ${page.url}`, "", text.trim(), "");
+  }
+  return { short, full: full.join("\n"), urls: included.map((page) => page.url) };
+}
+async function writeDiscoveryDocuments(staticRoot, posts) {
+  const sitemap = await readFile(path.join(staticRoot, "sitemap.xml"), "utf8");
+  const urls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => decode(match[1]));
+  const pages = [];
+  for (const url of [...new Set(urls)].sort()) {
+    const parsed = new URL(url);
+    if (parsed.origin !== PUBLIC_SITE_CONFIG.siteUrl || excluded.test(parsed.pathname)) continue;
+    const route = decodeURIComponent(parsed.pathname).replace(/\/+$/, "") || "/";
+    if (route.includes("..") || route.includes("\\")) throw new Error("Unsafe sitemap path");
+    const filename = route === "/" ? "index.html" : `${route.slice(1)}.html`;
+    const html = await readFile(path.join(staticRoot, filename), "utf8");
+    if (/<meta\b(?=[^>]*\bname=["']robots["'])(?=[^>]*\bcontent=["'][^"']*\bnoindex\b)[^>]*>/i.test(html)) continue;
+    const title = decode(html.match(/<title>([\s\S]*?)<\/title>/i)?.[1] ?? "");
+    const description = decode(html.match(/<meta\b(?=[^>]*\bname=["']description["'])[^>]*\bcontent=(["'])([\s\S]*?)\1[^>]*>/i)?.[2] ?? "");
+    if (!title || !description) throw new Error(`Discovery metadata missing for ${route}`);
+    pages.push({ url, title, description, text: extractPublicPageText(html) });
+  }
+  const documents = buildDiscoveryDocuments(pages, posts);
+  let written = 0;
+  for (const [filename, contents] of [["llms.txt", documents.short], ["llms-full.txt", documents.full]]) {
+    const destination = path.join(staticRoot, filename);
+    let previous;
+    try {
+      previous = await readFile(destination, "utf8");
+    } catch (error) {
+      if (error.code !== "ENOENT") throw error;
+    }
+    if (previous === contents) continue;
+    const temporary = `${destination}.${process.pid}.tmp`;
+    await writeFile(temporary, contents);
+    await rename(temporary, destination);
+    written++;
+  }
+  return written;
+}
+
+// script/refresh-field-notes-published.ts
+init_city_zips();
+
+// server/field-notes-renderer.ts
+init_companycam_photo_seo();
+
+// shared/field-notes-schema.ts
+init_companycam_photo_seo();
 
 // shared/field-notes-business.ts
 var FIELD_NOTES_BUSINESS_ID = "https://roof-ex.com/#localbusiness";
@@ -1541,23 +1693,23 @@ function blogNode() {
 }
 function localAssetPath(value) {
   if (typeof value !== "string") return void 0;
-  const path5 = value.trim();
-  if (!path5 || !path5.startsWith("/") || path5.startsWith("//") || /[\s\\\u0000-\u001f\u007f?#]/.test(path5) || /^(?:https?:|data:|javascript:)/i.test(path5)) {
+  const path6 = value.trim();
+  if (!path6 || !path6.startsWith("/") || path6.startsWith("//") || /[\s\\\u0000-\u001f\u007f?#]/.test(path6) || /^(?:https?:|data:|javascript:)/i.test(path6)) {
     return void 0;
   }
   let decoded;
   try {
-    decoded = decodeURIComponent(path5);
+    decoded = decodeURIComponent(path6);
   } catch {
     return void 0;
   }
   if (decoded.startsWith("//") || decoded.includes("\\") || decoded.split("/").some((segment) => segment === "." || segment === "..") || /^(?:https?:|data:|javascript:)/i.test(decoded)) {
     return void 0;
   }
-  return path5;
+  return path6;
 }
-function imageEncoding(path5) {
-  const extension = path5.toLowerCase().match(/\.([a-z0-9]+)$/)?.[1];
+function imageEncoding(path6) {
+  const extension = path6.toLowerCase().match(/\.([a-z0-9]+)$/)?.[1];
   switch (extension) {
     case "avif":
       return "image/avif";
@@ -1589,12 +1741,12 @@ function postUrl(slug) {
   return `${HUB_URL}/${encodeURIComponent(slug)}`;
 }
 function imageForPost(post) {
-  const path5 = localAssetPath(post.localImage);
-  const encodingFormat = path5 && imageEncoding(path5);
-  if (!path5 || !encodingFormat || !validDimension(post.imageWidth) || !validDimension(post.imageHeight)) {
+  const path6 = localAssetPath(post.localImage);
+  const encodingFormat = path6 && imageEncoding(path6);
+  if (!path6 || !encodingFormat || !validDimension(post.imageWidth) || !validDimension(post.imageHeight)) {
     return void 0;
   }
-  const url = `${SITE_URL2}${path5}`;
+  const url = `${SITE_URL2}${path6}`;
   const thumbnailPath = localAssetPath(post.thumbnail);
   const photoSeo = getCompanyCamPhotoSeo(post, "field-note");
   return {
@@ -1775,6 +1927,27 @@ function buildFieldNotesHubSchema(posts) {
 }
 
 // server/field-notes-renderer.ts
+init_photo_privacy();
+
+// shared/public-text-links.ts
+function splitRoofExpressLinks(text) {
+  const parts = [];
+  const pattern = /https:\/\/roof-ex\.com(?![\w.:-])(?:\/[^\s<>"']*)?/g;
+  let offset = 0;
+  for (const match of text.matchAll(pattern)) {
+    const start = match.index;
+    const value = match[0].replace(/[),.!?;:]+$/, "");
+    const parsed = new URL(value);
+    if (parsed.origin !== "https://roof-ex.com" || parsed.pathname.startsWith("//")) continue;
+    if (start > offset) parts.push({ text: text.slice(offset, start) });
+    parts.push({ text: value, href: `${parsed.pathname}${parsed.search}${parsed.hash}` });
+    offset = start + value.length;
+  }
+  if (offset < text.length) parts.push({ text: text.slice(offset) });
+  return parts.length ? parts : [{ text }];
+}
+
+// server/field-notes-renderer.ts
 var SITE_URL3 = "https://roof-ex.com";
 var FIELD_NOTES_PATH = "/blog/field-notes";
 var CURATED_GUIDES = [
@@ -1931,6 +2104,9 @@ function splitLongParagraph(text) {
   if (remainder) chunks.push(`${chunks.pop() || ""} ${remainder}`.trim());
   return chunks.filter(Boolean);
 }
+function renderPublicText(text) {
+  return splitRoofExpressLinks(text).map((part) => part.href ? `<a href="${escapeHtml(part.href)}" class="text-brandOrange underline break-words">${escapeHtml(part.text)}</a>` : escapeHtml(part.text)).join("");
+}
 function renderContent(blocks) {
   return blocks.map((block, index) => {
     if (block.type === "heading") {
@@ -1938,20 +2114,20 @@ function renderContent(blocks) {
     }
     if (block.type === "bullets") {
       return `<ul class="space-y-1.5 pl-1">${block.items.map(
-        (item) => `<li class="flex gap-2.5 text-slate-600 text-[15px] md:text-base leading-relaxed"><span class="text-brandOrange/60 mt-[7px] shrink-0 text-[6px]">\u25CF</span><span>${escapeHtml(item)}</span></li>`
+        (item) => `<li class="flex gap-2.5 text-slate-600 text-[15px] md:text-base leading-relaxed"><span class="text-brandOrange/60 mt-[7px] shrink-0 text-[6px]">\u25CF</span><span>${renderPublicText(item)}</span></li>`
       ).join("")}</ul>`;
     }
     if (block.type === "numbered") {
       return `<ol class="space-y-1.5 pl-1">${block.items.map(
-        (item, itemIndex) => `<li class="flex gap-2.5 text-slate-600 text-[15px] md:text-base leading-relaxed"><span class="w-5 h-5 rounded-full bg-brandNavy/5 text-brandNavy text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">${itemIndex + 1}</span><span>${escapeHtml(item)}</span></li>`
+        (item, itemIndex) => `<li class="flex gap-2.5 text-slate-600 text-[15px] md:text-base leading-relaxed"><span class="w-5 h-5 rounded-full bg-brandNavy/5 text-brandNavy text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">${itemIndex + 1}</span><span>${renderPublicText(item)}</span></li>`
       ).join("")}</ol>`;
     }
     return splitLongParagraph(block.text).map((part, partIndex) => {
       if (block.isLead && partIndex === 0) {
         const words = part.split(" ");
-        return `<p class="text-slate-600 text-[15px] md:text-base leading-[1.75]"><span class="font-semibold text-brandNavy">${escapeHtml(words.slice(0, 3).join(" "))}</span>${words.length > 3 ? ` ${escapeHtml(words.slice(3).join(" "))}` : ""}</p>`;
+        return `<p class="text-slate-600 text-[15px] md:text-base leading-[1.75]"><span class="font-semibold text-brandNavy">${renderPublicText(words.slice(0, 3).join(" "))}</span>${words.length > 3 ? ` ${renderPublicText(words.slice(3).join(" "))}` : ""}</p>`;
       }
-      return `<p class="text-slate-600 text-[15px] md:text-base leading-[1.75]">${escapeHtml(part)}</p>`;
+      return `<p class="text-slate-600 text-[15px] md:text-base leading-[1.75]">${renderPublicText(part)}</p>`;
     }).join("\n");
   }).join("\n");
 }
@@ -1995,8 +2171,13 @@ function replaceMeta(html, selector, content) {
   const pattern = new RegExp(`<meta\\s+${selector.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\s+content="[^"]*"\\s*/?>`, "i");
   return replaceOrInsert(html, pattern, replacement);
 }
-function setFieldNoteHead(html, title, description, canonical, image, type) {
+function setFieldNoteHead(html, title, description, canonical, image, type, dimensions) {
   let result2 = stripFieldNotesSeoStub(html);
+  result2 = result2.replace(
+    /<link\b[^>]*>/gi,
+    (tag) => /\brel\s*=\s*["']preload["']/i.test(tag) && /\bas\s*=\s*["']image["']/i.test(tag) ? "" : tag
+  );
+  result2 = result2.replace(/<meta\b[^>]*\bproperty\s*=\s*["']og:image:(?:type|width|height)["'][^>]*>\s*/gi, "");
   result2 = result2.replace(/<script\b[^>]*\btype\s*=\s*["']application\/ld\+json["'][^>]*>[\s\S]*?<\/script>\s*/gi, "");
   result2 = result2.replace(/<title>[\s\S]*?<\/title>/i, `<title>${escapeHtml(title)}</title>`);
   result2 = replaceMeta(result2, `name="description"`, description);
@@ -2005,6 +2186,15 @@ function setFieldNoteHead(html, title, description, canonical, image, type) {
   result2 = replaceMeta(result2, `property="og:url"`, canonical);
   result2 = replaceMeta(result2, `property="og:type"`, type);
   result2 = replaceMeta(result2, `property="og:image"`, image || `${SITE_URL3}/opengraph.jpg`);
+  result2 = replaceMeta(result2, `property="og:image:type"`, /\.webp(?:[?#]|$)/i.test(image) ? "image/webp" : "image/jpeg");
+  if (dimensions) {
+    result2 = replaceMeta(result2, `property="og:image:width"`, String(dimensions.imageWidth));
+    result2 = replaceMeta(result2, `property="og:image:height"`, String(dimensions.imageHeight));
+  }
+  if (type === "article" && image) {
+    result2 = result2.replace("</head>", `<link rel="preload" as="image" href="${escapeHtml(image)}" fetchpriority="high" />
+</head>`);
+  }
   result2 = replaceMeta(result2, `name="twitter:title"`, title);
   result2 = replaceMeta(result2, `name="twitter:description"`, description);
   result2 = replaceMeta(result2, `name="twitter:image"`, image || `${SITE_URL3}/opengraph.jpg`);
@@ -2063,7 +2253,7 @@ function renderFieldNoteHtml(baseHtml, post, allPosts) {
     ${renderRelated(post, allPosts)}
     <div class="mt-12 text-center"><a href="${FIELD_NOTES_PATH}" class="inline-flex items-center gap-2 text-sm font-bold text-brandOrange hover:underline">\u2190 Back to all Field Notes</a></div>
   </article></div>`;
-  let html = setFieldNoteHead(baseHtml, `${title} | ROOF EXPRESS`, excerpt, canonical, image, "article");
+  let html = setFieldNoteHead(baseHtml, `${title} | ROOF EXPRESS`, excerpt, canonical, image, "article", post);
   html = html.replace("</head>", `<script id="field-notes-schema" type="application/ld+json">${safeJson(buildFieldNoteSchema(post))}</script>
 </head>`);
   html = html.replace(/<div id="root">/, `<div id="root">${articleHtml}${bootstrapTag({ post: publicPostForBootstrap(post), posts: summariesFor(allPosts) })}`);
@@ -2177,6 +2367,9 @@ function validateFieldNoteArchive(value) {
       throw new Error(`Field Notes archive post ${index} has an unsafe id or slug`);
     }
     if (ids.has(id) || slugs.has(slug)) throw new Error(`Field Notes archive has duplicate id or slug at post ${index}`);
+    if ((post.websitePrivacyRevision ?? 0) !== getPublicPhotoPrivacyRule(id).revision) {
+      throw new Error(`Field Notes photo ${id} needs its current public privacy crop before publishing`);
+    }
     ids.add(id);
     slugs.add(slug);
   }
@@ -2197,14 +2390,14 @@ async function exists(filePath) {
 }
 async function writeIfChanged(filePath, contents) {
   try {
-    if (await readFile(filePath, "utf8") === contents) return false;
+    if (await readFile2(filePath, "utf8") === contents) return false;
   } catch (error) {
     if (error.code !== "ENOENT") throw error;
   }
-  await mkdir(path.dirname(filePath), { recursive: true });
+  await mkdir(path2.dirname(filePath), { recursive: true });
   const staged = `${filePath}.field-notes-${process.pid}.tmp`;
-  await writeFile(staged, contents);
-  await rename(staged, filePath);
+  await writeFile2(staged, contents);
+  await rename2(staged, filePath);
   return true;
 }
 function citySlug(city) {
@@ -2323,8 +2516,8 @@ function fieldNoteSitemapEntries(posts) {
   })].join("\n");
 }
 async function refreshSitemap(staticRoot, posts) {
-  const sitemapPath = path.join(staticRoot, "sitemap.xml");
-  const current = await readFile(sitemapPath, "utf8");
+  const sitemapPath = path2.join(staticRoot, "sitemap.xml");
+  const current = await readFile2(sitemapPath, "utf8");
   const withoutFieldNotes = current.replace(
     /\s*<url>\s*<loc>https:\/\/roof-ex\.com\/blog\/field-notes(?:\/[^<]*)?<\/loc>[\s\S]*?<\/url>/g,
     ""
@@ -2340,67 +2533,68 @@ ${fieldNoteSitemapEntries(posts)}
 async function refreshPublishedFieldNotes(options) {
   const archive = validateFieldNoteArchive(options.archive);
   if (!archive.posts.length) throw new Error("Refusing to replace published artifacts with an empty Field Notes archive");
-  const root = path.resolve(options.projectRoot);
-  const staticRoot = options.sourceMode ? path.join(root, "dist-cloudflare") : root;
-  const basePath = path.join(staticRoot, "index.html");
+  const root = path2.resolve(options.projectRoot);
+  const staticRoot = options.sourceMode ? path2.join(root, "dist-cloudflare") : root;
+  const basePath = path2.join(staticRoot, "index.html");
   if (!await exists(basePath)) {
     throw new Error(`Published static site was not found at ${staticRoot}; Field Notes archive remains unchanged`);
   }
-  const baseHtml = await readFile(basePath, "utf8");
+  const baseHtml = await readFile2(basePath, "utf8");
   const posts = sortFieldNotesNewestFirst(archive.posts);
   const orderedArchive = { ...archive, posts };
   let written = 0;
   const write = async (filePath, contents) => {
     if (await writeIfChanged(filePath, contents)) written += 1;
   };
-  await write(path.join(staticRoot, "data", "field-notes.json"), `${JSON.stringify(orderedArchive, null, 2)}
+  await write(path2.join(staticRoot, "data", "field-notes.json"), `${JSON.stringify(orderedArchive, null, 2)}
 `);
-  await write(path.join(staticRoot, "data", "field-notes", "index.json"), `${JSON.stringify({
+  await write(path2.join(staticRoot, "data", "field-notes", "index.json"), `${JSON.stringify({
     version: 1,
     posts: posts.map(toFieldNoteSummary)
   }, null, 2)}
 `);
   for (const post of posts) {
-    const detailPath = path.join(staticRoot, "data", "field-notes", `${post.slug}.json`);
+    const detailPath = path2.join(staticRoot, "data", "field-notes", `${post.slug}.json`);
     await write(detailPath, `${JSON.stringify(post, null, 2)}
 `);
   }
-  await write(path.join(staticRoot, "blog", "field-notes.html"), renderFieldNotesHubHtml(baseHtml, posts));
+  await write(path2.join(staticRoot, "blog", "field-notes.html"), renderFieldNotesHubHtml(baseHtml, posts));
   if (options.sourceMode) {
     for (const post of posts) {
       for (const image of [post.localImage, post.thumbnail]) {
         const relative = image.replace(/^\//, "");
-        const destination = path.join(staticRoot, relative);
-        const source = path.join(root, "client", "public", relative);
-        const sourceBytes = await readFile(source);
+        const destination = path2.join(staticRoot, relative);
+        const source = path2.join(root, "client", "public", relative);
+        const sourceBytes = await readFile2(source);
         let destinationBytes;
         try {
-          destinationBytes = await readFile(destination);
+          destinationBytes = await readFile2(destination);
         } catch (error) {
           if (error.code !== "ENOENT") throw error;
         }
         if (destinationBytes?.equals(sourceBytes)) continue;
-        await mkdir(path.dirname(destination), { recursive: true });
+        await mkdir(path2.dirname(destination), { recursive: true });
         const staged = `${destination}.field-notes-${process.pid}.tmp`;
-        await writeFile(staged, sourceBytes);
-        await rename(staged, destination);
+        await writeFile2(staged, sourceBytes);
+        await rename2(staged, destination);
         written += 1;
       }
     }
   }
   for (const post of posts) {
-    const articlePath = path.join(staticRoot, "blog", "field-notes", `${post.slug}.html`);
+    const articlePath = path2.join(staticRoot, "blog", "field-notes", `${post.slug}.html`);
     await write(articlePath, renderFieldNoteHtml(baseHtml, post, posts));
   }
-  await write(path.join(staticRoot, "feed.xml"), generateFieldNotesFeed(posts));
+  await write(path2.join(staticRoot, "feed.xml"), generateFieldNotesFeed(posts));
   if (await refreshSitemap(staticRoot, posts)) written += 1;
+  written += await writeDiscoveryDocuments(staticRoot, posts);
   const projectsJson = `${JSON.stringify(cityProjects(posts), null, 2)}
 `;
-  await write(path.join(staticRoot, "data", "city-projects.json"), projectsJson);
+  await write(path2.join(staticRoot, "data", "city-projects.json"), projectsJson);
   for (const [slug, entries] of Object.entries(cityProjects(posts))) {
-    const cityPage = path.join(staticRoot, `${slug}.html`);
+    const cityPage = path2.join(staticRoot, `${slug}.html`);
     if (!await exists(cityPage)) continue;
-    const current = await readFile(cityPage, "utf8");
+    const current = await readFile2(cityPage, "utf8");
     const city = entries[0]?.city;
     if (!city) continue;
     const next = current.replace(
@@ -2410,33 +2604,33 @@ async function refreshPublishedFieldNotes(options) {
     await write(cityPage, next);
   }
   if (options.sourceMode) {
-    await write(path.join(root, "client", "public", "data", "city-projects.json"), projectsJson);
+    await write(path2.join(root, "client", "public", "data", "city-projects.json"), projectsJson);
   }
   return { written };
 }
 async function refreshPublishedGallerySsr(options) {
-  const root = path.resolve(options.projectRoot);
-  const staticRoot = options.sourceMode ? path.join(root, "dist-cloudflare") : root;
-  if (!await exists(path.join(staticRoot, "index.html"))) {
+  const root = path2.resolve(options.projectRoot);
+  const staticRoot = options.sourceMode ? path2.join(root, "dist-cloudflare") : root;
+  if (!await exists(path2.join(staticRoot, "index.html"))) {
     throw new Error(`Published static site was not found at ${staticRoot}; gallery snapshot remains unchanged`);
   }
   let written = 0;
   for (const slug of Object.keys(cityZips)) {
     const photos = options.cityProjectPhotos[slug] ?? [];
-    const pagePath = path.join(staticRoot, `${slug}.html`);
+    const pagePath = path2.join(staticRoot, `${slug}.html`);
     if (!await exists(pagePath)) continue;
     const figures = photos.map(galleryFigure).join("");
     const replacement = photos.length ? `<!-- companycam-city-gallery:start --><h2>Real Roofing Job Photos</h2><p>Tagged CompanyCam photos from ROOF EXPRESS projects across the Bay Area.</p>${figures}<!-- companycam-city-gallery:end -->` : "";
-    const current = await readFile(pagePath, "utf8");
+    const current = await readFile2(pagePath, "utf8");
     const boundedGallery = /<!-- companycam-city-gallery:start -->[\s\S]*?<!-- companycam-city-gallery:end -->/;
     const legacyGallery = /<h2>Real Roofing Job Photos<\/h2><p>Tagged CompanyCam photos from ROOF EXPRESS projects across the Bay Area\.<\/p>(?:<figure>[\s\S]*?<\/figure>)*/;
     const next = boundedGallery.test(current) ? current.replace(boundedGallery, replacement) : legacyGallery.test(current) ? current.replace(legacyGallery, replacement) : photos.length ? current.replace(/<h2>Roofing Services Available in /, `${replacement}<h2>Roofing Services Available in `) : current;
     if (next !== current && await writeIfChanged(pagePath, next)) written += 1;
   }
-  const snapshotPath = options.sourceMode ? path.join(root, "client", "public", "data", "job-photos.json") : path.join(staticRoot, "data", "job-photos.json");
+  const snapshotPath = options.sourceMode ? path2.join(root, "client", "public", "data", "job-photos.json") : path2.join(staticRoot, "data", "job-photos.json");
   let galleryPhotos = [];
   try {
-    const raw = JSON.parse(await readFile(snapshotPath, "utf8"));
+    const raw = JSON.parse(await readFile2(snapshotPath, "utf8"));
     const parsed = parseTaggedJobPhotos(raw);
     galleryPhotos = parsed.map((photo) => {
       return {
@@ -2459,13 +2653,13 @@ async function refreshPublishedGallerySsr(options) {
   for (const slug of Object.keys(cityZips)) {
     const city = slug.split("-").map((word) => `${word[0]?.toUpperCase() ?? ""}${word.slice(1)}`).join(" ");
     for (const [service, tag] of Object.entries(CITY_SERVICE_GALLERY_TAGS)) {
-      representativeRoutes.push({ file: path.join(slug, `${service}.html`), city, tag, limit: 6 });
+      representativeRoutes.push({ file: path2.join(slug, `${service}.html`), city, tag, limit: 6 });
     }
   }
   for (const route of representativeRoutes) {
-    const pagePath = path.join(staticRoot, route.file);
+    const pagePath = path2.join(staticRoot, route.file);
     if (!await exists(pagePath)) continue;
-    const current = await readFile(pagePath, "utf8");
+    const current = await readFile2(pagePath, "utf8");
     const replacement = representativeGalleryMarkup(galleryPhotos, { city: route.city, tag: route.tag }, route.limit);
     const next = reconcileRepresentativeGallery(current, replacement);
     if (next !== current && await writeIfChanged(pagePath, next)) written += 1;
@@ -2474,20 +2668,20 @@ async function refreshPublishedGallerySsr(options) {
     const assets = new Set(Object.values(options.cityProjectPhotos).flat().map((photo) => photo.src));
     for (const asset of assets) {
       if (!/^\/images\/projects\/[^/]+\.webp$/.test(asset)) continue;
-      const target = path.join(staticRoot, asset.slice(1));
+      const target = path2.join(staticRoot, asset.slice(1));
       if (!await exists(target)) {
-        await mkdir(path.dirname(target), { recursive: true });
-        await copyFile(path.join(root, "client", "public", asset.slice(1)), target);
+        await mkdir(path2.dirname(target), { recursive: true });
+        await copyFile(path2.join(root, "client", "public", asset.slice(1)), target);
         written += 1;
       }
     }
-    const sourceSnapshot = path.join(root, "client", "public", "data", "job-photos.json");
+    const sourceSnapshot = path2.join(root, "client", "public", "data", "job-photos.json");
     if (!await exists(sourceSnapshot)) {
       throw new Error("Source gallery refresh did not create client/public/data/job-photos.json");
     }
     if (await writeIfChanged(
-      path.join(staticRoot, "data", "job-photos.json"),
-      await readFile(sourceSnapshot, "utf8")
+      path2.join(staticRoot, "data", "job-photos.json"),
+      await readFile2(sourceSnapshot, "utf8")
     )) written += 1;
   }
   return { written };
@@ -2497,15 +2691,49 @@ async function refreshPublishedGallerySsr(options) {
 import { createHash } from "node:crypto";
 import {
   mkdir as mkdir2,
-  readFile as readFile2,
+  readFile as readFile3,
   readdir,
-  rename as rename2,
+  rename as rename3,
   rm,
-  writeFile as writeFile2
+  writeFile as writeFile3
 } from "node:fs/promises";
-import path2 from "node:path";
+import path3 from "node:path";
 import { fileURLToPath } from "node:url";
+import sharp2 from "sharp";
+
+// script/field-note-photo-privacy.ts
+init_photo_privacy();
 import sharp from "sharp";
+async function preparePublicFieldNoteImage(input, photoId) {
+  const oriented = await sharp(input).rotate().toBuffer();
+  const metadata = await sharp(oriented).metadata();
+  if (!metadata.width || !metadata.height) throw new Error("Public photo has invalid dimensions");
+  const { cropBottom } = getPublicPhotoPrivacyRule(photoId);
+  return sharp(oriented).extract({
+    left: 0,
+    top: 0,
+    width: metadata.width,
+    height: Math.max(1, Math.floor(metadata.height * (1 - cropBottom)))
+  }).resize({ width: 1600, height: 1600, fit: "inside", withoutEnlargement: true }).webp({ quality: 84 }).toBuffer();
+}
+
+// script/sync-field-notes.ts
+init_photo_privacy();
+
+// shared/field-note-editorial.ts
+var CORRECTION_DATE = "2026-10-28T00:00:00.000Z";
+function applyFieldNoteWebsiteCorrection(post) {
+  if (post.id !== "3150252770") return post;
+  const placeholder = /(?:\*\*)?\[Insert Internal Link: Learn more about our tear-off process here\](?:\*\*)?/g;
+  if (!placeholder.test(post.description)) return post;
+  const updated = typeof post.updatedAt === "number" ? new Date(post.updatedAt < 1e12 ? post.updatedAt * 1e3 : post.updatedAt) : new Date(post.updatedAt);
+  return {
+    ...post,
+    description: post.description.replace(placeholder, "Learn more about roof tear-off and replacement: https://roof-ex.com/roof-replacement"),
+    sourceUpdatedAt: post.sourceUpdatedAt ?? post.updatedAt,
+    updatedAt: updated.getTime() > Date.parse(CORRECTION_DATE) ? post.updatedAt : CORRECTION_DATE
+  };
+}
 
 // shared/slug.ts
 function titleToSlug(description) {
@@ -2702,8 +2930,8 @@ function extractSlugRegistryFromHtml(html) {
 async function collectCachedSlugRegistry(rootDir) {
   const registry = /* @__PURE__ */ new Map();
   const roots = [
-    path2.join(rootDir, "dist-cloudflare", "blog", "field-notes"),
-    path2.join(rootDir, "blog", "field-notes")
+    path3.join(rootDir, "dist-cloudflare", "blog", "field-notes"),
+    path3.join(rootDir, "blog", "field-notes")
   ];
   for (const directory of roots) {
     let entries;
@@ -2714,8 +2942,8 @@ async function collectCachedSlugRegistry(rootDir) {
     }
     for (const entry of entries) {
       if (!entry.isFile() || !entry.name.endsWith(".html")) continue;
-      const filePath = path2.join(directory, entry.name);
-      const html = await readFile2(filePath, "utf8");
+      const filePath = path3.join(directory, entry.name);
+      const html = await readFile3(filePath, "utf8");
       const fromHtml = extractSlugRegistryFromHtml(html);
       if (fromHtml.size === 0) continue;
       for (const [id, slug] of fromHtml) {
@@ -2756,7 +2984,7 @@ function assignStableFieldNoteSlugs(posts, previousPosts = [], seededRegistry = 
 }
 async function readExistingManifest(manifestPath) {
   try {
-    const source = await readFile2(manifestPath, "utf8");
+    const source = await readFile3(manifestPath, "utf8");
     const manifest = JSON.parse(source);
     if (manifest.version !== 1 || !Array.isArray(manifest.posts)) {
       throw new Error("Existing Field Notes manifest has an unsupported shape");
@@ -2780,25 +3008,25 @@ async function readExistingManifest(manifestPath) {
   }
 }
 function getPaths(options) {
-  const rootDir = path2.resolve(options.rootDir ?? process.cwd());
-  const publicDir = path2.resolve(options.publicDir ?? options.outputDir ?? path2.join(rootDir, "client", "public"));
+  const rootDir = path3.resolve(options.rootDir ?? process.cwd());
+  const publicDir = path3.resolve(options.publicDir ?? options.outputDir ?? path3.join(rootDir, "client", "public"));
   return {
     rootDir,
     publicDir,
-    manifestPath: path2.resolve(options.manifestPath ?? path2.join(publicDir, "data", "field-notes.json")),
-    indexPath: path2.resolve(options.indexPath ?? path2.join(publicDir, "data", "field-notes", "index.json")),
-    detailsDir: path2.resolve(options.detailsDir ?? path2.join(publicDir, "data", "field-notes")),
-    imagesDir: path2.resolve(options.imagesDir ?? path2.join(publicDir, "images", "field-notes"))
+    manifestPath: path3.resolve(options.manifestPath ?? path3.join(publicDir, "data", "field-notes.json")),
+    indexPath: path3.resolve(options.indexPath ?? path3.join(publicDir, "data", "field-notes", "index.json")),
+    detailsDir: path3.resolve(options.detailsDir ?? path3.join(publicDir, "data", "field-notes")),
+    imagesDir: path3.resolve(options.imagesDir ?? path3.join(publicDir, "images", "field-notes"))
   };
 }
 async function downloadDerivative(post, fetcher, cachedPost, publicDir) {
   let image = Buffer.alloc(0);
   let reused = false;
-  const canReuse = cachedPost && post.hasReliableImageVersion && cachedPost.updatedAt === post.updatedAt && /^\/images\/field-notes\/[^/]+\.webp$/i.test(cachedPost.localImage) && cachedPost.localImage === cachedPost.fullSize;
+  const canReuse = cachedPost && post.hasReliableImageVersion && (cachedPost.sourceUpdatedAt ?? cachedPost.updatedAt) === (post.sourceUpdatedAt ?? post.updatedAt) && (cachedPost.websitePrivacyRevision ?? 0) === getPublicPhotoPrivacyRule(post.id).revision && /^\/images\/field-notes\/[^/]+\.webp$/i.test(cachedPost.localImage) && cachedPost.localImage === cachedPost.fullSize;
   if (canReuse) {
     try {
-      image = await readFile2(path2.join(publicDir, cachedPost.localImage.slice(1)));
-      const cachedMetadata = await sharp(image).metadata();
+      image = await readFile3(path3.join(publicDir, cachedPost.localImage.slice(1)));
+      const cachedMetadata = await sharp2(image).metadata();
       if (cachedMetadata.format !== "webp" || !cachedMetadata.width || !cachedMetadata.height) {
         throw new Error("cached derivative is not a valid WebP");
       }
@@ -2813,15 +3041,15 @@ async function downloadDerivative(post, fetcher, cachedPost, publicDir) {
     const input = Buffer.from(await response.arrayBuffer());
     if (input.length === 0) throw new Error(`Field Notes image ${post.id} download was empty`);
     try {
-      image = await sharp(input).rotate().resize({ width: 1600, height: 1600, fit: "inside", withoutEnlargement: true }).webp({ quality: 84 }).toBuffer();
+      image = await preparePublicFieldNoteImage(input, post.id);
     } catch {
       throw new Error(`Field Notes image ${post.id} could not be decoded`);
     }
   }
   const digest = createHash("sha256").update(image).digest("hex");
-  const metadata = await sharp(image).metadata();
+  const metadata = await sharp2(image).metadata();
   if (!metadata.width || !metadata.height) throw new Error(`Field Notes image ${post.id} has no dimensions`);
-  const thumbnail = await sharp(image).resize({ width: 640, height: 640, fit: "inside", withoutEnlargement: true }).webp({ quality: 82 }).toBuffer();
+  const thumbnail = await sharp2(image).resize({ width: 640, height: 640, fit: "inside", withoutEnlargement: true }).webp({ quality: 82 }).toBuffer();
   const thumbnailDigest = createHash("sha256").update(thumbnail).digest("hex");
   const safeId = post.id.replace(/[^a-zA-Z0-9_-]/g, "-");
   const filename = `${safeId}-${digest.slice(0, 16)}.webp`;
@@ -2867,19 +3095,19 @@ async function syncFieldNotes(options = {}) {
   if (options.slugRegistry) {
     mergeRegistryInto(seededRegistry, new Map([...seededRegistry.entries()].map(([id, slug]) => [slug, id])), registryEntries(options.slugRegistry));
   }
-  const fetched = await fetchWikiPosts(token, fetcher, options.concurrency ?? DEFAULT_CONCURRENCY);
+  const fetched = (await fetchWikiPosts(token, fetcher, options.concurrency ?? DEFAULT_CONCURRENCY)).map((post) => applyFieldNoteWebsiteCorrection(post));
   const slugs = assignStableFieldNoteSlugs(
     fetched.map((post) => ({ id: post.id, description: post.description, slug: post.slug })),
     previousPosts.map((post) => ({ id: post.id, slug: post.slug })),
     seededRegistry
   );
   const slugById = new Map(slugs.map((post) => [post.id, post.slug]));
-  const stage = path2.join(
-    path2.dirname(paths.manifestPath),
+  const stage = path3.join(
+    path3.dirname(paths.manifestPath),
     `.field-notes-staging-${process.pid}-${Date.now()}`
   );
-  const stageImages = path2.join(stage, "images");
-  const stageDetails = path2.join(stage, "details");
+  const stageImages = path3.join(stage, "images");
+  const stageDetails = path3.join(stage, "details");
   await rm(stage, { recursive: true, force: true });
   await mkdir2(stageImages, { recursive: true });
   await mkdir2(stageDetails, { recursive: true });
@@ -2890,13 +3118,13 @@ async function syncFieldNotes(options = {}) {
       options.concurrency ?? DEFAULT_CONCURRENCY,
       async (post) => {
         const cached = previousById.get(post.id);
-        const sourceChanged = !cached || !post.hasReliableImageVersion || cached.updatedAt !== post.updatedAt;
+        const sourceChanged = !cached || !post.hasReliableImageVersion || (cached.sourceUpdatedAt ?? cached.updatedAt) !== (post.sourceUpdatedAt ?? post.updatedAt) || (cached.websitePrivacyRevision ?? 0) !== getPublicPhotoPrivacyRule(post.id).revision;
         let assetsPresent = false;
         if (cached && !sourceChanged) {
           try {
             await Promise.all([
-              readFile2(path2.join(paths.publicDir, cached.localImage.slice(1))),
-              readFile2(path2.join(paths.publicDir, cached.thumbnail.slice(1)))
+              readFile3(path3.join(paths.publicDir, cached.localImage.slice(1))),
+              readFile3(path3.join(paths.publicDir, cached.thumbnail.slice(1)))
             ]);
             assetsPresent = true;
           } catch {
@@ -2920,11 +3148,11 @@ async function syncFieldNotes(options = {}) {
         ]) {
           let existing;
           try {
-            existing = await readFile2(path2.join(paths.imagesDir, filename));
+            existing = await readFile3(path3.join(paths.imagesDir, filename));
           } catch (error) {
             if (error.code !== "ENOENT") throw error;
           }
-          if (!existing?.equals(data)) await writeFile2(path2.join(stageImages, filename), data);
+          if (!existing?.equals(data)) await writeFile3(path3.join(stageImages, filename), data);
         }
       }
       if (!image && !cached) throw new Error(`No local image prepared for Field Note ${source.id}`);
@@ -2941,6 +3169,8 @@ async function syncFieldNotes(options = {}) {
         title: getFieldNoteTitle(source.description),
         excerpt: getFieldNoteExcerpt(source.description),
         updatedAt: source.updatedAt,
+        ...source.sourceUpdatedAt !== void 0 ? { sourceUpdatedAt: source.sourceUpdatedAt } : {},
+        websitePrivacyRevision: image ? getPublicPhotoPrivacyRule(source.id).revision : cached?.websitePrivacyRevision ?? 0,
         contentHash: contentHash(source.description),
         imageWidth: image?.imageWidth ?? cached.imageWidth,
         imageHeight: image?.imageHeight ?? cached.imageHeight,
@@ -2972,11 +3202,11 @@ async function syncFieldNotes(options = {}) {
 `;
       let existing;
       try {
-        existing = await readFile2(path2.join(paths.detailsDir, `${post.slug}.json`), "utf8");
+        existing = await readFile3(path3.join(paths.detailsDir, `${post.slug}.json`), "utf8");
       } catch (error) {
         if (error.code !== "ENOENT") throw error;
       }
-      if (existing !== detail) await writeFile2(path2.join(stageDetails, `${post.slug}.json`), detail);
+      if (existing !== detail) await writeFile3(path3.join(stageDetails, `${post.slug}.json`), detail);
     }
     const generatedAt = postsChanged ? options.generatedAt ?? (/* @__PURE__ */ new Date()).toISOString() : previousManifest?.generatedAt ?? options.generatedAt ?? (/* @__PURE__ */ new Date()).toISOString();
     const manifest = { version: 1, generatedAt, posts };
@@ -2989,32 +3219,32 @@ async function syncFieldNotes(options = {}) {
     let indexNeedsWrite = postsChanged || !previousManifest;
     if (!indexNeedsWrite) {
       try {
-        indexNeedsWrite = await readFile2(paths.indexPath, "utf8") !== indexContents;
+        indexNeedsWrite = await readFile3(paths.indexPath, "utf8") !== indexContents;
       } catch (error) {
         if (error.code !== "ENOENT") throw error;
         indexNeedsWrite = true;
       }
     }
     if (manifestNeedsWrite) {
-      await writeFile2(path2.join(stage, "field-notes.json"), `${JSON.stringify(manifest, null, 2)}
+      await writeFile3(path3.join(stage, "field-notes.json"), `${JSON.stringify(manifest, null, 2)}
 `);
     }
-    if (indexNeedsWrite) await writeFile2(path2.join(stage, "index.json"), indexContents);
+    if (indexNeedsWrite) await writeFile3(path3.join(stage, "index.json"), indexContents);
     await mkdir2(paths.imagesDir, { recursive: true });
     for (const image of await readdir(stageImages)) {
-      await rename2(path2.join(stageImages, image), path2.join(paths.imagesDir, image));
+      await rename3(path3.join(stageImages, image), path3.join(paths.imagesDir, image));
     }
     await mkdir2(paths.detailsDir, { recursive: true });
     for (const detail of await readdir(stageDetails)) {
-      await rename2(path2.join(stageDetails, detail), path2.join(paths.detailsDir, detail));
+      await rename3(path3.join(stageDetails, detail), path3.join(paths.detailsDir, detail));
     }
-    await mkdir2(path2.dirname(paths.indexPath), { recursive: true });
-    await mkdir2(path2.dirname(paths.manifestPath), { recursive: true });
+    await mkdir2(path3.dirname(paths.indexPath), { recursive: true });
+    await mkdir2(path3.dirname(paths.manifestPath), { recursive: true });
     if (indexNeedsWrite) {
-      await rename2(path2.join(stage, "index.json"), paths.indexPath);
+      await rename3(path3.join(stage, "index.json"), paths.indexPath);
     }
     if (manifestNeedsWrite) {
-      await rename2(path2.join(stage, "field-notes.json"), paths.manifestPath);
+      await rename3(path3.join(stage, "field-notes.json"), paths.manifestPath);
     }
     return {
       manifest,
@@ -3031,8 +3261,8 @@ async function main() {
   const result2 = await syncFieldNotes();
   console.log(`Archived ${result2.manifest.posts.length} Field Notes posts and ${result2.downloadedImages} images.`);
 }
-var invokedPath = process.argv[1] ? path2.resolve(process.argv[1]) : "";
-if (invokedPath && path2.basename(invokedPath) === "sync-field-notes.ts" && invokedPath === fileURLToPath(import.meta.url)) {
+var invokedPath = process.argv[1] ? path3.resolve(process.argv[1]) : "";
+if (invokedPath && path3.basename(invokedPath) === "sync-field-notes.ts" && invokedPath === fileURLToPath(import.meta.url)) {
   main().catch((error) => {
     console.error(error instanceof Error ? error.message : "Field Notes sync failed");
     process.exitCode = 1;
@@ -3048,7 +3278,7 @@ async function directoryExists2(directory) {
   }
 }
 async function resolveMode(root, requested) {
-  const source = await directoryExists2(path4.join(root, "client", "public"));
+  const source = await directoryExists2(path5.join(root, "client", "public"));
   if (requested === "source") {
     if (!source) throw new Error(`Source mode requires client/public under ${root}`);
     return "source";
@@ -3063,16 +3293,16 @@ function errorMessage(error) {
   return error instanceof Error ? error.message : String(error);
 }
 async function refreshCompanyCamContent(options = {}) {
-  const root = path4.resolve(options.projectRoot ?? process.cwd());
+  const root = path5.resolve(options.projectRoot ?? process.cwd());
   const mode = await resolveMode(root, options.mode);
   const token = options.token ?? process.env.COMPANYCAM_API_TOKEN;
   const wikiPaths = mode === "source" ? { rootDir: root } : {
     rootDir: root,
     publicDir: root,
-    manifestPath: path4.join(root, "data", "field-notes.json"),
-    indexPath: path4.join(root, "data", "field-notes", "index.json"),
-    detailsDir: path4.join(root, "data", "field-notes"),
-    imagesDir: path4.join(root, "images", "field-notes")
+    manifestPath: path5.join(root, "data", "field-notes.json"),
+    indexPath: path5.join(root, "data", "field-notes", "index.json"),
+    detailsDir: path5.join(root, "data", "field-notes"),
+    imagesDir: path5.join(root, "images", "field-notes")
   };
   let wikiResult;
   let wiki;
@@ -3123,8 +3353,8 @@ async function main2() {
   }
   console.log(`CompanyCam refresh complete: ${result2.wiki.posts ?? 0} Field Notes.`);
 }
-var invokedPath2 = process.argv[1] ? path4.resolve(process.argv[1]) : "";
-if (invokedPath2 && path4.basename(invokedPath2) === "refresh-companycam-content.ts" && invokedPath2 === fileURLToPath3(import.meta.url)) {
+var invokedPath2 = process.argv[1] ? path5.resolve(process.argv[1]) : "";
+if (invokedPath2 && path5.basename(invokedPath2) === "refresh-companycam-content.ts" && invokedPath2 === fileURLToPath3(import.meta.url)) {
   main2().catch((error) => {
     console.error(errorMessage(error));
     process.exitCode = 1;
